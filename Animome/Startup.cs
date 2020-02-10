@@ -34,7 +34,10 @@ namespace Animome
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
-        }
+
+            services.AddDbContext<AnimomeContext>(options =>
+           options.UseSqlServer(Configuration.GetConnectionString("AnimomeContext")));
+    }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
