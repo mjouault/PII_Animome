@@ -79,7 +79,6 @@ C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII\Animome\Animome\obj\Debug\netcore
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII\Animome\Animome\obj\Debug\netcoreapp3.1\Animome.pdb
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII\Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Collaborateurs\Index.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII\Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Patients\Index.cshtml.g.cs
-C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII\Animome\Animome\obj\Debug\netcoreapp3.1\Animome.csprojAssemblyReference.cache
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII\Animome\Animome\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII\Animome\Animome\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.dll
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII\Animome\Animome\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.dll

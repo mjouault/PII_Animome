@@ -8,6 +8,8 @@ namespace Animome.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public string Genre { get; set; }
+        public string Prenom { get; set; }
+
+        public List<Domaine> LesDomaines { get; set; }
     }
 }

@@ -22,6 +22,5 @@ namespace Animome.Data
         public DbSet<Competence> Competence { get; set; }
         public DbSet<Prerequis> Prerequis { get; set; }
         public DbSet<Niveau> Niveau { get; set; }
-        public DbSet<Utilisateur> Utilisateur { get; set; }
     }
 }
