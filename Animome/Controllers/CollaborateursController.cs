@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace Animome.Controllers
 {
+    [Authorize]
     public class CollaborateursController : Controller
     {
         // GET: /Collaborateurs/

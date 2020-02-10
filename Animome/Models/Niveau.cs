@@ -7,6 +7,7 @@ namespace Animome.Models
 {
     public class Niveau : ElmtSuivi
     {
-        public Niveau(int id, string intitule, bool complete) : base(id, intitule) { complete = false; }
+        public bool Complete { get; set; }
+        public Niveau(int id, string intitule, bool complete) : base(id, intitule) { Complete = complete; }
     }
 }
