@@ -47,6 +47,15 @@ namespace Animome.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [Display(Name = "Nom")]
+            public string Lastname { get; set; }
+
+            [Required]
+            [Display(Name = "Prénom")]
+            public string Name { get; set; }
+
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
