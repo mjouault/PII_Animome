@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Animome.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class CollaborateursController : Controller
     {
         // GET: /Collaborateurs/

@@ -76,8 +76,14 @@ body {
 
 /* CSS perso */
 .essai{
-    background-color:blue;
-    height:100px;
-    width:100px;
+    background-color:darkgray;
+    height:350px;
+    width:500px;
+    margin : 10px;
+}
 
+.container {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
 }
