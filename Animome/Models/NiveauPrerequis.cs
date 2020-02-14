@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace Animome.Models
 {
-    public abstract class ElmtSuivi
+    public class NiveauPrerequis
     {
         public int Id { get; set; }
-        public string Intitule { get; set; }
+        public Niveau Niveau { get; set; }
+        public Prerequis Prerequis { get; set; }
     }
 }

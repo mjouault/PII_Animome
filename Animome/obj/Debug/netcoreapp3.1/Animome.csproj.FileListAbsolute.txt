@@ -190,7 +190,6 @@ C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII\Animome\Animome\obj\Debug\netcore
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII\Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Error.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII\Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII\Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
-C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII\Animome\Animome\obj\Debug\netcoreapp3.1\Animome.csprojAssemblyReference.cache
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII\Animome\Animome\bin\Debug\netcoreapp3.1\Microsoft.Data.Sqlite.dll
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII\Animome\Animome\bin\Debug\netcoreapp3.1\Microsoft.DotNet.PlatformAbstractions.dll
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII\Animome\Animome\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Sqlite.dll

@@ -10,6 +10,6 @@ namespace Animome.Models
     {
         public string Prenom { get; set; }
 
-        public List<Domaine> LesDomaines { get; set; }
+        public List<DomaineUser> LesDomaineUsers { get; set; }
     }
 }

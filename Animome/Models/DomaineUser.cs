@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace Animome.Models
 {
-    public abstract class ElmtSuivi
+    public class DomaineUser
     {
         public int Id { get; set; }
-        public string Intitule { get; set; }
+        public ApplicationUser User { get; set; }
+        public Domaine Domaine {get;set;}
     }
 }
