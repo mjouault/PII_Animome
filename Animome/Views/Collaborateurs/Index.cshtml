@@ -8,12 +8,11 @@
 
 <table class="table">
     <tbody>
-        <text>Coucou</text>
-        <!-- @foreach (var item in Model)
-     {
+         @foreach (var item in Model)
+         {
          <tr>
              <td>
-                 @Html.DisplayFor(modelItem => item.Id)
+                 @Html.DisplayFor(modelItem => item.Prenom)
              </td>
              <td>
                  <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -21,6 +20,7 @@
                  <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
              </td>
          </tr>
-     }-->
+         }
+
     </tbody>
 </table>

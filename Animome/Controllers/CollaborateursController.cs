@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Animome.Data;
+using Animome.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Animome.Controllers
 {
@@ -13,13 +15,14 @@ namespace Animome.Controllers
     public class CollaborateursController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CollaborateursController(ApplicationDbContext context) { _context = context; }
+        public CollaborateursController(ApplicationDbContext context, UserManager<ApplicationUser> userManager) { _context = context; _userManager = userManager; }
         // GET: /Collaborateurs/
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await _userManager.Users.ToListAsync());
         }
 
         // 

@@ -16,10 +16,10 @@
 <div class="container">
     <div class="blocAccueil">
         <h6>Dernières modifications</h6>
-        @for (var i = 0; i < 5; i++)
+        @foreach (var item in Model)
         {
     <div class=container>
-        <div class=case>i</div>
+        <div class=case>@Html.DisplayFor(modelItem => item.Identifiant)</div>
         <div class=case>Ajout C113</div>
         <div class=case>Date</div>
     </div>
