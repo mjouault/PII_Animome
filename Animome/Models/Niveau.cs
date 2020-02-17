@@ -7,7 +7,7 @@ namespace Animome.Models
 {
     public class Niveau : ElmtSuivi
     {
-        public bool Complete { get; set; }
         public List<NiveauPrerequis> LesNiveauxPrerequis;
+        public List<PatientNiveau> LesPatientsNiveaux;
     }
 }

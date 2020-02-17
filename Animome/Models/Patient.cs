@@ -9,5 +9,7 @@ namespace Animome.Models
     {
         public int Id { get; set; }
         public int Identifiant { get; set; }
+
+        public List<PatientNiveau> LesPatientsNiveaux;
     }
 }

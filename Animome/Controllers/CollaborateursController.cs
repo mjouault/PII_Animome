@@ -16,8 +16,8 @@ namespace Animome.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-
-        public CollaborateursController(ApplicationDbContext context, UserManager<ApplicationUser> userManager) { _context = context; _userManager = userManager; }
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public CollaborateursController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager) { _context = context; _userManager = userManager; _roleManager = roleManager; }
         // GET: /Collaborateurs/
 
         public async Task<IActionResult> Index()
@@ -31,6 +31,17 @@ namespace Animome.Controllers
         public string Welcome()
         {
             return "This is the Welcome action method...";
+        }
+
+        /// <summary>
+        /// Acceptation d'un collaborateur
+        /// </summary>
+        /// <returns></returns>
+        [Authorize(Roles ="Administrateur")]
+        [HttpPost]
+        public IActionResult AccepterCollaborateur()
+        {
+            return View();
         }
     }
 }

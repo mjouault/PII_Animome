@@ -11,5 +11,7 @@ namespace Animome.Models
         public string Prenom { get; set; }
 
         public List<DomaineUser> LesDomaineUsers { get; set; }
+
+        //public IdentityRole Role = new IdentityRole { Name = "enAttente" };
     }
 }
