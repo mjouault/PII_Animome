@@ -25,9 +25,18 @@ namespace Animome.Controllers
 
         // GET: Domaines
         public async Task<IActionResult> Index()
+         {
+             return View(await _context.Domaine.ToListAsync());
+         }
+
+        /*public async Task<IActionResult> Index(DomaineCreateViewModel viewModel)
         {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = await _userManager.GetUserAsync(User);
+            }
             return View(await _context.Domaine.ToListAsync());
-        }
+        }*/
 
         // GET: Domaines/Details/5
         public async Task<IActionResult> Details(int? id)
