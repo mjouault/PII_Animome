@@ -17,12 +17,18 @@ namespace Animome.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public CollaborateursController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager) { _context = context; _userManager = userManager; _roleManager = roleManager; }
+        public CollaborateursController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager) 
+        { _context = context;
+            _userManager = userManager; 
+            _roleManager = roleManager; 
+        }
         // GET: /Collaborateurs/
 
         public async Task<IActionResult> Index()
         {
-            return View(await _userManager.Users.ToListAsync());
+            return View(await _userManager.Users
+                .Include(user=>user.LesDomaineUsers)
+                .ThenInclude(lesDomainesUsers=>lesDomainesUsers.Domaine).ToListAsync());
         }
 
         // 

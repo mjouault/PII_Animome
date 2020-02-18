@@ -19,6 +19,12 @@
                  <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                  <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
              </td>
+             <td>
+                 @foreach(var domaineUser in item.LesDomaineUsers)
+                 {
+                     @Html.DisplayFor(modelItem => domaineUser.Domaine.Intitule);
+                 }
+             </td>
          </tr>
          }
 

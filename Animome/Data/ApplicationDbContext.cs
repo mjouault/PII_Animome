@@ -24,5 +24,7 @@ namespace Animome.Data
         public DbSet<Niveau> Niveau { get; set; }
 
         public DbSet<PatientCompetence> PatientCompetence { get; set; }
+
+        public DbSet<Animome.Models.Domaine> Domaine { get; set; }
     }
 }
