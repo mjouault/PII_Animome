@@ -7,6 +7,10 @@ a.navbar-brand {
   word-break: break-all;
 }
 
+.navbar {
+    background-color: #d2caca
+}
+
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
@@ -24,8 +28,8 @@ a {
   border-color: #1861ac;
 }
 
-.nav-link:hover{
-    color:orange !important;
+.nav-link:hover {
+    color: #be6508 !important;
 }
 
 /* Sticky footer styles
@@ -54,6 +58,16 @@ button.accept-policy {
   font-size: 1rem;
   line-height: inherit;
 }
+
+.fond{
+
+}
+
+.saisieRecherche {
+    background-color: #f1f0f0;
+    border-radius:5px;
+}
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -86,7 +100,7 @@ body {
     color: whitesmoke;
 }
 
-.container {
+.tableauDeBord {
     display: flex;
     flex-direction: row;
     text-align: center;
@@ -111,6 +125,10 @@ body {
 .barreRecherche{
     display:flex;
     text-align: right;
-    background-color:blue;
+}
+
+.accueilAttente{
+    text-align:center;
+    flex: 1;
 }
 

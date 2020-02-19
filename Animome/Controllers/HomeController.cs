@@ -9,7 +9,8 @@ using Animome.Models;
 using Microsoft.AspNetCore.Authorization;
 using Animome.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity; 
+using Microsoft.AspNetCore.Identity;
+using Animome.ViewModels;
 
 namespace Animome.Controllers
 {
@@ -26,12 +27,16 @@ namespace Animome.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
+        {
+            return View();
+        }
+        public async Task<IActionResult> IndexAdmin()
         {
             return View(await _userManager.Users.ToListAsync());
         }
 
-        /*publicIActionResult Index(HomeIndexViewModel viewModel)
+       /* public IActionResult Index(HomeIndexViewModel viewModel)
         {
             return View(viewModel);
         }*/

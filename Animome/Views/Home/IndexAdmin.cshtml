@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Animome.Models.ApplicationUser>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Animome</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<div class="text-center">
+    <h1 class="display-4">Tableau de bord</h1>
+</div>
+<div class="tableauDeBord">
+    <div class="blocAccueil">
+        <h6>Dernières modifications</h6>
+        @for (var i = 0; i < 5; i++)
+        {
+        <div class=tableauDeBord>
+            <div class=case>@i</div>
+            <div class=case>Ajout C113</div>
+            <div class=case>Date</div>
+        </div>
+        }
+    </div>
+    <div class="blocAccueil">
+        <h6>Demandes en attente</h6>
+        @foreach (var item in Model)
+        {
+        <div>
+            <div class=case>
+                @Html.DisplayFor(modelItem => item.Prenom)
+                @Html.DisplayFor(modelItem => item.Nom)
+                <button type="submit">
+                    <img class="imgDemande" src="./../../wwwroot/img/tick.png" alt="tick" />
+                    <img class="imgDemand" src="./../../wwwroot/img/cross.png" alt="croix" />
+                </button>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
