@@ -9,5 +9,7 @@ namespace Animome.ViewModels
 {
     public class HomeIndexViewModel
     {
+        public ApplicationUser ApplicationUser { get; set; }
+        public Patient Patient { get; set; }
     }
 }

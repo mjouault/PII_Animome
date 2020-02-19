@@ -25,18 +25,23 @@ namespace Animome.Controllers
 
         // GET: Domaines
         public async Task<IActionResult> Index()
-         {
-             return View(await _context.Domaine.ToListAsync());
-         }
-
-        /*public async Task<IActionResult> Index(DomaineCreateViewModel viewModel)
         {
-            if (ModelState.IsValid)
-            {
-                ApplicationUser user = await _userManager.GetUserAsync(User);
-            }
             return View(await _context.Domaine.ToListAsync());
-        }*/
+        }
+
+
+        public  IActionResult Test()
+        {
+
+            var userid = _userManager.GetUserId(HttpContext.User);
+            ApplicationUser user = _userManager.FindByIdAsync(userid).Result;
+            return View(user);
+                //.Include(lesDomainesUsers => lesDomainesUsers.Domaine).ToListAsync());
+
+            /*return View(await _userManager.Users
+                .Include(user => user.LesDomaineUsers)
+                .ThenInclude(lesDomainesUsers => lesDomainesUsers.Domaine).ToListAsync());*/
+        }
 
         // GET: Domaines/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -1,0 +1,33 @@
+﻿@model Animome.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Profil</h1>
+<dl>
+    <dt>
+        @Html.DisplayNameFor(Model => Model.Prenom)
+        @Html.DisplayNameFor(Model => Model.Nom)
+    </dt>
+    <dd>
+        @Html.DisplayFor(Model => Model.Prenom)
+        @Html.DisplayFor(Model => Model.Nom)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(Model => Model.Email)
+    </dt>
+    <dd>
+        @Html.DisplayNameFor(Model => Model.Email)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(Model=>Model.LesDomaineUsers)
+    </dt>
+    <dt>
+    </dt>
+
+
+
+
+</dl>

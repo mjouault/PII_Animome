@@ -84,7 +84,7 @@ namespace Animome.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, Prenom = Input.Name };
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, Prenom = Input.Name, Nom=Input.Lastname };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

@@ -9,6 +9,7 @@ namespace Animome.Models
     public class ApplicationUser : IdentityUser
     {
         public string Prenom { get; set; }
+        public string Nom { get; set; }
 
         public List<DomaineUser> LesDomaineUsers { get; set; }
 
