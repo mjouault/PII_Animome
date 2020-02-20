@@ -29,6 +29,12 @@ namespace Animome.Controllers
             return View(await _context.Domaine.ToListAsync());
         }
 
+        /*public async Task<IActionResult> Test()
+        {
+            return View(await _userManager.GetUserAsync(User).Include(user => user.LesDomaineUsers)
+                .ThenInclude(lesDomainesUsers => lesDomainesUsers.Domaine).ToListAsync());
+
+        }*/
 
         public  IActionResult Test()
         {
@@ -36,11 +42,6 @@ namespace Animome.Controllers
             var userid = _userManager.GetUserId(HttpContext.User);
             ApplicationUser user = _userManager.FindByIdAsync(userid).Result;
             return View(user);
-                //.Include(lesDomainesUsers => lesDomainesUsers.Domaine).ToListAsync());
-
-            /*return View(await _userManager.Users
-                .Include(user => user.LesDomaineUsers)
-                .ThenInclude(lesDomainesUsers => lesDomainesUsers.Domaine).ToListAsync());*/
         }
 
         // GET: Domaines/Details/5
