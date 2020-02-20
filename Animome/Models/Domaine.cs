@@ -9,6 +9,8 @@ namespace Animome.Models
     public class Domaine : ElmtSuivi
     {
         public List<DomaineUser> LesDomaineUsers { get; set; }
+
+        public List<Suivi> LesSuivis { get;set;}
         public Domaines LesDomaines { get; set; }
     }
 

@@ -13,6 +13,8 @@ namespace Animome.Models
 
         public List<DomaineUser> LesDomaineUsers { get; set; }
 
+        public List<SuiviApplicationUser> LesSuivisApplicationUsers { get; set; }
+
         //public IdentityRole Role = new IdentityRole { Name = "enAttente" };
     }
 }

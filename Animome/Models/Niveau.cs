@@ -9,5 +9,7 @@ namespace Animome.Models
     {
         public List<NiveauPrerequis> LesNiveauxPrerequis;
         public List<PatientNiveau> LesPatientsNiveaux;
+
+        public List<SuiviCompetencePrerequisNiveau> LesSuiviCompetencePrerequisNiveaux { get; set; } 
     }
 }

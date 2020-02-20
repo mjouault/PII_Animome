@@ -5,13 +5,10 @@ using System.Threading.Tasks;
 
 namespace Animome.Models
 {
-    public class Patient
+    public class SuiviApplicationUser
     {
         public int Id { get; set; }
-        public int Identifiant { get; set; }
-
-        public List<PatientNiveau> LesPatientsNiveaux;
-
-        public List<Suivi> lesSuivis;
+        public Suivi Suivi { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

@@ -8,5 +8,7 @@ namespace Animome.Models
     public class Competence: ElmtSuivi
     {
         public List <CompetencePrerequis> LesCompetencesPrerequis { get; set;}
+
+        public List<SuiviCompetence> LesSuiviCompetences { get; set; }
     }
 }
