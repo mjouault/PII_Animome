@@ -29,20 +29,24 @@ namespace Animome.Controllers
             return View(await _context.Domaine.ToListAsync());
         }
 
-        /*public async Task<IActionResult> Test()
+        public async Task<IActionResult> Test()
         {
-            return View(await _userManager.GetUserAsync(User).Include(user => user.LesDomaineUsers)
-                .ThenInclude(lesDomainesUsers => lesDomainesUsers.Domaine).ToListAsync());
+            ApplicationUser monUser = await _userManager.GetUserAsync(User);
 
-        }*/
+            return View(await _userManager.Users
+                .Include(user => user.LesDomaineUsers)
+                .ThenInclude(lesDomainesUsers => lesDomainesUsers.Domaine)
+                .FirstOrDefaultAsync(u=>u.Id==monUser.Id));
 
-        public  IActionResult Test()
+        }
+
+        /*public  IActionResult Test()
         {
 
             var userid = _userManager.GetUserId(HttpContext.User);
             ApplicationUser user = _userManager.FindByIdAsync(userid).Result;
             return View(user);
-        }
+        }*/
 
         // GET: Domaines/Details/5
         public async Task<IActionResult> Details(int? id)
