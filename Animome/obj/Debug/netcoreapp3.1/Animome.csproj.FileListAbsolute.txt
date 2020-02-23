@@ -448,3 +448,9 @@ C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Animom
 C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Animome.csproj.CopyComplete
 C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Animome.dll
 C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Animome.pdb
+C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Animome.csprojAssemblyReference.cache
+C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Suivis\Create.cshtml.g.cs
+C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Suivis\Delete.cshtml.g.cs
+C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Suivis\Details.cshtml.g.cs
+C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Suivis\Edit.cshtml.g.cs
+C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Suivis\Index.cshtml.g.cs

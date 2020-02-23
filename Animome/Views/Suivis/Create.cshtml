@@ -1,0 +1,39 @@
+﻿@model Animome.Models.Suivi
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Suivi</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @* Patient identifiant *@
+
+            <div class="form-group">
+                <label asp-for="Domaine" class="control-label"></label>
+                <select asp-for="Domaine" class="form-control" asp-items="Html.GetEnumSelectList<Domaine>()"></select>
+                <span asp-validation-for="Domaine" class="text-danger"></span>
+            </div>
+
+            @* competenceS a travailler (checkbox a mettre) *@
+            @* prerequis a travailler dependantes des competences (checkbox a mettre) *@
+            @* niveaux automatiques *@
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

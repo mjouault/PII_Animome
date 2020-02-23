@@ -14,6 +14,7 @@ namespace Animome.Models
 
         public List<SuiviPrerequis> LesSuiviPrerequis { get; set; }
     }
+
     public enum CompetenceEnum
     {
         [Display(Name = "Competence1")]
