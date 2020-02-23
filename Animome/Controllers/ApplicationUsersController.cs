@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Animome.Data;
 using Animome.Models;
-using Microsoft.EntityFrameworkCore;
 using Animome.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace Animome.Controllers
 {
@@ -16,13 +16,13 @@ namespace Animome.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<ApplicationUser> _roleManager;
+        //private readonly RoleManager<ApplicationUser> _roleManager;
 
-        public ApplicationUsersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<ApplicationUser> roleManager)
+        public ApplicationUsersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager) //RoleManager<ApplicationUser> roleManager
         {
             _context = context;
             _userManager = userManager;
-            _roleManager = roleManager;
+            //_roleManager = roleManager;
         }
 
         public async Task<IActionResult> Index()
@@ -38,6 +38,7 @@ namespace Animome.Controllers
 
             var userid = _userManager.GetUserId(HttpContext.User);
             ApplicationUser user = _userManager.FindByIdAsync(userid).Result;
+
             return View(user);
             //.Include(lesDomainesUsers => lesDomainesUsers.Domaine).ToListAsync());
 
