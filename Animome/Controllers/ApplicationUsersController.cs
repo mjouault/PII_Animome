@@ -27,9 +27,9 @@ namespace Animome.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _userManager.Users
-                .Include(user => user.LesDomaineUsers)
-                .ThenInclude(lesDomainesUsers => lesDomainesUsers.Domaine).ToListAsync());
+            return View(await _userManager.Users.ToListAsync());
+                //.Include(user => user.LesDomaineUsers)
+                //.ThenInclude(lesDomainesUsers => lesDomainesUsers.Domaine).ToListAsync());
         }
 
 
@@ -58,7 +58,7 @@ namespace Animome.Controllers
             {
                 ApplicationUser user = await _userManager.GetUserAsync(User);
 
-                Domaine domaineToAdd = new Domaine
+               /* Domaine domaineToAdd = new Domaine
                 {
                     LesDomaines = viewModel.Domaine.LesDomaines,
                     Intitule = viewModel.Domaine.Intitule
@@ -74,7 +74,7 @@ namespace Animome.Controllers
                 _context.Add(domaineUserToAdd);
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));*/
             }
             return View(viewModel);
         }

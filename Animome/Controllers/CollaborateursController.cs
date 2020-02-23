@@ -26,9 +26,9 @@ namespace Animome.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _userManager.Users
-                .Include(user=>user.LesDomaineUsers)
-                .ThenInclude(lesDomainesUsers=>lesDomainesUsers.Domaine).ToListAsync());
+            return View(await _userManager.Users.ToListAsync());
+                //.Include(user=>user.LesDomaineUsers)
+                //.ThenInclude(lesDomainesUsers=>lesDomainesUsers.Domaine).ToListAsync());
         }
 
         // 

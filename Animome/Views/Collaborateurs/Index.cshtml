@@ -15,10 +15,10 @@
                 @Html.DisplayFor(modelItem => item.Prenom)
             </td>
             <td>
-                @foreach (var domaineUser in item.LesDomaineUsers)
+                @*@foreach (var domaineUser in item.LesDomaineUsers)
                 {
                     @Html.DisplayFor(modelItem => domaineUser.Domaine.Intitule);
-                }
+                }*@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

@@ -9,6 +9,5 @@ namespace Animome.ViewModels
     public class DomaineCreateViewModel
     {
         public Domaine Domaine { get; set; }
-        public DomaineUser DomaineUser { get; set; }
     }
 }

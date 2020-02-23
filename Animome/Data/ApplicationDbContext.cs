@@ -19,12 +19,11 @@ namespace Animome.Data
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<Patient> Patient { get; set; }
-        public DbSet<Competence> Competence { get; set; }
-        public DbSet<Prerequis> Prerequis { get; set; }
-        public DbSet<Niveau> Niveau { get; set; }
-
-        public DbSet<PatientCompetence> PatientCompetence { get; set; }
-
-        public DbSet<Animome.Models.Domaine> Domaine { get; set; }
+        public DbSet<Suivi> Suivi { get; set; }
+        public DbSet<SuiviCompetence> SuiviCompetence { get; set; }
+        public DbSet<SuiviPrerequis> SuiviPrerequis { get; set; }
+        public DbSet<SuiviNiveau> SuiviNiveau { get; set; }
+        public DbSet<SuiviExercice> SuiviExercice { get; set; }
+        public DbSet<SuiviApplicationUser> SuiviApplicationUser { get; set; }
     }
 }

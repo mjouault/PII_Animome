@@ -426,15 +426,8 @@ C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\
 C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
 C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\ApplicationUsers\AfficherProfil.cshtml.g.cs
-C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\ApplicationUsers\CreerDomaine.cshtml.g.cs
 C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\ApplicationUsers\Index.cshtml.g.cs
 C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Collaborateurs\Index.cshtml.g.cs
-C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Domaines\Create.cshtml.g.cs
-C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Domaines\Delete.cshtml.g.cs
-C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Domaines\Details.cshtml.g.cs
-C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Domaines\Edit.cshtml.g.cs
-C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Domaines\Index.cshtml.g.cs
-C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Domaines\Test.cshtml.g.cs
 C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Home\IndexAdmin.cshtml.g.cs
 C:\Users\Gautier\source\repos\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs

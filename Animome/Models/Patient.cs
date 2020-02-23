@@ -8,9 +8,9 @@ namespace Animome.Models
     public class Patient
     {
         public int Id { get; set; }
-        public int Identifiant { get; set; }
+        public int Identifiant { get; set; } //numero
 
-        public List<PatientNiveau> LesPatientsNiveaux;
+        //public List<PatientNiveau> LesPatientsNiveaux;
 
         public List<Suivi> lesSuivis;
     }
