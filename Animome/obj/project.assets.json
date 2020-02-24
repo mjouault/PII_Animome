@@ -8966,19 +8966,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Gautier\\.nuget\\packages\\": {}
+    "C:\\Users\\Bertrand\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Gautier\\source\\repos\\PII_Animome\\Animome\\Animome.csproj",
+      "projectUniqueName": "C:\\Users\\Bertrand\\Documents\\Travail Maurine\\2A_ENSC\\PII_Animome\\Animome\\Animome.csproj",
       "projectName": "Animome",
-      "projectPath": "C:\\Users\\Gautier\\source\\repos\\PII_Animome\\Animome\\Animome.csproj",
-      "packagesPath": "C:\\Users\\Gautier\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Gautier\\source\\repos\\PII_Animome\\Animome\\obj\\",
+      "projectPath": "C:\\Users\\Bertrand\\Documents\\Travail Maurine\\2A_ENSC\\PII_Animome\\Animome\\Animome.csproj",
+      "packagesPath": "C:\\Users\\Bertrand\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Bertrand\\Documents\\Travail Maurine\\2A_ENSC\\PII_Animome\\Animome\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Gautier\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Bertrand\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

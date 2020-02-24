@@ -44,9 +44,13 @@ namespace Animome.Controllers
         }
 
         // GET: Suivis/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            return View(await _context.Suivi
+                .Include(suivi => suivi.LesSuiviCompetences).ThenInclude(lesSuiviCptces => lesSuiviCptces.Competence)
+                .Include(suivi => suivi.Domaine)
+                .Include(suivi => suivi.LesSuiviApplicationUsers).ThenInclude(lesApplicationUsers => lesApplicationUsers.ApplicationUser).ToListAsync());
+                
         }
 
         // POST: Suivis/Create
@@ -58,11 +62,19 @@ namespace Animome.Controllers
         {
             if (ModelState.IsValid)
             {
+                Suivi suiviToAdd = new Suivi
+                {
+                    Patient = suivi.Patient,
+                    Domaine = suivi.Domaine,
+                    LesSuiviCompetences = suivi.LesSuiviCompetences,
+                    LesSuiviApplicationUsers = suivi.LesSuiviApplicationUsers
+                };
+
                 _context.Add(suivi);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(suivi);
+            return View(suivi.LesSuiviApplicationUsers);
         }
 
         // GET: Suivis/Edit/5
