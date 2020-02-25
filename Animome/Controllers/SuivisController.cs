@@ -7,22 +7,34 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Animome.Data;
 using Animome.Models;
+using Animome.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace Animome.Controllers
 {
     public class SuivisController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public SuivisController(ApplicationDbContext context)
+        public SuivisController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Suivis
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Suivi.ToListAsync());
+            var suivi = from s in _context.Suivi select s;
+
+            suivi = _context.Suivi
+                .Include(suivi => suivi.LesSuiviCompetences)
+                    .ThenInclude(lesSuiviCptces => lesSuiviCptces.Competence)
+                .Include(suivi => suivi.LesSuiviApplicationUsers)
+                     .ThenInclude(lesApplicationUsers => lesApplicationUsers.ApplicationUser);
+
+            return View(await suivi.ToListAsync());
         }
 
         // GET: Suivis/Details/5
@@ -44,13 +56,16 @@ namespace Animome.Controllers
         }
 
         // GET: Suivis/Create
-        public async Task<IActionResult> Create()
+        public IActionResult Create(int? id)
         {
-            return View(await _context.Suivi
-                .Include(suivi => suivi.LesSuiviCompetences).ThenInclude(lesSuiviCptces => lesSuiviCptces.Competence)
-                .Include(suivi => suivi.Domaine)
-                .Include(suivi => suivi.LesSuiviApplicationUsers).ThenInclude(lesApplicationUsers => lesApplicationUsers.ApplicationUser).ToListAsync());
-                
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["idPatient"] = id;
+            return View();
+
         }
 
         // POST: Suivis/Create
@@ -58,23 +73,29 @@ namespace Animome.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Domaine")] Suivi suivi)
+        public async Task<IActionResult> Create(SuiviCreateViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                Suivi suiviToAdd = new Suivi
+                Patient patient = await _context.Patient.FindAsync(viewModel.Patient.Id);
+                ApplicationUser user = await _userManager.GetUserAsync(User);
+
+                SuiviExercice suiviExerciceAjoute = new SuiviExercice
                 {
-                    Patient = suivi.Patient,
-                    Domaine = suivi.Domaine,
-                    LesSuiviCompetences = suivi.LesSuiviCompetences,
-                    LesSuiviApplicationUsers = suivi.LesSuiviApplicationUsers
+                    Exercice = viewModel.SuiviExercice.Exercice
                 };
 
-                _context.Add(suivi);
+                Suivi suiviAjoute = new Suivi
+                {
+                    Patient = patient,
+                    Domaine = viewModel.Suivi.Domaine,
+                };
+
+                _context.Add(suiviAjoute);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(suivi.LesSuiviApplicationUsers);
+            return View(viewModel.Suivi.LesSuiviApplicationUsers);
         }
 
         // GET: Suivis/Edit/5

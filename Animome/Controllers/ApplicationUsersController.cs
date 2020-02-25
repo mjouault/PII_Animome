@@ -58,23 +58,22 @@ namespace Animome.Controllers
             {
                 ApplicationUser user = await _userManager.GetUserAsync(User);
 
-               /* Domaine domaineToAdd = new Domaine
+                Suivi suiviAjoute = new Suivi
                 {
-                    LesDomaines = viewModel.Domaine.LesDomaines,
-                    Intitule = viewModel.Domaine.Intitule
+                    Domaine = viewModel.Suivi.Domaine,
                 };
 
-                DomaineUser domaineUserToAdd = new DomaineUser
+                SuiviApplicationUser suiviApplicationUserAjoute = new SuiviApplicationUser
                 {
-                    Domaine = domaineToAdd,
-                    User = user
+                    Suivi = suiviAjoute,
+                    ApplicationUser = user
                 };
 
-                _context.Add(domaineToAdd);
-                _context.Add(domaineUserToAdd);
+                _context.Add(suiviAjoute);
+                _context.Add(suiviApplicationUserAjoute);
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));*/
+                return RedirectToAction(nameof(Index));
             }
             return View(viewModel);
         }

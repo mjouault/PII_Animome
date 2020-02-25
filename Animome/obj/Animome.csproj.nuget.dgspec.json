@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Bertrand\\Documents\\Travail Maurine\\2A_ENSC\\PII_Animome\\Animome\\Animome.csproj": {}
+    "C:\\Users\\Maurine\\Documents\\ENSC\\2A_ENSC\\S8\\PII_Animome\\Animome\\Animome.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Bertrand\\Documents\\Travail Maurine\\2A_ENSC\\PII_Animome\\Animome\\Animome.csproj": {
+    "C:\\Users\\Maurine\\Documents\\ENSC\\2A_ENSC\\S8\\PII_Animome\\Animome\\Animome.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Bertrand\\Documents\\Travail Maurine\\2A_ENSC\\PII_Animome\\Animome\\Animome.csproj",
+        "projectUniqueName": "C:\\Users\\Maurine\\Documents\\ENSC\\2A_ENSC\\S8\\PII_Animome\\Animome\\Animome.csproj",
         "projectName": "Animome",
-        "projectPath": "C:\\Users\\Bertrand\\Documents\\Travail Maurine\\2A_ENSC\\PII_Animome\\Animome\\Animome.csproj",
-        "packagesPath": "C:\\Users\\Bertrand\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Bertrand\\Documents\\Travail Maurine\\2A_ENSC\\PII_Animome\\Animome\\obj\\",
+        "projectPath": "C:\\Users\\Maurine\\Documents\\ENSC\\2A_ENSC\\S8\\PII_Animome\\Animome\\Animome.csproj",
+        "packagesPath": "C:\\Users\\Maurine\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Maurine\\Documents\\ENSC\\2A_ENSC\\S8\\PII_Animome\\Animome\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Bertrand\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Maurine\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

@@ -8,6 +8,7 @@ namespace Animome.ViewModels
 {
     public class DomaineCreateViewModel
     {
-        public Domaine Domaine { get; set; }
+        public Suivi Suivi { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }
