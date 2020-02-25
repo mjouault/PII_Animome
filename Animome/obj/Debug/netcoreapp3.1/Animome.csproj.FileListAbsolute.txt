@@ -681,7 +681,6 @@ C:\Users\Bertrand\Documents\Travail Maurine\2A_ENSC\PII_Animome\Animome\obj\Debu
 C:\Users\Bertrand\Documents\Travail Maurine\2A_ENSC\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Animome.csproj.CopyComplete
 C:\Users\Bertrand\Documents\Travail Maurine\2A_ENSC\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Animome.dll
 C:\Users\Bertrand\Documents\Travail Maurine\2A_ENSC\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Animome.pdb
-C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Animome.csprojAssemblyReference.cache
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\staticwebassets\Animome.StaticWebAssets.Manifest.cache
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\staticwebassets\Animome.StaticWebAssets.xml
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Animome.MvcApplicationPartsAssemblyInfo.cs

@@ -80,18 +80,44 @@ namespace Animome.Controllers
                 Patient patient = await _context.Patient.FindAsync(viewModel.Patient.Id);
                 ApplicationUser user = await _userManager.GetUserAsync(User);
 
-                SuiviExercice suiviExerciceAjoute = new SuiviExercice
-                {
-                    Exercice = viewModel.SuiviExercice.Exercice
-                };
-
                 Suivi suiviAjoute = new Suivi
                 {
                     Patient = patient,
                     Domaine = viewModel.Suivi.Domaine,
                 };
 
+                SuiviCompetence suiviCompetenceAjoute = new SuiviCompetence
+                {
+                    Competence = viewModel.SuiviCompetence.Competence,
+                    Suivi = suiviAjoute
+                };
+
+                SuiviPrerequis suiviPrerequisAjoute = new SuiviPrerequis
+                {
+                    Prerequis = viewModel.SuiviPrerequis.Prerequis,
+                    SuiviCompetence=suiviCompetenceAjoute,
+                };
+
+                SuiviNiveau suiviNiveauAjoute = new SuiviNiveau
+                {
+                    Niveau = viewModel.SuiviNiveau.Niveau,
+                    SuiviPrerequis=suiviPrerequisAjoute,
+                };
+
+                SuiviExercice suiviExerciceAjoute = new SuiviExercice
+                {
+                    Exercice = viewModel.SuiviExercice.Exercice,
+                    Fait = false,
+                    Valideur = user,
+                    SuiviNiveau=suiviNiveauAjoute,
+                };
+
                 _context.Add(suiviAjoute);
+                _context.Add(suiviCompetenceAjoute);
+                _context.Add(suiviPrerequisAjoute);
+                _context.Add(suiviNiveauAjoute);
+                _context.Add(suiviExerciceAjoute);
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

@@ -10,7 +10,7 @@ namespace Animome.Models
     {
         public int Id { get; set; }
         public SuiviCompetence SuiviCompetence { get; set; }
-        public List<SuiviNiveau> LesNiveaux { get; set; }
+        public List<SuiviNiveau> LesSuiviNiveaux { get; set; }
 
         public PrerequisEnum Prerequis {get;set;}
     }
