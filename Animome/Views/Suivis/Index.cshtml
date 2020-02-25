@@ -14,23 +14,80 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Domaine)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patient)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LesSuiviCompetences)
+            </th>
+            <th>
+                Les Prérequis
+            </th>
+            <th>
+                Les Niveaux
+            </th>
+            <th>
+                Les Exercices
+            </th>
+
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Domaine)
             </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Patient.Identifiant)
+            </td>
+
+            @foreach (var competence in item.LesSuiviCompetences)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => competence.Competence)
+                </td>
+
+                @foreach (var prerequis in competence.LesSuiviPrerequis)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => prerequis.Prerequis)
+                    </td>
+
+                    @foreach (var niveau in prerequis.LesSuiviNiveaux)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => niveau.Niveau)
+                        </td>
+
+                        @foreach (var exercice in niveau.LesSuiviExercices)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => exercice.Exercice)
+                            </td>
+                        }
+                    }
+                }
+            }
+
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>

@@ -24,17 +24,19 @@ namespace Animome.Controllers
         }
 
         // GET: Suivis
-        public async Task<IActionResult> Index()
+        public async Task <IActionResult> Index()
         {
-            var suivi = from s in _context.Suivi select s;
+             var suivi = from s in _context.Suivi select s;
 
             suivi = _context.Suivi
                 .Include(suivi => suivi.LesSuiviCompetences)
-                    .ThenInclude(lesSuiviCptces => lesSuiviCptces.Competence)
-                .Include(suivi => suivi.LesSuiviApplicationUsers)
-                     .ThenInclude(lesApplicationUsers => lesApplicationUsers.ApplicationUser);
+                    .ThenInclude(lesSuiviCptces => lesSuiviCptces.LesSuiviPrerequis)
+                    .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.LesSuiviNiveaux)
+                    .ThenInclude(lesSuiviNivx=> lesSuiviNivx.LesSuiviExercices)
+                 .Include(suivi => suivi.LesSuiviApplicationUsers)
+                      .ThenInclude(lesApplicationUsers => lesApplicationUsers.ApplicationUser);
 
-            return View(await suivi.ToListAsync());
+             return View(await suivi.ToListAsync());
         }
 
         // GET: Suivis/Details/5
