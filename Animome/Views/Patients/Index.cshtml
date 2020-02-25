@@ -26,6 +26,10 @@
                 @Html.DisplayFor(modelItem => item.Identifiant)
             </td>
             <td>
+                <a asp-controller="Suivis" asp-action="Index" asp-route-id="@item.Id">Voir tous les suivis</a> |
+            </td>
+
+            <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>

@@ -24,11 +24,16 @@ namespace Animome.Controllers
         }
 
         // GET: Suivis
-        public async Task <IActionResult> Index()
+        public async Task <IActionResult> Index(int? id)
         {
-             var suivi = from s in _context.Suivi select s;
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-            suivi = _context.Suivi
+            var suivi = from s in _context.Suivi select s;
+
+            suivi = _context.Suivi.Where(x => x.Patient.Id==id)
                 .Include(suivi => suivi.LesSuiviCompetences)
                     .ThenInclude(lesSuiviCptces => lesSuiviCptces.LesSuiviPrerequis)
                     .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.LesSuiviNiveaux)
