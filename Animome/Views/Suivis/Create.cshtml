@@ -5,19 +5,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
 
-<h4>Suivi</h4>
+<h4>Création d'un nouveau Suivi</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            @* Patient identifiant *@
+            @* Patient identifiant passé en param caché *@
             <div class="form-group">
-                <label asp-for="@Model.Patient.Id" class="control-label"></label>
-                <input asp-for="@Model.Patient.Id" value="@ViewData["idPatient"] "class="form-control" type="hidden" />
+                <input asp-for="@Model.Patient.Id" value="@ViewData["idPatient"]" class="form-control" type="hidden" />
                 <span asp-validation-for="@Model.Patient.Id" class="text-danger"></span>
             </div>
 
@@ -57,13 +55,13 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" asp-route-id="@ViewData["idPatient"]" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index"  asp-route-id="@ViewData["idPatient"]">Back to List</a>
 </div>
 

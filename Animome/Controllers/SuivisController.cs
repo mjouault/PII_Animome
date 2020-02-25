@@ -41,7 +41,8 @@ namespace Animome.Controllers
                  .Include(suivi => suivi.LesSuiviApplicationUsers)
                       .ThenInclude(lesApplicationUsers => lesApplicationUsers.ApplicationUser);
 
-             return View(await suivi.ToListAsync());
+            ViewData["idPatient"] = id;
+            return View(await suivi.ToListAsync());
         }
 
         // GET: Suivis/Details/5
@@ -126,7 +127,7 @@ namespace Animome.Controllers
                 _context.Add(suiviExerciceAjoute);
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", new { id = viewModel.Patient.Id });
             }
             return View(viewModel.Suivi.LesSuiviApplicationUsers);
         }
