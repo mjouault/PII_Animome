@@ -9,6 +9,8 @@ using Animome.Data;
 using Animome.Models;
 using Animome.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using System.ComponentModel.DataAnnotations;
 
 namespace Animome.Controllers
 {
@@ -24,6 +26,7 @@ namespace Animome.Controllers
         }
 
         // GET: Suivis
+        [Authorize]
         public async Task <IActionResult> Index(int? id)
         {
             if (id == null)
@@ -46,6 +49,7 @@ namespace Animome.Controllers
         }
 
         // GET: Suivis/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -64,6 +68,7 @@ namespace Animome.Controllers
         }
 
         // GET: Suivis/Create
+        [Authorize]
         public IActionResult Create(int? id)
         {
             if (id == null)
@@ -79,6 +84,7 @@ namespace Animome.Controllers
         // POST: Suivis/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(SuiviCreateViewModel viewModel)
@@ -133,44 +139,72 @@ namespace Animome.Controllers
         }
 
         // GET: Suivis/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [Authorize]
+       public async Task<IActionResult> Edit(int? id, SuiviCreateViewModel viewModel)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var suivi = await _context.Suivi.FindAsync(id);
-            if (suivi == null)
+           viewModel.Suivi = await _context.Suivi.FindAsync(id);
+            if (viewModel.Suivi == null)
             {
                 return NotFound();
             }
-            return View(suivi);
+            return View(viewModel);
         }
+
+       /* public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+           // var suivi = await _context.Suivi.FindAsync(id);
+            return View();
+        }*/
+
+
 
         // POST: Suivis/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Domaine")] Suivi suivi)
+       public async Task<IActionResult> Edit(int id, SuiviCreateViewModel viewModel)
         {
-            if (id != suivi.Id)
+            if (id != viewModel.Suivi.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
+                Console.WriteLine("entre ds le modelValid");
                 try
                 {
-                    _context.Update(suivi);
+                    viewModel.Suivi = await _context.Suivi.FindAsync(id);
+                    // var domaine = viewModel.Suivi.Domaine;
+                    //  var suivi = await _context.Suivi.FindAsync(viewModel.Suivi.Id);
+
+                    Console.WriteLine("entre ds le try");
+                    _context.Update(viewModel.Suivi.Domaine);
+
+                    //_context.Update(viewModel.SuiviPrerequis) ;
+                    // _context.Update(viewModel.SuiviExercice);
+                   // _context.Update(domaine);
+                   // _context.Update(suivi);
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SuiviExists(suivi.Id))
+                    Console.WriteLine("entre ds le catch");
+                    if (!SuiviExists(viewModel.Suivi.Id))
                     {
+                        Console.WriteLine("pbbbbbb");
                         return NotFound();
                     }
                     else
@@ -180,7 +214,8 @@ namespace Animome.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(suivi);
+            Console.WriteLine("sort");
+            return View(viewModel);
         }
 
         // GET: Suivis/Delete/5
@@ -202,6 +237,7 @@ namespace Animome.Controllers
         }
 
         // POST: Suivis/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -215,6 +251,15 @@ namespace Animome.Controllers
         private bool SuiviExists(int id)
         {
             return _context.Suivi.Any(e => e.Id == id);
+        }
+
+        public IActionResult AfficherSuivi ()
+        {
+            TestAffichage T = new TestAffichage
+            {
+
+            };
+            return View();
         }
     }
 }

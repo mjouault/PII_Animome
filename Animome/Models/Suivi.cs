@@ -10,7 +10,7 @@ namespace Animome.Models
     {
         public int Id { get; set; }
         public Patient Patient { get; set; }
-        public Domaine Domaine { get; set; }
+        public DomaineEnum Domaine { get; set; }
 
         public List<SuiviApplicationUser> LesSuiviApplicationUsers { get; set; }
         public SuiviExercice DernierExoModifie { get; set; }
@@ -18,7 +18,7 @@ namespace Animome.Models
         public List<SuiviCompetence> LesSuiviCompetences { get; set; }
     }
 
-    public enum Domaine
+    public enum DomaineEnum
     {
         [Display(Name = "Motricité globale")]
         d1 = 1,
@@ -28,5 +28,13 @@ namespace Animome.Models
         d3 = 3,
         [Display(Name = "Habiletés sociales")]
         d4 = 4
+    }
+
+    public class DomaineClass
+    {
+        public int Id { get; set; }
+        public string Intitule { get; set; }
+
+        public List<Suivi> LesSuivis { get; set; }
     }
 }

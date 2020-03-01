@@ -9,6 +9,7 @@ using Animome.Data;
 using Animome.Models;
 using Animome.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Animome.Controllers
 {
@@ -32,7 +33,7 @@ namespace Animome.Controllers
                 //.ThenInclude(lesDomainesUsers => lesDomainesUsers.Domaine).ToListAsync());
         }
 
-
+        [Authorize]
         public IActionResult AfficherProfil()
         {
 
@@ -50,6 +51,7 @@ namespace Animome.Controllers
         // POST: Domaines/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreerDomaine(DomaineCreateViewModel viewModel)
