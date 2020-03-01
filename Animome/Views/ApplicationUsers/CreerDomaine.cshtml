@@ -15,7 +15,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="@Model.Suivi.Domaine" class="control-label"></label>
-                <select asp-for="@Model.Suivi.Domaine" asp-items="Html.GetEnumSelectList<Domaine>()" class="form-control" />
+                <select asp-for="@Model.Suivi.Domaine" asp-items="Html.GetEnumSelectList<DomaineEnum>()" class="form-control" />
                 <span asp-validation-for="@Model.Suivi.Domaine" class="text-danger"></span>
             </div>
          

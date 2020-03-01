@@ -1,8 +1,40 @@
-﻿
-@{
-    ViewData["Title"] = "AfficherSuivi";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Animome</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <h1>AfficherSuivi</h1>
 
-<h1>AfficherSuivi</h1>
-
+    <table class="table">
+        <tbody>
+            @for (var i = 0; i < 6; i++)
+            {
+                <tr>
+                    <td class="essai">
+                        Domaine
+                        <div>
+                            @for (var j = 0; j < 3; j++)
+                            {
+                                <div class="carteCompetence">
+                                    <text>Competence</text>
+                                    @for (var k = 0; k < 5; k++)
+                                    {
+                                        <div class="itemPrerequis">
+                                            <text>Bla</text>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

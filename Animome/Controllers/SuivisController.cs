@@ -255,10 +255,6 @@ namespace Animome.Controllers
 
         public IActionResult AfficherSuivi ()
         {
-            TestAffichage T = new TestAffichage
-            {
-
-            };
             return View();
         }
     }

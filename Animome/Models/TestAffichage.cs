@@ -7,7 +7,7 @@ namespace Animome.Models
 {
     public class TestAffichage
     {
-        List<Domaine> Domaines { get; set; }
+        List<DomaineClass> Domaines { get; set; }
         List <CompetenceEnum> Competences { get; set; }
         List<PrerequisEnum> Prerequis { get; set; }
     }
