@@ -8,7 +8,7 @@ a.navbar-brand {
 }
 
 .navbar {
-    background-color: #d2caca
+    background-color: #d2caca;
 }
 
 /* Provide sufficient contrast against white background */
@@ -59,13 +59,23 @@ button.accept-policy {
   line-height: inherit;
 }
 
-.fond{
-
+.boutonTransparent{
+    background-color: orange;
+    border : none;
 }
 
-.saisieRecherche {
-    background-color: #f1f0f0;
-    border-radius:5px;
+.barreRecherche {
+    background-color: red;
+    border-radius: 5px;
+    border-color : blue;
+    border:2px;
+    width : auto;
+    height : auto;
+    z-index:2;
+}
+
+.saisie{
+    border:none;
 }
 
 
@@ -133,26 +143,28 @@ body {
 }
 
 /*Affichage Suivi*/
-.carteCompetence
-{
-    display:flex;
-    flex-direction:row;
-    background-color : grey;
-    width : 100px;
-    height : 100px;
-    margin :10px;
-    padding:5px
+.carteCompetence {
+    background-color: lightgrey;
+    width: auto;
+    height: auto;
+    margin: 5px;
+    padding: 5px;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif
 }
 
 .itemPrerequis {
     background-color: green;
     width: 20px;
     height: 20px;
-    margin: 5px
+    margin: 5px;
 }
 
-.essai{
-    display:flex;
-    flex-direction:row;
+.alignes {
+    display: flex;
+    flex-direction: row;
+}
+
+.texte {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif
 }
 

@@ -14,25 +14,27 @@
         <tbody>
             @for (var i = 0; i < 6; i++)
             {
-                <tr>
-                    <td class="essai">
-                        Domaine
-                        <div>
-                            @for (var j = 0; j < 3; j++)
-                            {
-                                <div class="carteCompetence">
-                                    <text>Competence</text>
-                                    @for (var k = 0; k < 5; k++)
-                                    {
-                                        <div class="itemPrerequis">
-                                            <text>Bla</text>
-                                        </div>
-                                    }
-                                </div>
-                            }
+            <tr>
+                <td>
+                    <text class="texte">Domaine</text>
+                    <div class="alignes">
+                        @for (var j = 0; j < 3; j++)
+                        {
+                        <div class="carteCompetence">
+                            <text class="texte">Competence : @j  %</text>
+                            <div class="alignes">
+                                @for (var k = 0; k < 5; k++)
+                                {
+                                    <div class="itemPrerequis">
+                                    </div>
+                                }
+                            </div>
                         </div>
-                    </td>
-                </tr>
+
+                        }
+                    </div>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
