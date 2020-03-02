@@ -21,23 +21,47 @@ namespace Animome.Models
                     return;   // DB has been seeded
                 }
 
-                context.AddRange(
-                  
-                    new Domaine
+                if (context.Domaine.Any()) // Pas bon
+                {
+                    return;   // DB has been seeded
+                }
+
+                context.Domaine.AddRange(
+                    new Domaine 
                     {
-                        Intitule = "D1"
+                        Intitule = "CMotricité globale"
+                    },
+
+                    new Domaine 
+                    {
+                        Intitule = "CMotricité fine"
                     },
 
                     new Domaine
                     {
-                        Intitule = "D2"
-                    },
-                    new Domaine
-                    {
-                        Intitule = "D3"
+                        Intitule = "CLangage"
                     }
+                );
+                
+                context.Competence.AddRange(
+                     new Competence
+                     {
+                         Intitule = "C1"
+                     },
 
-                ); ;
+                    new Competence
+                    {
+                        Intitule = "C2"
+                    },
+
+                    new Competence
+                    {
+                        Intitule = "C3"
+                    }
+                );
+
+                context.DomaineCompetence.AddRange(
+                    );
                 context.SaveChanges();
             }
         }

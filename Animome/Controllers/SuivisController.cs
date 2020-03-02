@@ -268,9 +268,24 @@ namespace Animome.Controllers
             return View();
         }
 
-        public IActionResult AfficherDomaine()
+        public async Task <IActionResult> AfficherDomaine()
         {
-            return View();
+            return View(await _context.Domaine.ToListAsync());
         }
+
+        public async Task<IActionResult> TestSelect()
+        {
+            IQueryable<string> DomaineQuery = from d in _context.Domaine
+                                              orderby d.Intitule
+                                              select d.Intitule;
+            var selectList = new SelectListViewModel
+            {
+                Domaines = new SelectList(await DomaineQuery.Distinct().ToListAsync()),
+            };
+
+            return View(selectList);
+        }
+
+
     }
 }

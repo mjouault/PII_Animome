@@ -1,0 +1,12 @@
+﻿@model Animome.ViewModels.SelectListViewModel
+@{
+    ViewData["Title"] = "TestSelect";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>TestSelect</h1>
+
+<select asp-for="IntituleDomaine" asp-items="Model.Domaines">
+    <option value="">All</option>
+</select>
+

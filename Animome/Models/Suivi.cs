@@ -32,7 +32,6 @@ namespace Animome.Models
         [Display(Name = "Habiletés sociales")]
         d4 = 4
     }
-
     public class Domaine
     {
         public int Id { get; set; }
