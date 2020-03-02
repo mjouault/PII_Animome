@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Animome.Models;
 
 namespace Animome.Models
 {
@@ -12,6 +14,7 @@ namespace Animome.Models
         public Patient Patient { get; set; }
         public DomaineEnum Domaine { get; set; }
 
+        public Domaine Domaine2 { get; set; }
         public List<SuiviApplicationUser> LesSuiviApplicationUsers { get; set; }
         public SuiviExercice DernierExoModifie { get; set; }
 
@@ -30,7 +33,7 @@ namespace Animome.Models
         d4 = 4
     }
 
-    public class DomaineClass
+    public class Domaine
     {
         public int Id { get; set; }
         public string Intitule { get; set; }

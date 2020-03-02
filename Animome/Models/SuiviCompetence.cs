@@ -33,6 +33,15 @@ namespace Animome.Models
         public string Intitule { get; set; }
 
         public List<SuiviCompetence> LesSuiviCompetences { get; set; }
+
+        public List<DomaineCompetence> LesDomaineCompetences { get; set; }
+    }
+
+    public class DomaineCompetence
+    {
+        public int Id { get; set; }
+        public Domaine Domaine { get; set; }
+        public Competence Competence { get; set; }
     }
 
 }

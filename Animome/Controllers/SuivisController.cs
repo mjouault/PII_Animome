@@ -89,6 +89,10 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(SuiviCreateViewModel viewModel)
         {
+            IQueryable<string> DomaineQuery = from d in _context.Users
+                                            orderby d.Prenom
+                                            select d.Prenom;
+
             if (ModelState.IsValid)
             {
                 Patient patient = await _context.Patient.FindAsync(viewModel.Patient.Id);
@@ -126,11 +130,17 @@ namespace Animome.Controllers
                     SuiviNiveau=suiviNiveauAjoute,
                 };
 
+                SelectListViewModel selectListDomaine = new SelectListViewModel
+                {
+                    Domaines = new SelectList(await DomaineQuery.Distinct().ToListAsync()),
+                };
+
                 _context.Add(suiviAjoute);
                 _context.Add(suiviCompetenceAjoute);
                 _context.Add(suiviPrerequisAjoute);
                 _context.Add(suiviNiveauAjoute);
                 _context.Add(suiviExerciceAjoute);
+                _context.Add(selectListDomaine);
 
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", new { id = viewModel.Patient.Id });
@@ -254,6 +264,11 @@ namespace Animome.Controllers
         }
 
         public IActionResult AfficherSuivi ()
+        {
+            return View();
+        }
+
+        public IActionResult AfficherDomaine()
         {
             return View();
         }

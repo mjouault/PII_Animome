@@ -19,13 +19,15 @@
                 <span asp-validation-for="@Model.Patient.Id" class="text-danger"></span>
             </div>
 
-            @* Domaine *@
+            @* Domaine Enum *@
         <div class="form-group">
             <label asp-for="@Model.Suivi.Domaine" class="control-label"></label>
+           <!-- <select asp-for="Model.SelectListViewModel.IntituleDomaine" asp-items="Model.SelectListViewModel.Domaines">
+                <option value="">All</option>
+            </select>-->
             <select asp-for="@Model.Suivi.Domaine" class="form-control" asp-items="Html.GetEnumSelectList<DomaineEnum>()"></select>
             <span asp-validation-for="@Model.Suivi.Domaine" class="text-danger"></span>
         </div>
-
 
             @* competenceS a travailler (checkbox a mettre) *@
             <div class="form-group">

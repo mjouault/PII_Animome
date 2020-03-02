@@ -78,6 +78,15 @@ button.accept-policy {
     border:none;
 }
 
+.boutonInscription{
+    border-color: orange;
+    background-color : transparent;
+}
+
+.deconnexion {
+    border-color: orange;
+    background-color: transparent;
+}
 
 /* Sticky footer styles
 -------------------------------------------------- */

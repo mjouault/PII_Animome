@@ -15,31 +15,29 @@ namespace Animome.Models
                     DbContextOptions<ApplicationDbContext>>()))
             {
                 // Look for any ApplicationUsers.
-                if (context.Patient.Any()) // Pas bon
+
+                if (context.Domaine.Any()) // Pas bon
                 {
                     return;   // DB has been seeded
                 }
 
                 context.AddRange(
-                    new ApplicationUser
+                  
+                    new Domaine
                     {
+                        Intitule = "D1"
                     },
 
-                    new ApplicationUser
+                    new Domaine
                     {
-                        
+                        Intitule = "D2"
                     },
-
-                    new ApplicationUser
+                    new Domaine
                     {
-                      
-                    },
-
-                    new ApplicationUser
-                    {
-                        
+                        Intitule = "D3"
                     }
-                );
+
+                ); ;
                 context.SaveChanges();
             }
         }

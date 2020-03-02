@@ -4,14 +4,16 @@ using Animome.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Animome.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200302135139_TablesJointuresDomainesCompetencesPrereNivExo")]
+    partial class TablesJointuresDomainesCompetencesPrereNivExo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -281,7 +283,7 @@ namespace Animome.Migrations
                     b.Property<int>("Domaine")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Domaine2Id")
+                    b.Property<int?>("DomaineId")
                         .HasColumnType("int");
 
                     b.Property<int?>("PatientId")
@@ -291,7 +293,7 @@ namespace Animome.Migrations
 
                     b.HasIndex("DernierExoModifieId");
 
-                    b.HasIndex("Domaine2Id");
+                    b.HasIndex("DomaineId");
 
                     b.HasIndex("PatientId");
 
@@ -620,9 +622,9 @@ namespace Animome.Migrations
                         .WithMany()
                         .HasForeignKey("DernierExoModifieId");
 
-                    b.HasOne("Animome.Models.Domaine", "Domaine2")
+                    b.HasOne("Animome.Models.Domaine", null)
                         .WithMany("LesSuivis")
-                        .HasForeignKey("Domaine2Id");
+                        .HasForeignKey("DomaineId");
 
                     b.HasOne("Animome.Models.Patient", "Patient")
                         .WithMany()
