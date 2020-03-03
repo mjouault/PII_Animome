@@ -9,6 +9,7 @@ using Animome.Data;
 using Animome.Models;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
+using Animome.ViewModels;
 
 namespace Animome.Controllers
 {
@@ -23,10 +24,23 @@ namespace Animome.Controllers
 
         // GET: Patients
         [Authorize]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index (string recherchePatient)
         {
-            return View(await _context.Patient.ToListAsync());
+            var patients = from p in _context.Patient
+                           select p;
+
+            if (!string.IsNullOrEmpty(recherchePatient))
+            {
+                patients = patients.Where(p => (p.Identifiant).ToString().Contains(recherchePatient));
+            }
+
+            PatientIndexViewModel patientRecherche = new PatientIndexViewModel
+            {
+                Patients = await patients.ToListAsync(),
+            };
+            return View(patientRecherche);
         }
+
 
         // GET: Patients/Details/5
         public async Task<IActionResult> Details(int? id)
