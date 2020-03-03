@@ -21,7 +21,17 @@ namespace Animome.Models
                     return;   // DB has been seeded
                 }
 
-                if (context.Domaine.Any()) // Pas bon
+                if (context.Competence.Any()) // Pas bon
+                {
+                    return;   // DB has been seeded
+                }
+
+                if (context.Prerequis.Any()) // Pas bon
+                {
+                    return;   // DB has been seeded
+                }
+
+                if (context.Niveau.Any()) // Pas bon
                 {
                     return;   // DB has been seeded
                 }
@@ -60,7 +70,40 @@ namespace Animome.Models
                     }
                 );
 
-                context.DomaineCompetence.AddRange(
+                context.Prerequis.AddRange(
+                    new Prerequis
+                    {
+                        Intitule = "P1"
+                    },
+
+                    new Prerequis
+                    {
+                        Intitule = "P2"
+                    },
+
+                    new Prerequis
+                    {
+                        Intitule = "P3"
+                    }
+
+                    );
+
+                context.Niveau.AddRange(
+                    new Niveau
+                    {
+                        Intitule="N1"
+                    },
+
+                    new Niveau
+                    {
+                        Intitule = "N2"
+                    },
+
+                     new Niveau
+                     {
+                         Intitule = "N3"
+                     }
+
                     );
                 context.SaveChanges();
             }

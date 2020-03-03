@@ -1138,6 +1138,4 @@ C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcore
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Animome.csproj.CopyComplete
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Suivis\AfficherSuivi.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Suivis\AfficherDomaine.cshtml.g.cs
-C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Animome.csprojAssemblyReference.cache
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Suivis\TestSelect.cshtml.g.cs
-C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Patients\Index2.cshtml.g.cs

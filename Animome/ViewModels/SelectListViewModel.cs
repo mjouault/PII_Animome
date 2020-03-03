@@ -11,6 +11,18 @@ namespace Animome.ViewModels
     {
         public SelectList Domaines { get; set; } //Permet à l'utilisateur de sélectionner un genre ds la liste
         public string IntituleDomaine { get; set; }
+        public List<string> IntituleSelectionnes { get; set; }
+
+        public List<Domaine> DomainesSelectionnes { get; set; }
+
+        public SelectList Competences { get; set; }
+        public string IntituleCompetence { get; set; }
+
+        public SelectList Prerequis { get; set; }
+        public string IntitulePrerequis { get; set; }
+
+        public SelectList Niveaux { get; set; }
+        public string IntituleNiveau { get; set; }
 
         public Domaine Domaine { get; set; }
     }
