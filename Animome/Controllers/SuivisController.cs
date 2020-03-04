@@ -130,17 +130,11 @@ namespace Animome.Controllers
                     SuiviNiveau=suiviNiveauAjoute,
                 };
 
-                SelectListViewModel selectListDomaine = new SelectListViewModel
-                {
-                    Domaines = new SelectList(await DomaineQuery.Distinct().ToListAsync()),
-                };
-
                 _context.Add(suiviAjoute);
                 _context.Add(suiviCompetenceAjoute);
                 _context.Add(suiviPrerequisAjoute);
                 _context.Add(suiviNiveauAjoute);
                 _context.Add(suiviExerciceAjoute);
-                _context.Add(selectListDomaine);
 
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", new { id = viewModel.Patient.Id });
@@ -263,9 +257,25 @@ namespace Animome.Controllers
             return _context.Suivi.Any(e => e.Id == id);
         }
 
-        public IActionResult AfficherSuivi ()
+        public async Task <IActionResult> AfficherSuivi (int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var suivi = from s in _context.Suivi select s;
+
+            suivi = _context.Suivi.Where(x => x.Patient.Id == id)
+                .Include(suivi => suivi.LesSuiviCompetences)
+                    .ThenInclude(lesSuiviCptces => lesSuiviCptces.LesSuiviPrerequis)
+                    .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.LesSuiviNiveaux)
+                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
+                 .Include(suivi => suivi.LesSuiviApplicationUsers)
+                      .ThenInclude(lesApplicationUsers => lesApplicationUsers.ApplicationUser);
+
+            ViewData["idPatient"] = id;
+            return View(await suivi.ToListAsync());
         }
 
         public async Task <IActionResult> AfficherDomaine()

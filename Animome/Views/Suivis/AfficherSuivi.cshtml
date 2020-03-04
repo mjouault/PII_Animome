@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@model IEnumerable<Animome.Models.Suivi>
+
+@{
+    ViewData["Title"] = "AfficherSuivi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,29 +20,29 @@
 
     <table class="table">
         <tbody>
-            @for (var i = 0; i < 6; i++)
+            @foreach (var item in Model)
             {
-            <tr>
-                <td>
-                    <text class="texte">Domaine</text>
-                    <div class="alignes">
-                        @for (var j = 0; j < 3; j++)
-                        {
-                        <div class="carteCompetence">
-                            <text class="texte">Competence : @j  %</text>
-                            <div class="alignes">
-                                @for (var k = 0; k < 5; k++)
-                                {
-                                    <div class="itemPrerequis">
+                <tr>
+                    <td>
+                        <text class="texte">@Html.DisplayFor(modelItem => item.Domaine)</text>
+                        <div class="alignes">
+                            @foreach (var competence in item.LesSuiviCompetences)
+                            {
+                                <div class="carteCompetence">
+                                    <text class="texte">@Html.DisplayFor(modelItem => competence.Competence) : 20 %</text>
+                                    <div class="alignes">
+                                        @foreach (var prerequis in competence.LesSuiviPrerequis)
+                                        {
+                                            <div class="itemPrerequis">
+                                            </div>
+                                        }
                                     </div>
-                                }
-                            </div>
-                        </div>
+                                </div>
 
-                        }
-                    </div>
-                </td>
-            </tr>
+                            }
+                        </div>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
