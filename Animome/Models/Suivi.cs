@@ -38,5 +38,12 @@ namespace Animome.Models
         public string Intitule { get; set; }
 
         public List<Suivi> LesSuivis { get; set; }
+
+        public Domaine() { }
+        public Domaine(string intitule)
+        {
+            Intitule = intitule;
+        }
     }
+
 }
