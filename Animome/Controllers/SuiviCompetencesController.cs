@@ -229,7 +229,23 @@ namespace Animome.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var suiviCompetence = await _context.SuiviCompetence.FindAsync(id);
+
+            var PrerequisASupprimer = from x in _context.SuiviPrerequis
+                                      select x;
+            var NiveauxASupprimer = from x in _context.SuiviNiveau
+                                    select x;
+            var ExercicesASupprimer = from x in _context.SuiviExercice
+                                    select x;
+
+            PrerequisASupprimer = PrerequisASupprimer.Where(p => (p.SuiviCompetence.Id == id));
+            NiveauxASupprimer = NiveauxASupprimer.Where(n => (n.SuiviPrerequis.SuiviCompetence.Id == id));
+            ExercicesASupprimer = ExercicesASupprimer.Where(e => (e.SuiviNiveau.SuiviPrerequis.SuiviCompetence.Id == id));
+           
+            _context.SuiviExercice.RemoveRange(await ExercicesASupprimer.ToListAsync());
+            _context.SuiviNiveau.RemoveRange(await NiveauxASupprimer.ToListAsync());
+            _context.SuiviPrerequis.RemoveRange(await PrerequisASupprimer.ToListAsync());
             _context.SuiviCompetence.Remove(suiviCompetence);
+
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Patients");
             //return RedirectToAction("AfficherSuivi", "Suivis", new { suiviCompetence.Suivi.Patient.Id });
