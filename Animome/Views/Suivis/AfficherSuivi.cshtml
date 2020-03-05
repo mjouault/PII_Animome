@@ -26,23 +26,24 @@
                     <td>
                         <text class="texte">@Html.DisplayFor(modelItem => item.Domaine)</text>
                         <div class="alignes">
-                            @foreach (var competence in item.LesSuiviCompetences)
+                            @foreach (var suiviCompetence in item.LesSuiviCompetences)
                             {
-                                <div class="carteCompetence">
-                                    <text class="texte">@Html.DisplayFor(modelItem => competence.Competence) : 20 %</text>
-                                    <div class="alignes">
-                                        @foreach (var prerequis in competence.LesSuiviPrerequis)
-                                        {
-                                            <div class="itemPrerequis">
-                                            </div>
-                                        }
-                                    </div>
+                            <div class="carteCompetence">
+                                <text class="texte">@Html.DisplayFor(modelItem => suiviCompetence.Competence) : 20 %</text>
+                                <a asp-controller="SuiviCompetences" asp-action="Delete" asp-route-id="@suiviCompetence.Id">Supprimer </a>
+                                <div class="alignes">
+                                    @foreach (var suiviPrerequis in suiviCompetence.LesSuiviPrerequis)
+                                    {
+                                        <div class="itemPrerequis">
+                                        </div>
+                                    }
                                 </div>
+                            </div>
 
                             }
                         </div>
                         <p>
-                            <a asp-action="AjouterCompetence" asp-route-id="@item.Id">+ compétence </a>
+                            <a asp-controller="SuiviCompetences" asp-action="Create" asp-route-id="@item.Id">+ compétence </a>
                         </p>
                     </td>
                 </tr>

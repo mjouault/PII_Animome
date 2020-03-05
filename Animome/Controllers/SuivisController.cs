@@ -327,7 +327,7 @@ namespace Animome.Controllers
         }
 
         //GET ajouterCompetence
-        public async Task<IActionResult> AjouterCompetence(int? id, SuiviCreateViewModel viewModel)
+       /* public async Task<IActionResult> AjouterCompetence(int? id, SuiviCreateViewModel viewModel)
         {
             if (id == null)
             {
@@ -342,7 +342,7 @@ namespace Animome.Controllers
             return View(viewModel);
         }
 
-        // POST: Suivis/Edit/5
+        // POST
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize]
@@ -368,9 +368,9 @@ namespace Animome.Controllers
 
                 _context.Add(suiviCompetenceAjoute);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("AfficherSuivi", suivi.Patient.Id);
+                return RedirectToAction("AfficherSuivi", new { suivi.Patient.Id });
             }
             return View(viewModel);
-        }
+        }*/
     }
 }
