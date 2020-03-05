@@ -14,6 +14,18 @@ namespace Animome.Models
         public NiveauEnum Niveau { get; set; }
 
         public int Nb { get; set; } //Objectif
+
+        public SuiviNiveau()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                new SuiviExercice
+                {
+                    SuiviNiveau = this,
+                    Fait = false
+                };
+            }
+        }
     }
 
     public enum NiveauEnum
@@ -32,14 +44,14 @@ namespace Animome.Models
     {
         public int Id { get; set; }
         public string Intitule { get; set; }
-
         public List<SuiviNiveau> LesSuiviNiveaux { get; set; }
 
         public List<PrerequisNiveau> LesPrerequisNiveaux { get; set; }
 
         public Niveau() { }
         public Niveau(string intitule) 
-        { Intitule = intitule; 
+        { 
+            Intitule = intitule; 
         }
     }
 

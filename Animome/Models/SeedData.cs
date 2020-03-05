@@ -55,11 +55,10 @@ namespace Animome.Models
                 Niveau n1 = new Niveau("N1");
                 Niveau n2 = new Niveau("N2");
                 Niveau n3 = new Niveau("N3");
-                Niveau n4 = new Niveau("N4");
 
                 if (context.Niveau.Any()) // Pas bon
                 {
-                    context.Niveau.AddRange(n1,n2,n3,n4); 
+                    context.Niveau.AddRange(n1,n2,n3); 
                     context.SaveChanges();   // DB has been seeded
                 }
 
@@ -155,6 +154,47 @@ namespace Animome.Models
                                Prerequis = p6
                            }
                      );
+                }
+
+                if(!context.PrerequisNiveau.Any())
+                {
+                    context.PrerequisNiveau.AddRange(
+                        new PrerequisNiveau
+                        {
+                            Niveau = n1,
+                            Prerequis = p1
+                        },
+
+                        new PrerequisNiveau
+                        {
+                            Niveau = n1,
+                            Prerequis = p2
+                        },
+
+                        new PrerequisNiveau
+                        {
+                            Niveau = n1,
+                            Prerequis = p3
+                        },
+
+                        new PrerequisNiveau
+                        {
+                            Niveau = n2,
+                            Prerequis = p1
+                        },
+
+                        new PrerequisNiveau
+                        {
+                            Niveau = n2,
+                            Prerequis = p2
+                        },
+
+                        new PrerequisNiveau
+                        {
+                            Niveau = n3,
+                            Prerequis = p3
+                        }
+                        );
                 }
             }
         }
