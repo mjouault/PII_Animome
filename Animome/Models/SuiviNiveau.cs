@@ -36,6 +36,11 @@ namespace Animome.Models
         public List<SuiviNiveau> LesSuiviNiveaux { get; set; }
 
         public List<PrerequisNiveau> LesPrerequisNiveaux { get; set; }
+
+        public Niveau() { }
+        public Niveau(string intitule) 
+        { Intitule = intitule; 
+        }
     }
 
     public class PrerequisNiveau

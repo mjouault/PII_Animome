@@ -35,6 +35,9 @@ namespace Animome.Models
         public List <SuiviPrerequis> LesSuiviPrerequis { get; set; }
 
         public List<CompetencePrerequis> LesCompetencePrerequis { get; set; }
+
+        public Prerequis() { }
+        public Prerequis(string intitule) { Intitule = intitule; }
     }
 
     public class CompetencePrerequis

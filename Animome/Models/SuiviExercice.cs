@@ -40,6 +40,8 @@ namespace Animome.Models
         public string Intitule { get; set; }
 
         public List<NiveauExercice> LesNveauExercices { get; set; }
+
+        public Exercice() { }
     }
 
     public class NiveauExercice

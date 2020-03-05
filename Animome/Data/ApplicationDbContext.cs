@@ -33,7 +33,7 @@ namespace Animome.Data
         public DbSet<Exercice> Exercice { get; set; }
         public DbSet<DomaineCompetence> DomaineCompetence { get; set; }
         public DbSet<CompetencePrerequis> CompetencePrerequis { get; set; }
-        public DbSet<PrerequisNiveau> GetPrerequisNiveau { get; set; }
+        public DbSet<PrerequisNiveau> PrerequisNiveau { get; set; }
         public DbSet<NiveauExercice> NiveauExercice { get; set; }
     }
 }

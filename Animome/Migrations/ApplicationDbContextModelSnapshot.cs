@@ -265,7 +265,7 @@ namespace Animome.Migrations
 
                     b.HasIndex("PrerequisId");
 
-                    b.ToTable("GetPrerequisNiveau");
+                    b.ToTable("PrerequisNiveau");
                 });
 
             modelBuilder.Entity("Animome.Models.Suivi", b =>

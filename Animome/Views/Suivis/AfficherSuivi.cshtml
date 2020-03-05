@@ -35,7 +35,7 @@
                                     @foreach (var suiviPrerequis in suiviCompetence.LesSuiviPrerequis)
                                     {
                                     <div class="itemPrerequis">
-                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviCompetence.Id">@suiviPrerequis.Id </a>
+                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviCompetence.Id">@suiviPrerequis.Prerequis </a>
                                     </div>
                                     }
                                 </div>
