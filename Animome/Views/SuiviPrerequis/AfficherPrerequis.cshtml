@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Animome.Models.SuiviPrerequis>
+
+@{
+    ViewData["Title"] = "AfficherPrerequis";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Animome</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <h1>AfficherSuivi</h1>
+
+    <table class="table">
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <text class="texte">@Html.DisplayFor(modelItem => item.Prerequis)</text>
+                        <div class="alignes">
+                            @foreach (var suiviNiveau in item.LesSuiviNiveaux)
+                            {
+                                <div class="carteCompetence">
+                                    <text class="texte">@Html.DisplayFor(modelItem => suiviNiveau.Niveau) : 20 %</text>
+                                    <div class="alignes">
+                                        @foreach (var suiviExercice in suiviNiveau.LesSuiviExercices)
+                                        {
+                                            <div class="itemPrerequis">
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                            }
+                        </div>
+                        <p>
+                            <a asp-controller="SuiviCompetences" asp-action="AjouterCompetence" asp-route-id="@item.Id">+ compétence </a>
+                        </p>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
+

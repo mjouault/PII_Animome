@@ -20,9 +20,20 @@ namespace Animome.Controllers
         }
 
         // GET: SuiviPrerequis
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            return View(await _context.SuiviPrerequis.ToListAsync());
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var suiviPrerequis = from s in _context.SuiviPrerequis select s;
+
+            suiviPrerequis = _context.SuiviPrerequis.Where(x => x.SuiviCompetence.Id == id)
+                .Include(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
+                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices);
+
+            return View(await suiviPrerequis.ToListAsync());
         }
 
         // GET: SuiviPrerequis/Details/5

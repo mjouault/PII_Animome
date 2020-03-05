@@ -29,13 +29,13 @@
                             @foreach (var suiviCompetence in item.LesSuiviCompetences)
                             {
                             <div class="carteCompetence">
-                                <text class="texte">@Html.DisplayFor(modelItem => suiviCompetence.Competence) : 20 %</text>
+                                <text class="texte">@Html.DisplayFor(modelItem => suiviCompetence.Id) @Html.DisplayFor(modelItem => suiviCompetence.Competence): 20 %</text>
                                 <a asp-controller="SuiviCompetences" asp-action="Delete" asp-route-id="@suiviCompetence.Id">Supprimer </a>
                                 <div class="alignes">
                                     @foreach (var suiviPrerequis in suiviCompetence.LesSuiviPrerequis)
                                     {
                                     <div class="itemPrerequis">
-                                        <a asp-controller="SuiviPrerequis" asp-action="Delete" asp-route-id="@suiviPrerequis.Id">Supp </a>
+                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviCompetence.Id">@suiviPrerequis.Id </a>
                                     </div>
                                     }
                                 </div>
