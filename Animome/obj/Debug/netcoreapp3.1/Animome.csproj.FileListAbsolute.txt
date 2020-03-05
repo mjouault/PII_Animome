@@ -1151,3 +1151,8 @@ C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcore
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviCompetences\Index.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Animome.csprojAssemblyReference.cache
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviCompetences\Create.cshtml.g.cs
+C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviPrerequis\Create.cshtml.g.cs
+C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviPrerequis\Delete.cshtml.g.cs
+C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviPrerequis\Details.cshtml.g.cs
+C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviPrerequis\Edit.cshtml.g.cs
+C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviPrerequis\Index.cshtml.g.cs

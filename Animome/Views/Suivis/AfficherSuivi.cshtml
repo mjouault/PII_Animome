@@ -34,8 +34,9 @@
                                 <div class="alignes">
                                     @foreach (var suiviPrerequis in suiviCompetence.LesSuiviPrerequis)
                                     {
-                                        <div class="itemPrerequis">
-                                        </div>
+                                    <div class="itemPrerequis">
+                                        <a asp-controller="SuiviPrerequis" asp-action="Delete" asp-route-id="@suiviPrerequis.Id">Supp </a>
+                                    </div>
                                     }
                                 </div>
                             </div>
@@ -43,7 +44,7 @@
                             }
                         </div>
                         <p>
-                            <a asp-controller="SuiviCompetences" asp-action="Create" asp-route-id="@item.Id">+ compétence </a>
+                            <a asp-controller="SuiviCompetences" asp-action="AjouterCompetence" asp-route-id="@item.Id">+ compétence </a>
                         </p>
                     </td>
                 </tr>

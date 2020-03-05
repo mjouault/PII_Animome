@@ -1,4 +1,4 @@
-﻿@model Animome.ViewModels.SuiviCreateViewModel
+﻿@model Animome.ViewModels.SuiviEditViewModel
 @{
     ViewData["Title"] = "AjouterCompetence";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -18,6 +18,27 @@
                 <select asp-for="@Model.SuiviCompetence.Competence" class="form-control" asp-items="Html.GetEnumSelectList<CompetenceEnum>()"></select>
                 <span asp-validation-for="@Model.SuiviCompetence.Competence" class="text-danger"></span>
             </div>
+
+            @* prerequis a travailler dependantes des competences (checkbox a mettre) *@
+            <div class="form-group">
+                <label asp-for="@Model.SuiviPrerequis.Prerequis" class="control-label"></label>
+                <select asp-for="@Model.SuiviPrerequis.Prerequis" class="form-control" asp-items="Html.GetEnumSelectList<PrerequisEnum>()"></select>
+                <span asp-validation-for="@Model.SuiviPrerequis.Prerequis" class="text-danger"></span>
+            </div>
+
+            @* niveaux automatiques *@
+            <div class="form-group">
+                <label asp-for="@Model.SuiviNiveau.Niveau" class="control-label"></label>
+                <select asp-for="@Model.SuiviNiveau.Niveau" class="form-control" asp-items="Html.GetEnumSelectList<NiveauEnum>()"></select>
+                <span asp-validation-for="@Model.SuiviNiveau.Niveau" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.SuiviExercice.Exercice" class="control-label"></label>
+                <select asp-for="@Model.SuiviExercice.Exercice" class="form-control" asp-items="Html.GetEnumSelectList<ExerciceEnum>()"></select>
+                <span asp-validation-for="@Model.SuiviExercice.Exercice" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
