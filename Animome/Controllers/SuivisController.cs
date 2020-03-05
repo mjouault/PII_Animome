@@ -27,7 +27,7 @@ namespace Animome.Controllers
 
         // GET: Suivis
         [Authorize]
-        public async Task <IActionResult> Index(int? id)
+        public async Task <IActionResult> Index(int? id) //id patient
         {
             if (id == null)
             {
@@ -144,7 +144,7 @@ namespace Animome.Controllers
 
         // GET: Suivis/Edit/5
         [Authorize]
-       public async Task<IActionResult> Edit(int? id, SuiviCreateViewModel viewModel)
+       public async Task<IActionResult> Edit(int? id, SuiviEditViewModel viewModel)
         {
             if (id == null)
             {
@@ -326,6 +326,51 @@ namespace Animome.Controllers
             return View(selectList);
         }
 
+        //GET ajouterCompetence
+        public async Task<IActionResult> AjouterCompetence(int? id, SuiviCreateViewModel viewModel)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            viewModel.Suivi = await _context.Suivi.FindAsync(id);
+            if (viewModel.Suivi == null)
+            {
+                return NotFound();
+            }
+            return View(viewModel);
+        }
+
+        // POST: Suivis/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AjouterCompetence(int id, SuiviCreateViewModel viewModel)
+        {
+            if (id != viewModel.Suivi.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                var suivi = await _context.Suivi
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+                SuiviCompetence suiviCompetenceAjoute = new SuiviCompetence
+                {
+                    Competence = viewModel.SuiviCompetence.Competence,
+                    Suivi = suivi
+                };
+
+                _context.Add(suiviCompetenceAjoute);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("AfficherSuivi", suivi.Patient.Id);
+            }
+            return View(viewModel);
+        }
     }
 }
