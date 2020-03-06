@@ -21,12 +21,12 @@
 
             @* Domaine Enum *@
         <div class="form-group">
-            <label asp-for="@Model.Suivi.Domaine" class="control-label"></label>
+            <label asp-for="@Model.Domaine.Intitule" class="control-label"></label>
            <!-- <select asp-for="Model.SelectListViewModel.IntituleDomaine" asp-items="Model.SelectListViewModel.Domaines">
                 <option value="">All</option>
             </select>-->
-            <select asp-for="@Model.Suivi.Domaine" class="form-control" asp-items="Html.GetEnumSelectList<DomaineEnum>()"></select>
-            <span asp-validation-for="@Model.Suivi.Domaine" class="text-danger"></span>
+            <select asp-for="@Model.Domaine.Intitule" class="form-control" asp-items="Model.SelectListViewModel.Domaines"></select>
+            <span asp-validation-for="@Model.Domaine.Intitule" class="text-danger"></span>
         </div>
 
             @* competenceS a travailler (checkbox a mettre) *@

@@ -69,15 +69,41 @@ namespace Animome.Controllers
 
         // GET: Suivis/Create
         [Authorize]
-        public IActionResult Create(int? id)
+        public async Task <IActionResult> Create(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
+            IQueryable<string> DomaineQuery = from x in _context.Domaine
+                                              orderby x.Intitule
+                                              select x.Intitule;
+            IQueryable<string> CompetenceQuery = from x in _context.Competence
+                                              orderby x.Intitule
+                                              select x.Intitule;
+            IQueryable<string> PrerequisQuery = from x in _context.Prerequis
+                                              orderby x.Intitule
+                                              select x.Intitule;
+            IQueryable<string> NiveauQuery = from x in _context.Niveau
+                                              orderby x.Intitule
+                                              select x.Intitule;
+
+            var viewModel1 = new SelectListViewModel
+            {
+                Domaines = new SelectList(await DomaineQuery.Distinct().ToListAsync()),
+                Competences = new SelectList(await CompetenceQuery.Distinct().ToListAsync()),
+                Prerequis = new SelectList(await PrerequisQuery.Distinct().ToListAsync()),
+                Niveaux = new SelectList(await NiveauQuery.Distinct().ToListAsync()),
+            };
+
+            var viewModel2 = new SuiviCreateViewModel
+            {
+                SelectListViewModel =  viewModel1,
+            };
+
             ViewData["idPatient"] = id;
-            return View();
+            return View(viewModel2);
 
         }
 

@@ -9,8 +9,8 @@ namespace Animome.ViewModels
 {
     public class PrerequisCreateViewModel
     {
-        public SelectList Competence { get; set; } //Permet à l'utilisateur de sélectionner une compétence ds la liste
-        public string IntitulPrerequis { get; set; }
+        public SelectList Competences { get; set; } //Permet à l'utilisateur de sélectionner une compétence ds la liste
+        public string IntituleCompetence { get; set; }
         public Prerequis Prerequis { get; set; }
     }
 }

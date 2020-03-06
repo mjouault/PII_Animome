@@ -11,11 +11,11 @@ using Animome.ViewModels;
 
 namespace Animome.Controllers
 {
-    public class CompetencesController : Controller
+    public class Competences2Controller : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public CompetencesController(ApplicationDbContext context)
+        public Competences2Controller(ApplicationDbContext context)
         {
             _context = context;
         }
