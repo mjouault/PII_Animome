@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Animome.Data;
 using Animome.Models;
+using Animome.ViewModels;
 
 namespace Animome.Controllers
 {
@@ -44,9 +45,16 @@ namespace Animome.Controllers
         }
 
         // GET: Competences/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            IQueryable<string> DomaineQuery = from x in _context.Domaine
+                                              orderby x.Intitule
+                                              select x.Intitule;
+            var viewModel = new CompetenceCreateViewModel
+            {
+                Domaines = new SelectList(await DomaineQuery.Distinct().ToListAsync()),
+            };
+            return View(viewModel);
         }
 
         // POST: Competences/Create
@@ -54,15 +62,34 @@ namespace Animome.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Intitule")] Competence competence)
+        public async Task<IActionResult> Create(CompetenceCreateViewModel viewModel)
         {
-            if (ModelState.IsValid)
+
+            if (string.IsNullOrEmpty(viewModel.IntituleDomaine))
             {
-                _context.Add(competence);
+                return NotFound();
+            }
+            else
+            {
+                var domaine = await _context.Domaine
+                .FirstOrDefaultAsync(m => m.Intitule == viewModel.IntituleDomaine);
+
+                var domaineCompetenceAjoute = new DomaineCompetence
+                {
+                    Domaine = domaine,
+                    Competence = viewModel.Competence
+                };
+
+                var competenceAjoutee = new Competence
+                {
+                    Intitule = viewModel.Competence.Intitule
+                };
+
+                _context.Add(domaineCompetenceAjoute);
+                _context.Add(competenceAjoutee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(competence);
         }
 
         // GET: Competences/Edit/5
