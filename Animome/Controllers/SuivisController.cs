@@ -283,47 +283,30 @@ namespace Animome.Controllers
             return View(await _context.Domaine.ToListAsync());
         }
 
-        public async Task<IActionResult> TestSelect( List<string> domaineSelectionnes)
+        public async Task <IActionResult> TestSelect()
         {
             IQueryable<string> DomaineQuery = from x in _context.Domaine
                                               orderby x.Intitule
                                               select x.Intitule;
-
-            IQueryable<string> CompetenceQuery = from x in _context.Competence
-                                              orderby x.Intitule
-                                              select x.Intitule;
-
-            IQueryable<string> PrerequisQuery = from x in _context.Prerequis
-                                                 orderby x.Intitule
-                                                 select x.Intitule;
-
-            IQueryable<string> NiveauQuery = from x in _context.Niveau
-                                             select x.Intitule;
-
-
-           var domaineChoisis = from x in _context.Domaine
-                                      select x;
-
-            if (domaineSelectionnes.Any())
-            {
-                List<Domaine> lesDomaines = new List<Domaine>();
-                foreach (var domaine in domaineSelectionnes)
-                {
-                    var unDomaine = domaineChoisis.Where(x => x.Intitule ==domaine);
-                }
-            }
-
-
-            var selectList = new SelectListViewModel
+            var viewModel = new SelectListViewModel
             {
                 Domaines = new SelectList(await DomaineQuery.Distinct().ToListAsync()),
-                Competences = new SelectList(await CompetenceQuery.Distinct().ToListAsync()),
-                Prerequis = new SelectList(await PrerequisQuery.Distinct().ToListAsync()),
-                Niveaux = new SelectList(await NiveauQuery.Distinct().ToListAsync()),
-                IntituleSelectionnes = domaineSelectionnes
             };
+            return View(viewModel);
+        }
 
-            return View(selectList);
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult TestSelect( SelectListViewModel viewModel)
+        {
+            if (string.IsNullOrEmpty(viewModel.IntituleDomaine))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         //GET ajouterCompetence

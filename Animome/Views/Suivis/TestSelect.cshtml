@@ -6,49 +6,14 @@
 
 <h1>TestSelect</h1>
 
-<form asp-controller="Suivis" asp-action="TestSelect" method="get">
+<form asp-controller="Suivis" asp-action="TestSelect" method="post">
     <p>
-        <select asp-for="IntituleSelectionnes" asp-items="Model.Domaines" multiple="multiple">
+        <select asp-for="IntituleDomaine" asp-items="Model.Domaines">
             <option value="">All</option>
         </select>
         <input type="submit" value="Go" />
     </p>
 </form>
-
-
-
-<select asp-for="IntituleCompetence" asp-items="Model.Competences">
-    <option value="">All</option>
-</select>
-
-<select asp-for="IntitulePrerequis" asp-items="Model.Prerequis">
-    <option value="">All</option>
-</select>
-
-<select asp-for="IntituleNiveau" asp-items="Model.Niveaux">
-    <option value="">All</option>
-</select>
-
-<table class="table">
-    <tbody>
-       @if (@Model.IntituleSelectionnes.Any())
-      {
-          @foreach (var item in @Model.IntituleSelectionnes)
-          {
-              <tr>
-                  <td>
-                      @item;
-                  </td>
-              </tr>
-          }
-      }
-        <tr>
-            <td>
-                rien;
-            </td>
-        </tr>
-    </tbody>
-</table>
 
 
 

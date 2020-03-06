@@ -67,7 +67,7 @@ namespace Animome.Controllers
 
             if (string.IsNullOrEmpty(viewModel.IntituleDomaine))
             {
-                return NotFound();
+                return View();
             }
             else
             {
@@ -80,13 +80,13 @@ namespace Animome.Controllers
                     Competence = viewModel.Competence
                 };
 
-                var competenceAjoutee = new Competence
+               /* var competenceAjoutee = new Competence
                 {
                     Intitule = viewModel.Competence.Intitule
-                };
+                };*/
 
                 _context.Add(domaineCompetenceAjoute);
-                _context.Add(competenceAjoutee);
+                //_context.Add(competenceAjoutee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

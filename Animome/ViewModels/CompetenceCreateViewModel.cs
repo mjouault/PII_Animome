@@ -9,7 +9,7 @@ namespace Animome.ViewModels
 {
     public class CompetenceCreateViewModel
     {
-        public SelectList Domaines { get; set; } //Permet à l'utilisateur de sélectionner un genre ds la liste
+        public SelectList Domaines { get; set; } //Permet à l'utilisateur de sélectionner un Domaine ds la liste
         public string IntituleDomaine { get; set; }
         public Competence Competence { get; set; }
     }
