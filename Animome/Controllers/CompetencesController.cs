@@ -80,17 +80,37 @@ namespace Animome.Controllers
                     Competence = viewModel.Competence
                 };
 
-               /* var competenceAjoutee = new Competence
-                {
-                    Intitule = viewModel.Competence.Intitule
-                };*/
-
                 _context.Add(domaineCompetenceAjoute);
                 //_context.Add(competenceAjoutee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
         }
+
+       /* public async Task<IActionResult> Create(CompetenceCreateViewModel viewModel)
+        {
+
+            if (viewModel.IntituleSelectionnes.Any())
+            {
+                return View();
+            }
+            else
+            {
+                var domaine = await _context.Domaine
+                .FirstOrDefaultAsync(m => m.Intitule == viewModel.IntituleSelectionnes[0]);
+
+                var domaineCompetenceAjoute = new DomaineCompetence
+                {
+                    Domaine = domaine,
+                    Competence = viewModel.Competence
+                };
+
+                _context.Add(domaineCompetenceAjoute);
+                //_context.Add(competenceAjoutee);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+        }*/
 
         // GET: Competences/Edit/5
         public async Task<IActionResult> Edit(int? id)
