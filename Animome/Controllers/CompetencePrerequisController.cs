@@ -71,11 +71,16 @@ namespace Animome.Controllers
         {
             if (ModelState.IsValid)
             {
+                var competence = await _context.Competence
+             .FirstOrDefaultAsync(m => m.Intitule == viewModel.Competence.Intitule);
+
+                var prerequis = await _context.Prerequis
+             .FirstOrDefaultAsync(m => m.Intitule == viewModel.Prerequis.Intitule);
 
                 var CompetencePrerequisAjoute = new CompetencePrerequis
                 {
-                    Competence = viewModel.Competence,
-                    Prerequis = viewModel.Prerequis
+                    Competence = competence,
+                    Prerequis = prerequis
                 };
 
                 _context.Add(CompetencePrerequisAjoute);

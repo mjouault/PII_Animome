@@ -11,7 +11,9 @@ namespace Animome.Models
         public int Id { get; set; }
         public SuiviPrerequis SuiviPrerequis { get; set; }
         public List<SuiviExercice> LesSuiviExercices { get; set; }
-        public NiveauEnum Niveau { get; set; }
+
+        public Niveau Niveau { get; set; }
+        //public NiveauEnum Niveau { get; set; }
 
         public int Nb { get; set; } //Objectif
 

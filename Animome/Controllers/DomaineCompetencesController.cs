@@ -81,11 +81,16 @@ namespace Animome.Controllers
         {
             if (ModelState.IsValid)
             {
+                var domaine = await _context.Domaine
+               .FirstOrDefaultAsync(m => m.Intitule == viewModel.Domaine.Intitule);
+
+                var competence = await _context.Competence
+              .FirstOrDefaultAsync(m => m.Intitule == viewModel.Competence.Intitule);
 
                 var domaineCompetenceAjoute = new DomaineCompetence
                 {
-                    Domaine = viewModel.Domaine,
-                    Competence = viewModel.Competence
+                    Domaine = domaine,
+                    Competence = competence
                 };
 
                 _context.Add(domaineCompetenceAjoute);
@@ -94,26 +99,6 @@ namespace Animome.Controllers
             }
             return View(viewModel);
         }
-
-       /* public async Task<IActionResult> Create(DomaineCompetencesCreateViewModel viewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                var domaine = await _context.Domaine
-               .FirstOrDefaultAsync(m => m.Intitule == viewModel.Domaine.Intitule);
-
-                var domaineCompetenceAjoute = new DomaineCompetence
-                {
-                    Domaine = domaine,
-                    Competence = viewModel.Competence
-                };
-
-                _context.Add(domaineCompetenceAjoute);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(viewModel);
-        }*/
 
 
 

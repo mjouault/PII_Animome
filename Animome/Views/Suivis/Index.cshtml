@@ -63,13 +63,6 @@
                         <td>
                             @Html.DisplayFor(modelItem => niveau.Niveau)
                         </td>
-
-                        @foreach (var exercice in niveau.LesSuiviExercices)
-                        {
-                            <td>
-                                @Html.DisplayFor(modelItem => exercice.Exercice)
-                            </td>
-                        }
                     }
                 }
             }

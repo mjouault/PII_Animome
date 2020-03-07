@@ -19,7 +19,7 @@ namespace Animome.Models
 
         public string Commentaire { get; set; } //Eventuel commentaire sur la validation d'un exo
         public SuiviNiveau SuiviNiveau { get; set; }
-        public ExerciceEnum Exercice {get;set;}
+        //public ExerciceEnum Exercice {get;set;}
     }
 
     public enum ExerciceEnum

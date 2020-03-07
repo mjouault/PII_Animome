@@ -12,9 +12,9 @@ namespace Animome.Models
     {
         public int Id { get; set; }
         public Patient Patient { get; set; }
-        public DomaineEnum Domaine { get; set; }
+        //public DomaineEnum Domaine { get; set; }
 
-        public Domaine Domaine2 { get; set; }
+        public Domaine Domaine { get; set; }
         public List<SuiviApplicationUser> LesSuiviApplicationUsers { get; set; }
         public SuiviExercice DernierExoModifie { get; set; }
 

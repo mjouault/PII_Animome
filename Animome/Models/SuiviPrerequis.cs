@@ -12,7 +12,8 @@ namespace Animome.Models
         public SuiviCompetence SuiviCompetence { get; set; }
         public List<SuiviNiveau> LesSuiviNiveaux { get; set; }
 
-        public PrerequisEnum Prerequis {get;set;}
+        public Prerequis Prerequis { get; set; }
+        //public PrerequisEnum Prerequis {get;set;}
     }
 
     public enum PrerequisEnum

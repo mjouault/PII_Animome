@@ -69,14 +69,14 @@ namespace Animome.Controllers
 
         // GET: Suivis/Create
         [Authorize]
-        public async Task <IActionResult> Create(int? id)
+       /* public IActionResult Create(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            IQueryable<string> DomaineQuery = from x in _context.Domaine
+           /* IQueryable<string> DomaineQuery = from x in _context.Domaine
                                               orderby x.Intitule
                                               select x.Intitule;
             IQueryable<string> CompetenceQuery = from x in _context.Competence
@@ -103,39 +103,56 @@ namespace Animome.Controllers
             };
 
             ViewData["idPatient"] = id;
-            return View(viewModel2);
-
-        }
+            return View();
+        }*/
 
         // POST: Suivis/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(SuiviCreateViewModel viewModel)
+        public async Task<IActionResult> Create(int? id)
         {
-            IQueryable<string> DomaineQuery = from d in _context.Users
-                                            orderby d.Prenom
-                                            select d.Prenom;
-
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                Patient patient = await _context.Patient.FindAsync(viewModel.Patient.Id);
+                return NotFound();
+            }
+            else
+            {
+                Patient patient = await _context.Patient.FindAsync(id);
                 ApplicationUser user = await _userManager.GetUserAsync(User);
 
-                Suivi suiviAjoute = new Suivi
+                var listeDomaines = await _context.Domaine.ToListAsync();
+
+                foreach (Domaine d in listeDomaines)
                 {
-                    Patient = patient,
-                    Domaine = viewModel.Suivi.Domaine,
+                    Suivi suiviAjoute = new Suivi
+                    {
+                        Patient = patient,
+                        Domaine = d
+                    };
+                    _context.Add(suiviAjoute);
+
+                    var listeDomaineCompetences = await _context.DomaineCompetence.Where(x=>x.Domaine == d).ToListAsync();
+                    foreach (DomaineCompetence dc in listeDomaineCompetences)
+                    {
+                        SuiviCompetence suiviCompetenceAjoute = new SuiviCompetence
+                        {
+                            Competence = dc.Competence,
+                            Suivi = suiviAjoute
+                        };
+                        _context.Add(suiviCompetenceAjoute);
+                    }
                 };
 
-                SuiviCompetence suiviCompetenceAjoute = new SuiviCompetence
-                {
-                    Competence = viewModel.SuiviCompetence.Competence,
-                    Suivi = suiviAjoute
-                };
 
+
+
+
+                /*var listeCompetences = await _context.DomaineCompetence.Where(x => x.Domaine.Id == d.Id);
+
+                foreach (Competence c in d)
+                {
+
+                }
                 SuiviPrerequis suiviPrerequisAjoute = new SuiviPrerequis
                 {
                     Prerequis = viewModel.SuiviPrerequis.Prerequis,
@@ -160,12 +177,11 @@ namespace Animome.Controllers
                 _context.Add(suiviCompetenceAjoute);
                 _context.Add(suiviPrerequisAjoute);
                 _context.Add(suiviNiveauAjoute);
-                _context.Add(suiviExerciceAjoute);
+                _context.Add(suiviExerciceAjoute);*/
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", new { id = viewModel.Patient.Id });
+                return RedirectToAction("Index", "Patients");
             }
-            return View(viewModel.Suivi.LesSuiviApplicationUsers);
         }
 
         // GET: Suivis/Edit/5
