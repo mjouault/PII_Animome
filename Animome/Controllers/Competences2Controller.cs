@@ -50,9 +50,15 @@ namespace Animome.Controllers
             IQueryable<string> DomaineQuery = from x in _context.Domaine
                                               orderby x.Intitule
                                               select x.Intitule;
-            var viewModel = new CompetenceCreateViewModel
+
+            IQueryable<string> CompetenceQuery = from x in _context.Competence
+                                              orderby x.Intitule
+                                              select x.Intitule;
+
+            var viewModel = new DomaineCompetencesCreateViewModel
             {
                 Domaines = new SelectList(await DomaineQuery.Distinct().ToListAsync()),
+                Competences = new SelectList(await CompetenceQuery.Distinct().ToListAsync())
             };
             return View(viewModel);
         }
@@ -62,17 +68,17 @@ namespace Animome.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CompetenceCreateViewModel viewModel)
+        public async Task<IActionResult> Create(DomaineCompetencesCreateViewModel viewModel)
         {
 
-            if (string.IsNullOrEmpty(viewModel.IntituleDomaine))
+            if (string.IsNullOrEmpty(viewModel.Domaine.Intitule))
             {
                 return View();
             }
             else
             {
                 var domaine = await _context.Domaine
-                .FirstOrDefaultAsync(m => m.Intitule == viewModel.IntituleDomaine);
+                .FirstOrDefaultAsync(m => m.Intitule == viewModel.Domaine.Intitule);
 
                 var domaineCompetenceAjoute = new DomaineCompetence
                 {

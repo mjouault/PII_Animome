@@ -1,4 +1,4 @@
-﻿@model Animome.ViewModels.DomaineCompetencesCreateViewModel
+﻿@model Animome.ViewModels.CompetencePrerequisCreateViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -7,19 +7,19 @@
 
 <h1>Create</h1>
 
-<h4>DomaineCompetence</h4>
+<h4>CompetencePrerequis</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" method="post">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <p>
-                <select asp-for="Domaine.Intitule" asp-items="Model.Domaines">
+                <select asp-for="Competence.Intitule" asp-items="Model.ListeCompetences">
                     <option value="">All</option>
                 </select>
             </p>
             <p>
-                <select asp-for="Competence.Intitule" asp-items="Model.Competences">
+                <select asp-for="Prerequis.Intitule" asp-items="Model.ListePrerequis">
                     <option value="">All</option>
                 </select>
             </p>

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Animome.Data;
 using Animome.Models;
 
-namespace Animome.ViewModels
+namespace Animome.Models
 {
     public class CompetencesController : Controller
     {

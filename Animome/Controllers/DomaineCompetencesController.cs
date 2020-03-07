@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Animome.Data;
 using Animome.Models;
+using Animome.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using System.ComponentModel.DataAnnotations;
 
 namespace Animome.Controllers
 {
@@ -22,6 +26,12 @@ namespace Animome.Controllers
         // GET: DomaineCompetences
         public async Task<IActionResult> Index()
         {
+            var domaineCompetence = from s in _context. DomaineCompetence select s;
+
+            domaineCompetence = _context.DomaineCompetence
+                .Include(domaineComp => domaineComp.Domaine)
+                    .ThenInclude(domaine => domaine.Intitule);
+
             return View(await _context.DomaineCompetence.ToListAsync());
         }
 
@@ -44,9 +54,22 @@ namespace Animome.Controllers
         }
 
         // GET: DomaineCompetences/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            IQueryable<string> DomaineQuery = from x in _context.Domaine
+                                              orderby x.Intitule
+                                              select x.Intitule;
+
+            IQueryable<string> CompetenceQuery = from x in _context.Competence
+                                                 orderby x.Intitule
+                                                 select x.Intitule;
+
+            var viewModel = new DomaineCompetencesCreateViewModel
+            {
+                Domaines = new SelectList(await DomaineQuery.Distinct().ToListAsync()),
+                Competences = new SelectList(await CompetenceQuery.Distinct().ToListAsync())
+            };
+            return View(viewModel);
         }
 
         // POST: DomaineCompetences/Create
@@ -54,16 +77,45 @@ namespace Animome.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id")] DomaineCompetence domaineCompetence)
+        public async Task<IActionResult> Create(DomaineCompetencesCreateViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(domaineCompetence);
+
+                var domaineCompetenceAjoute = new DomaineCompetence
+                {
+                    Domaine = viewModel.Domaine,
+                    Competence = viewModel.Competence
+                };
+
+                _context.Add(domaineCompetenceAjoute);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(domaineCompetence);
+            return View(viewModel);
         }
+
+       /* public async Task<IActionResult> Create(DomaineCompetencesCreateViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var domaine = await _context.Domaine
+               .FirstOrDefaultAsync(m => m.Intitule == viewModel.Domaine.Intitule);
+
+                var domaineCompetenceAjoute = new DomaineCompetence
+                {
+                    Domaine = domaine,
+                    Competence = viewModel.Competence
+                };
+
+                _context.Add(domaineCompetenceAjoute);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(viewModel);
+        }*/
+
+
 
         // GET: DomaineCompetences/Edit/5
         public async Task<IActionResult> Edit(int? id)

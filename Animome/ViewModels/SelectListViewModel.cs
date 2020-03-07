@@ -24,10 +24,9 @@ namespace Animome.ViewModels
         public SelectList Niveaux { get; set; }
         public string IntituleNiveau { get; set; }
 
-        public Domaine Domaine { get; set; }
 
         public DomaineCompetence  DomaineCompetence {get;set;}
-        public CompetencePrerequis CompetencePrerequis { get; set; }
+        public CompetencePrerequisCreateViewModel CompetencePrerequis { get; set; }
         public PrerequisNiveau PrerequisNiveau { get; set; }
 
     }
