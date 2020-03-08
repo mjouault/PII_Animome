@@ -28,11 +28,11 @@ namespace Animome.Controllers
         {
             var domaineCompetence = from s in _context. DomaineCompetence select s;
 
-            domaineCompetence = _context.DomaineCompetence
+            domaineCompetence =  _context.DomaineCompetence
                 .Include(domaineComp => domaineComp.Domaine)
                     .ThenInclude(domaine => domaine.Intitule);
 
-            return View(await _context.DomaineCompetence.ToListAsync());
+            return View(await domaineCompetence.ToListAsync());
         }
 
         // GET: DomaineCompetences/Details/5

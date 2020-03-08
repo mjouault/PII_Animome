@@ -22,7 +22,11 @@ namespace Animome.Controllers
         // GET: Domaines
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Domaine.ToListAsync());
+            var domaineComp = await _context.DomaineCompetence
+                .Include(dc => dc.Domaine)
+                .Include(dc => dc.Competence)
+                .ToListAsync();
+            return View();
         }
 
         // GET: Domaines/Details/5

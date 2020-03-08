@@ -43,25 +43,25 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Domaine)
+                @Html.DisplayFor(modelItem => item.Domaine.Intitule)
             </td>
 
             @foreach (var competence in item.LesSuiviCompetences)
             {
                 <td>
-                    @Html.DisplayFor(modelItem => competence.Competence)
+                    @Html.DisplayFor(modelItem => competence.Competence.Intitule)
                 </td>
 
                 @foreach (var prerequis in competence.LesSuiviPrerequis)
                 {
                     <td>
-                        @Html.DisplayFor(modelItem => prerequis.Prerequis)
+                        @Html.DisplayFor(modelItem => prerequis.Prerequis.Intitule)
                     </td>
 
                     @foreach (var niveau in prerequis.LesSuiviNiveaux)
                     {
                         <td>
-                            @Html.DisplayFor(modelItem => niveau.Niveau)
+                            @Html.DisplayFor(modelItem => niveau.Niveau.Intitule)
                         </td>
                     }
                 }

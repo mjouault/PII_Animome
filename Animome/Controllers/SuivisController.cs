@@ -36,13 +36,14 @@ namespace Animome.Controllers
 
             var suivi = from s in _context.Suivi select s;
 
-            suivi = _context.Suivi.Where(x => x.Patient.Id==id)
+            suivi = _context.Suivi.Where(x => x.Patient.Id == id)
                 .Include(suivi => suivi.LesSuiviCompetences)
                     .ThenInclude(lesSuiviCptces => lesSuiviCptces.LesSuiviPrerequis)
                     .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.LesSuiviNiveaux)
-                    .ThenInclude(lesSuiviNivx=> lesSuiviNivx.LesSuiviExercices)
+                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
                  .Include(suivi => suivi.LesSuiviApplicationUsers)
-                      .ThenInclude(lesApplicationUsers => lesApplicationUsers.ApplicationUser);
+                      .ThenInclude(lesApplicationUsers => lesApplicationUsers.ApplicationUser)
+                .Include(suivi => suivi.Domaine);
 
             ViewData["idPatient"] = id;
             return View(await suivi.ToListAsync());
@@ -130,16 +131,56 @@ namespace Animome.Controllers
                         Domaine = d
                     };
                     _context.Add(suiviAjoute);
+                    await _context.SaveChangesAsync();
 
-                    var listeDomaineCompetences = await _context.DomaineCompetence.Where(x=>x.Domaine == d).ToListAsync();
+                    var listeDomaineCompetences = await _context.DomaineCompetence.Where(x => x.Domaine == d)
+                        .Include(domaineComp => domaineComp.Competence)
+                        .ToListAsync();
+                        
+                     
                     foreach (DomaineCompetence dc in listeDomaineCompetences)
                     {
+                        var uneCompetence = dc.Competence;
+
                         SuiviCompetence suiviCompetenceAjoute = new SuiviCompetence
                         {
-                            Competence = dc.Competence,
+                            Competence = uneCompetence,
                             Suivi = suiviAjoute
                         };
                         _context.Add(suiviCompetenceAjoute);
+                        await _context.SaveChangesAsync();
+
+                        var listeCompetencePrerequis = await _context.CompetencePrerequis.Where(x => x.Competence == uneCompetence)
+                            .Include(compPrerequis => compPrerequis.Prerequis)
+                            .ToListAsync();
+
+                        foreach (CompetencePrerequis cp in listeCompetencePrerequis)
+                        {
+                            var unPrerequis = cp.Prerequis;
+                            SuiviPrerequis suiviPrerequisAjoute = new SuiviPrerequis
+                            {
+                                Prerequis= unPrerequis,
+                                SuiviCompetence = suiviCompetenceAjoute
+                            };
+                            _context.Add(suiviPrerequisAjoute);
+                            await _context.SaveChangesAsync();
+
+                            var listePrerequisNiveaux = await _context.PrerequisNiveau.Where(x => x.Prerequis == unPrerequis)
+                            .Include(prerequisNiv => prerequisNiv.Niveau)
+                            .ToListAsync();
+
+                            foreach (PrerequisNiveau pn in listePrerequisNiveaux)
+                            {
+                                var unNiveau = pn.Niveau;
+                                SuiviNiveau suiviNiveauAjoute = new SuiviNiveau
+                                {
+                                    Niveau = unNiveau,
+                                    SuiviPrerequis = suiviPrerequisAjoute
+                                };
+                                _context.Add(suiviNiveauAjoute);
+                                await _context.SaveChangesAsync();
+                            }
+                        }
                     }
                 };
 
