@@ -23,7 +23,12 @@ namespace Animome.Controllers
         // GET: CompetencePrerequis
         public async Task<IActionResult> Index()
         {
-            return View(await _context.CompetencePrerequis.ToListAsync());
+            var competencePrerequis = await _context.CompetencePrerequis
+             .Include(cp => cp.Prerequis)
+             .Include(dc => dc.Competence)
+             .ToListAsync();
+
+            return View(competencePrerequis);
         }
 
         // GET: CompetencePrerequis/Details/5

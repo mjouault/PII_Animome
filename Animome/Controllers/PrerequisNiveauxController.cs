@@ -23,7 +23,12 @@ namespace Animome.Controllers
         // GET: PrerequisNiveaux
         public async Task<IActionResult> Index()
         {
-            return View(await _context.PrerequisNiveau.ToListAsync());
+            var prerequisNiveau = await _context.PrerequisNiveau
+             .Include(pn => pn.Prerequis)
+             .Include(pn => pn.Niveau)
+             .ToListAsync();
+
+            return View(prerequisNiveau);
         }
 
         // GET: PrerequisNiveaux/Details/5

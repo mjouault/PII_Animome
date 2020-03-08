@@ -23,7 +23,6 @@ namespace Animome.Controllers
         }
 
         // GET: Patients
-        [Authorize]
         public async Task<IActionResult> Index (string recherchePatient)
         {
             var patients = from p in _context.Patient

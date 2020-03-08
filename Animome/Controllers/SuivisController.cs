@@ -43,7 +43,12 @@ namespace Animome.Controllers
                     .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
                  .Include(suivi => suivi.LesSuiviApplicationUsers)
                       .ThenInclude(lesApplicationUsers => lesApplicationUsers.ApplicationUser)
-                .Include(suivi => suivi.Domaine);
+                .Include(suivi => suivi.Domaine)
+                .Include(suivi => suivi.LesSuiviCompetences)
+                    .ThenInclude(lesSuviCptces => lesSuviCptces.Competence)
+                 .Include(suivi => suivi.LesSuiviCompetences)
+                    .ThenInclude(lesSuiviCptces => lesSuiviCptces.LesSuiviPrerequis)
+                    .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.Prerequis);
 
             ViewData["idPatient"] = id;
             return View(await suivi.ToListAsync());
@@ -145,7 +150,8 @@ namespace Animome.Controllers
                         SuiviCompetence suiviCompetenceAjoute = new SuiviCompetence
                         {
                             Competence = uneCompetence,
-                            Suivi = suiviAjoute
+                            Suivi = suiviAjoute,
+                            Valide = false
                         };
                         _context.Add(suiviCompetenceAjoute);
                         await _context.SaveChangesAsync();
@@ -160,7 +166,8 @@ namespace Animome.Controllers
                             SuiviPrerequis suiviPrerequisAjoute = new SuiviPrerequis
                             {
                                 Prerequis= unPrerequis,
-                                SuiviCompetence = suiviCompetenceAjoute
+                                SuiviCompetence = suiviCompetenceAjoute,
+                                Valide=false
                             };
                             _context.Add(suiviPrerequisAjoute);
                             await _context.SaveChangesAsync();
@@ -175,9 +182,21 @@ namespace Animome.Controllers
                                 SuiviNiveau suiviNiveauAjoute = new SuiviNiveau
                                 {
                                     Niveau = unNiveau,
-                                    SuiviPrerequis = suiviPrerequisAjoute
+                                    SuiviPrerequis = suiviPrerequisAjoute,
+                                    Valide=false
                                 };
                                 _context.Add(suiviNiveauAjoute);
+
+                                int nbSuiviExercicesDefaut = 5;
+                                for (int i = 0; i < nbSuiviExercicesDefaut; i++)
+                                {
+                                    SuiviExercice suiviExerciceAjoute = new SuiviExercice
+                                    {
+                                        Valide = false,
+                                        SuiviNiveau = suiviNiveauAjoute,
+                                    };
+                                    _context.Add(suiviNiveauAjoute);
+                                }
                                 await _context.SaveChangesAsync();
                             }
                         }
@@ -355,7 +374,13 @@ namespace Animome.Controllers
                     .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.LesSuiviNiveaux)
                     .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
                  .Include(suivi => suivi.LesSuiviApplicationUsers)
-                      .ThenInclude(lesApplicationUsers => lesApplicationUsers.ApplicationUser);
+                      .ThenInclude(lesApplicationUsers => lesApplicationUsers.ApplicationUser)
+                .Include(suivi => suivi.Domaine)
+                .Include(suivi => suivi.LesSuiviCompetences)
+                    .ThenInclude(lesSuviCptces => lesSuviCptces.Competence)
+                 .Include(suivi => suivi.LesSuiviCompetences)
+                    .ThenInclude(lesSuiviCptces => lesSuiviCptces.LesSuiviPrerequis)
+                    .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.Prerequis);
 
             ViewData["idPatient"] = id;
             return View(await suivi.ToListAsync());

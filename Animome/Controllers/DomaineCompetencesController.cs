@@ -26,13 +26,12 @@ namespace Animome.Controllers
         // GET: DomaineCompetences
         public async Task<IActionResult> Index()
         {
-            var domaineCompetence = from s in _context. DomaineCompetence select s;
+            var domaineComp = await _context.DomaineCompetence
+             .Include(dc => dc.Domaine)
+             .Include(dc => dc.Competence)
+             .ToListAsync();
 
-            domaineCompetence =  _context.DomaineCompetence
-                .Include(domaineComp => domaineComp.Domaine)
-                    .ThenInclude(domaine => domaine.Intitule);
-
-            return View(await domaineCompetence.ToListAsync());
+            return View(domaineComp);
         }
 
         // GET: DomaineCompetences/Details/5

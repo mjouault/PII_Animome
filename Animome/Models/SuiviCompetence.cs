@@ -11,10 +11,10 @@ namespace Animome.Models
         public int Id { get; set; }
         public Suivi Suivi { get; set; }
         //public CompetenceEnum Competence {get;set;}
-
         public Competence Competence { get; set; }
-
         public List<SuiviPrerequis> LesSuiviPrerequis { get; set; }
+        public bool Valide { get; set; }
+        public DateTime DateValide { get; set; }
     }
 
     public enum CompetenceEnum

@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,29 +16,35 @@
 </head>
 <body>
     <h1>AfficherSuivi</h1>
-
     <table class="table">
         <tbody>
             @foreach (var item in Model)
             {
                 <tr>
                     <td>
-                        <text class="texte">@Html.DisplayFor(modelItem => item.Domaine)</text>
+                        <text class="texte">@Html.DisplayFor(modelItem => item.Domaine.Intitule)</text>
                         <div class="alignes">
                             @foreach (var suiviCompetence in item.LesSuiviCompetences)
                             {
-                            <div class="carteCompetence">
-                                <text class="texte">@Html.DisplayFor(modelItem => suiviCompetence.Id) @Html.DisplayFor(modelItem => suiviCompetence.Competence): 20 %</text>
-                                <a asp-controller="SuiviCompetences" asp-action="Delete" asp-route-id="@suiviCompetence.Id">Supprimer </a>
-                                <div class="alignes">
-                                    @foreach (var suiviPrerequis in suiviCompetence.LesSuiviPrerequis)
-                                    {
-                                    <div class="itemPrerequis">
-                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviCompetence.Id">@suiviPrerequis.Prerequis </a>
+                                <div class="carteCompetence">
+                                    <text class="texte">@Html.DisplayFor(modelItem => suiviCompetence.Competence.Intitule) : 20 %</text>
+                                    <a asp-controller="SuiviCompetences" asp-action="Delete" asp-route-id="@suiviCompetence.Id">Supprimer </a>
+                                    <div class="alignes">
+                                        @foreach (var suiviPrerequis in suiviCompetence.LesSuiviPrerequis)
+                                        {
+                                            @if (suiviPrerequis.Valide)
+                                            {<div class="itemPrerequisValide">
+                                                    <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviCompetence.Id">@suiviPrerequis.Prerequis.Intitule </a>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="itemPrerequisNonValide">
+                                                </div>
+                                            }
+                                        }
                                     </div>
-                                    }
                                 </div>
-                            </div>
 
                             }
                         </div>

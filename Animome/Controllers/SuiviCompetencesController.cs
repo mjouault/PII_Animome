@@ -138,7 +138,7 @@ namespace Animome.Controllers
                 SuiviExercice suiviExerciceAjoute = new SuiviExercice
                 {
                    // Exercice = viewModel.SuiviExercice.Exercice,
-                    Fait = false,
+                    Valide = false,
                     SuiviNiveau = suiviNiveauAjoute,
                 };
 

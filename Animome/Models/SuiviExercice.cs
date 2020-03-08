@@ -10,14 +10,12 @@ namespace Animome.Models
     {
         public int Id { get; set; }
 
-        public bool Fait { get; set; }
+        public bool Valide { get; set; }
 
         public DateTime DateFait { get; set; } //Date à laquelle il a été fait
         public DateTime DateValide { get; set; } //Date à laquelle il a été valide
-
         public ApplicationUser Valideur { get; set; } //Application User qui a validé l'exercice
 
-        public string Commentaire { get; set; } //Eventuel commentaire sur la validation d'un exo
         public SuiviNiveau SuiviNiveau { get; set; }
         //public ExerciceEnum Exercice {get;set;}
     }
@@ -32,22 +30,5 @@ namespace Animome.Models
         e3 = 3,
         [Display(Name = "Exercice4")]
         e4 = 4
-    }
-
-    public class Exercice
-    {
-        public int Id { get; set; }
-        public string Intitule { get; set; }
-
-        public List<NiveauExercice> LesNveauExercices { get; set; }
-
-        public Exercice() { }
-    }
-
-    public class NiveauExercice
-    {
-        public int Id { get; set; }
-        public Niveau Niveau { get; set; }
-        public Exercice Exercice { get; set; }
     }
 }

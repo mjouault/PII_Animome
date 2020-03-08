@@ -11,23 +11,10 @@ namespace Animome.Models
         public int Id { get; set; }
         public SuiviPrerequis SuiviPrerequis { get; set; }
         public List<SuiviExercice> LesSuiviExercices { get; set; }
-
         public Niveau Niveau { get; set; }
         //public NiveauEnum Niveau { get; set; }
-
-        public int Nb { get; set; } //Objectif
-
-        public SuiviNiveau()
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                new SuiviExercice
-                {
-                    SuiviNiveau = this,
-                    Fait = false
-                };
-            }
-        }
+        public bool Valide { get; set; }
+        public DateTime DateValide { get; set; }
     }
 
     public enum NiveauEnum
