@@ -354,6 +354,136 @@ namespace Animome.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> Valider(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var suivi1 = _context.Suivi.Where(x => x.Id == id)
+                .Include(suivi => suivi.LesSuiviCompetences)
+                    .ThenInclude(suiviCompetence => suiviCompetence.LesSuiviPrerequis)
+                    .ThenInclude(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
+                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices);
+            var suivi = await suivi1.SingleAsync();
+
+            try
+            {
+                if (!suivi.Valide)
+                {
+                    suivi.Valide = true;
+                    suivi.DateValide = DateTime.Now;
+                    foreach (SuiviCompetence sc in suivi.LesSuiviCompetences)
+                    {
+                        sc.Valide = true;
+                        sc.DateValide = DateTime.Now;
+
+                        foreach (SuiviPrerequis sp in sc.LesSuiviPrerequis)
+                        {
+                            sp.Valide = true;
+                            sp.DateValide = DateTime.Now;
+
+                            foreach (SuiviNiveau sn in sp.LesSuiviNiveaux)
+                            {
+                                sn.Valide = true;
+                                sn.DateValide = DateTime.Now;
+                                _context.Update(sn);
+
+                                foreach (SuiviExercice se in sn.LesSuiviExercices)
+                                {
+                                    sn.Valide = true;
+                                    sn.DateValide = DateTime.Now;
+                                    _context.Update(se);
+                                }
+                            }
+                            _context.Update(sp);
+                        }
+                        _context.Update(sc);
+                    }
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!SuiviExists(suivi.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction("Index", "Patients");
+        }
+
+        public async Task<IActionResult> AnnulerValidation(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var suivi1 = _context.Suivi.Where(x => x.Id == id)
+                .Include(suivi => suivi.LesSuiviCompetences)
+                    .ThenInclude(suiviCompetence => suiviCompetence.LesSuiviPrerequis)
+                    .ThenInclude(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
+                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices);
+            var suivi = await suivi1.SingleAsync();
+
+            try
+            {
+                if (suivi.Valide)
+                {
+                    suivi.Valide = false;
+                    suivi.DateValide = DateTime.MinValue;
+                    foreach (SuiviCompetence sc in suivi.LesSuiviCompetences)
+                    {
+                        sc.Valide = false;
+                        sc.DateValide = DateTime.MinValue;
+
+                        foreach (SuiviPrerequis sp in sc.LesSuiviPrerequis)
+                        {
+                            sp.Valide = false;
+                            sp.DateValide = DateTime.MinValue;
+
+                            foreach (SuiviNiveau sn in sp.LesSuiviNiveaux)
+                            {
+                                sn.Valide = false;
+                                sn.DateValide = DateTime.MinValue;
+                                _context.Update(sn);
+
+                                foreach (SuiviExercice se in sn.LesSuiviExercices)
+                                {
+                                    sn.Valide = false;
+                                    sn.DateValide = DateTime.MinValue;
+                                    _context.Update(se);
+                                }
+                            }
+                            _context.Update(sp);
+                        }
+                        _context.Update(sc);
+                    }
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!SuiviExists(suivi.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction("Index", "Patients");
+        }
+
+
+
         private bool SuiviExists(int id)
         {
             return _context.Suivi.Any(e => e.Id == id);

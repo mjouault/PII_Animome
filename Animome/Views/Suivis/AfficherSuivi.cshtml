@@ -24,6 +24,8 @@
                     <td>
                         <div class="alignes">
                             <text class="texte">@Html.DisplayFor(modelItem => item.Domaine.Intitule)</text>
+                            <a asp-controller="Suivis" asp-action="Valider" asp-route-id="@item.Id">V </a>
+                            <a asp-controller="Suivis" asp-action="AnnulerValidation" asp-route-id="@item.Id">A </a>
                         </div>
                             <div class="alignes">
                             @foreach (var suiviCompetence in item.LesSuiviCompetences)

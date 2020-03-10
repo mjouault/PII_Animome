@@ -17,6 +17,9 @@ namespace Animome.Models
         public List<SuiviApplicationUser> LesSuiviApplicationUsers { get; set; }
         //public SuiviExercice DernierExoModifie { get; set; }
         public List<SuiviCompetence> LesSuiviCompetences { get; set; }
+
+        public bool Valide { get; set; }
+        public DateTime DateValide { get; set; }
     }
 
     public enum DomaineEnum
