@@ -251,6 +251,118 @@ namespace Animome.Controllers
             //return RedirectToAction("AfficherSuivi", "Suivis", new { suiviCompetence.Suivi.Patient.Id });
         }
 
+        public async Task<IActionResult> Valider(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var suiviCompetence1 = _context.SuiviCompetence.Where(x => x.Id == id)
+                .Include(suiviCompetence => suiviCompetence.LesSuiviPrerequis)
+                    .ThenInclude(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
+                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices);
+            var suiviCompetence = await suiviCompetence1.SingleAsync();
+
+            try
+            {
+                if (!suiviCompetence.Valide)
+                {
+                    suiviCompetence.Valide = true;
+                    suiviCompetence.DateValide = DateTime.Now;
+
+                    foreach (SuiviPrerequis sp in suiviCompetence.LesSuiviPrerequis)
+                    {
+                        sp.Valide = true;
+                        sp.DateValide = DateTime.Now;
+
+                        foreach (SuiviNiveau sn in sp.LesSuiviNiveaux)
+                        {
+                            sn.Valide = true;
+                            sn.DateValide = DateTime.Now;
+                            _context.Update(sn);
+
+                            foreach (SuiviExercice se in sn.LesSuiviExercices)
+                            {
+                                sn.Valide = true;
+                                sn.DateValide = DateTime.Now;
+                                _context.Update(se);
+                            }
+                        }
+                        _context.Update(sp);
+                    }
+                     _context.Update(suiviCompetence);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!SuiviCompetenceExists(suiviCompetence.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction("Index", "Patients");
+        }
+
+        public async Task<IActionResult> AnnulerValidation (int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var suiviCompetence1 = _context.SuiviCompetence.Where(x => x.Id == id)
+            .Include(suiviCompetence => suiviCompetence.LesSuiviPrerequis)
+                .ThenInclude(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
+                .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices);
+                    var suiviCompetence = await suiviCompetence1.SingleAsync();
+
+            try
+            {
+                if (suiviCompetence.Valide)
+                {
+                    suiviCompetence.Valide = false;
+                    suiviCompetence.DateValide = DateTime.MinValue;
+
+                    foreach (SuiviPrerequis sp in suiviCompetence.LesSuiviPrerequis)
+                    {
+                        sp.Valide = false;
+                        sp.DateValide = DateTime.MinValue;
+
+                        foreach (SuiviNiveau sn in sp.LesSuiviNiveaux)
+                        {
+                            sn.Valide = false;
+                            sn.DateValide = DateTime.MinValue;
+
+                            foreach (SuiviExercice se in sn.LesSuiviExercices)
+                            {
+                                sn.Valide = false;
+                                sn.DateValide = DateTime.MinValue;
+                            }
+                        }
+                    }
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!SuiviCompetenceExists(suiviCompetence.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction("Index", "Patients");
+        }
+
         private bool SuiviCompetenceExists(int id)
         {
             return _context.SuiviCompetence.Any(e => e.Id == id);

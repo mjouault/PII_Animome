@@ -168,7 +168,7 @@ body {
     margin: 5px;
 }
 
-.itemPrerequisValide {
+.itemPrerequisNonValide {
     background-color: grey;
     width: 20px;
     height: 20px;

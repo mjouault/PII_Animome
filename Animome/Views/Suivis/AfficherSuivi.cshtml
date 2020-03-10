@@ -22,26 +22,32 @@
             {
                 <tr>
                     <td>
-                        <text class="texte">@Html.DisplayFor(modelItem => item.Domaine.Intitule)</text>
                         <div class="alignes">
+                            <text class="texte">@Html.DisplayFor(modelItem => item.Domaine.Intitule)</text>
+                        </div>
+                            <div class="alignes">
                             @foreach (var suiviCompetence in item.LesSuiviCompetences)
                             {
                                 <div class="carteCompetence">
                                     <text class="texte">@Html.DisplayFor(modelItem => suiviCompetence.Competence.Intitule) : 20 %</text>
-                                    <a asp-controller="SuiviCompetences" asp-action="Delete" asp-route-id="@suiviCompetence.Id">Supprimer </a>
+                                    <a asp-controller="SuiviCompetences" asp-action="Valider" asp-route-id="@suiviCompetence.Id">V </a>
+                                    <a asp-controller="SuiviCompetences" asp-action="AnnulerValidation" asp-route-id="@suiviCompetence.Id">A </a>
                                     <div class="alignes">
                                         @foreach (var suiviPrerequis in suiviCompetence.LesSuiviPrerequis)
                                         {
                                             @if (suiviPrerequis.Valide)
                                             {<div class="itemPrerequisValide">
-                                                    <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviCompetence.Id">@suiviPrerequis.Prerequis.Intitule </a>
+                                                    <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviCompetence.Id"></a>
                                                 </div>
                                             }
                                             else
                                             {
                                                 <div class="itemPrerequisNonValide">
+                                                    <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviCompetence.Id"></a>
                                                 </div>
                                             }
+                                            <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id="@suiviPrerequis.Id">V </a>
+                                            <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id="@suiviPrerequis.Id">A </a>
                                         }
                                     </div>
                                 </div>

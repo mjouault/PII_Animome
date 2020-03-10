@@ -416,52 +416,5 @@ namespace Animome.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-
-        //GET ajouterCompetence
-       /* public async Task<IActionResult> AjouterCompetence(int? id, SuiviCreateViewModel viewModel)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            viewModel.Suivi = await _context.Suivi.FindAsync(id);
-            if (viewModel.Suivi == null)
-            {
-                return NotFound();
-            }
-            return View(viewModel);
-        }
-
-        // POST
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AjouterCompetence(int id, SuiviCreateViewModel viewModel)
-        {
-            if (id != viewModel.Suivi.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                var suivi = await _context.Suivi
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-                SuiviCompetence suiviCompetenceAjoute = new SuiviCompetence
-                {
-                    Competence = viewModel.SuiviCompetence.Competence,
-                    Suivi = suivi
-                };
-
-                _context.Add(suiviCompetenceAjoute);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("AfficherSuivi", new { suivi.Patient.Id });
-            }
-            return View(viewModel);
-        }*/
     }
 }
