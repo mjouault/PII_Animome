@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <h1>AfficherSuivi</h1>
+    <h1>Afficher Prérequis</h1>
 
     <table class="table">
         <tbody>
@@ -24,26 +24,34 @@
             {
                 <tr>
                     <td>
-                        <text class="texte">@Html.DisplayFor(modelItem => item.Prerequis)</text>
+                        <text class="texte">@Html.DisplayFor(modelItem => item.Prerequis.Intitule)</text>
                         <div class="alignes">
                             @foreach (var suiviNiveau in item.LesSuiviNiveaux)
                             {
-                                <div class="carteCompetence">
-                                    <text class="texte">@Html.DisplayFor(modelItem => suiviNiveau.Niveau) : 20 %</text>
-                                    <div class="alignes">
-                                        @foreach (var suiviExercice in suiviNiveau.LesSuiviExercices)
-                                        {
-                                            <div class="itemPrerequis">
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
+                            <div class="carteCompetence">
+                                <text class="texte">@Html.DisplayFor(modelItem => suiviNiveau.Niveau.Intitule) : 20 %</text>
+                                @foreach (var suiviExercice in suiviNiveau.LesSuiviExercices)
+                                {
+
+                                    @if (suiviExercice.Valide)
+                                    {<div class="itemExericeValide">
+                                            <a asp-controller="SuiviExercices" asp-action="AnnulerValidation" asp-route-id="@suiviExercice.Id">E</a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="itemExerciceNonValide">
+                                            <a asp-controller="SuiviExercices" asp-action="Valider" asp-route-id="@suiviExercice.Id">E</a>
+                                        </div>
+                                    }
+                                }
+                                <p>
+                                    <a asp-controller="SuiviExercice" asp-action="Create" asp-route-id="@suiviNiveau.Id">+ niveau </a>
+                                </p>
+                            </div>
 
                             }
                         </div>
-                        <p>
-                            <a asp-controller="SuiviNiveau" asp-action="Create" asp-route-id="@item.Id">+ compétence </a>
-                        </p>
                     </td>
                 </tr>
             }

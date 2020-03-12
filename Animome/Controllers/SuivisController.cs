@@ -73,46 +73,6 @@ namespace Animome.Controllers
             return View(suivi);
         }
 
-        // GET: Suivis/Create
-        [Authorize]
-       /* public IActionResult Create(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-           /* IQueryable<string> DomaineQuery = from x in _context.Domaine
-                                              orderby x.Intitule
-                                              select x.Intitule;
-            IQueryable<string> CompetenceQuery = from x in _context.Competence
-                                              orderby x.Intitule
-                                              select x.Intitule;
-            IQueryable<string> PrerequisQuery = from x in _context.Prerequis
-                                              orderby x.Intitule
-                                              select x.Intitule;
-            IQueryable<string> NiveauQuery = from x in _context.Niveau
-                                              orderby x.Intitule
-                                              select x.Intitule;
-
-            var viewModel1 = new SelectListViewModel
-            {
-                Domaines = new SelectList(await DomaineQuery.Distinct().ToListAsync()),
-                Competences = new SelectList(await CompetenceQuery.Distinct().ToListAsync()),
-                Prerequis = new SelectList(await PrerequisQuery.Distinct().ToListAsync()),
-                Niveaux = new SelectList(await NiveauQuery.Distinct().ToListAsync()),
-            };
-
-            var viewModel2 = new SuiviCreateViewModel
-            {
-                SelectListViewModel =  viewModel1,
-            };
-
-            ViewData["idPatient"] = id;
-            return View();
-        }*/
-
-        // POST: Suivis/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         public async Task<IActionResult> Create(int? id)
@@ -195,49 +155,13 @@ namespace Animome.Controllers
                                         Valide = false,
                                         SuiviNiveau = suiviNiveauAjoute,
                                     };
-                                    _context.Add(suiviNiveauAjoute);
+                                    _context.Add(suiviExerciceAjoute);
                                 }
                                 await _context.SaveChangesAsync();
                             }
                         }
                     }
                 };
-
-
-
-
-
-                /*var listeCompetences = await _context.DomaineCompetence.Where(x => x.Domaine.Id == d.Id);
-
-                foreach (Competence c in d)
-                {
-
-                }
-                SuiviPrerequis suiviPrerequisAjoute = new SuiviPrerequis
-                {
-                    Prerequis = viewModel.SuiviPrerequis.Prerequis,
-                    SuiviCompetence=suiviCompetenceAjoute,
-                };
-
-                SuiviNiveau suiviNiveauAjoute = new SuiviNiveau
-                {
-                    Niveau = viewModel.SuiviNiveau.Niveau,
-                    SuiviPrerequis=suiviPrerequisAjoute,
-                };
-
-                SuiviExercice suiviExerciceAjoute = new SuiviExercice
-                {
-                    Exercice = viewModel.SuiviExercice.Exercice,
-                    Fait = false,
-                    Valideur = user,
-                    SuiviNiveau=suiviNiveauAjoute,
-                };
-
-                _context.Add(suiviAjoute);
-                _context.Add(suiviCompetenceAjoute);
-                _context.Add(suiviPrerequisAjoute);
-                _context.Add(suiviNiveauAjoute);
-                _context.Add(suiviExerciceAjoute);*/
 
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Patients");
@@ -260,18 +184,6 @@ namespace Animome.Controllers
             }
             return View(viewModel);
         }
-
-       /* public IActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-           // var suivi = await _context.Suivi.FindAsync(id);
-            return View();
-        }*/
-
-
 
         // POST: Suivis/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

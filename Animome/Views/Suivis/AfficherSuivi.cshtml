@@ -39,13 +39,13 @@
                                         {
                                             @if (suiviPrerequis.Valide)
                                             {<div class="itemPrerequisValide">
-                                                    <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviCompetence.Id"></a>
+                                                    <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
                                                 </div>
                                             }
                                             else
                                             {
                                                 <div class="itemPrerequisNonValide">
-                                                    <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviCompetence.Id"></a>
+                                                    <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
                                                 </div>
                                             }
                                             <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id="@suiviPrerequis.Id">V </a>
