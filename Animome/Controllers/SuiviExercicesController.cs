@@ -43,26 +43,24 @@ namespace Animome.Controllers
             return View(suiviExercice);
         }
 
-        // GET: SuiviExercices/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int? id)
         {
-            return View();
-        }
-
-        // POST: SuiviExercices/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Valide,DateFait,DateValide")] SuiviExercice suiviExercice)
-        {
-            if (ModelState.IsValid)
+            if (id != null)
             {
-                _context.Add(suiviExercice);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var suiviNiveau = await _context.SuiviNiveau.FindAsync(id);
+                if (suiviNiveau != null)
+                {
+                    SuiviExercice suiviExerciceAjoute = new SuiviExercice
+                    {
+                        SuiviNiveau = suiviNiveau,
+                        Valide = false
+                    };
+                    _context.Add(suiviExerciceAjoute);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index", "Patients");
+                }
             }
-            return View(suiviExercice);
+            return NotFound();
         }
 
         // GET: SuiviExercices/Edit/5

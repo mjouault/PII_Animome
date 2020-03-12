@@ -44,17 +44,32 @@ namespace Animome.Controllers
         }
 
         // GET: SuiviNiveaux/Create
-        public IActionResult Create()
+       /* public async Task <IActionResult> Create(int? id)
         {
-            return View();
-        }
+            if(id!=null)
+            {
+                var suiviNiveau = await _context.SuiviNiveau.FindAsync(id);
+                if (suiviNiveau != null)
+                {
+                    SuiviExercice suiviExerciceAjoute = new SuiviExercice
+                    {
+                        SuiviNiveau = suiviNiveau,
+                        Valide = false
+                    };
+                    _context.Add(suiviExerciceAjoute);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index", "Patients");
+                }
+            }
+            return NotFound();
+        }*/
 
         // POST: SuiviNiveaux/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Valide,DateValide")] SuiviNiveau suiviNiveau)
+       /* public async Task<IActionResult> Create([Bind("Id,Valide,DateValide")] SuiviNiveau suiviNiveau)
         {
             if (ModelState.IsValid)
             {
@@ -63,7 +78,7 @@ namespace Animome.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(suiviNiveau);
-        }
+        }*/
 
         // GET: SuiviNiveaux/Edit/5
         public async Task<IActionResult> Edit(int? id)

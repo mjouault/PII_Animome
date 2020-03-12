@@ -34,19 +34,19 @@
                                 {
 
                                     @if (suiviExercice.Valide)
-                                    {<div class="itemExericeValide">
-                                            <a asp-controller="SuiviExercices" asp-action="AnnulerValidation" asp-route-id="@suiviExercice.Id">E</a>
+                                    {<div class="itemExerciceValide">
+                                            <a asp-controller="SuiviExercices" asp-action="AnnulerValidation" asp-route-id="@suiviExercice.Id">@suiviExercice.Id</a>
                                         </div>
                                     }
                                     else
                                     {
                                         <div class="itemExerciceNonValide">
-                                            <a asp-controller="SuiviExercices" asp-action="Valider" asp-route-id="@suiviExercice.Id">E</a>
+                                            <a asp-controller="SuiviExercices" asp-action="Valider" asp-route-id="@suiviExercice.Id">@suiviExercice.Id</a>
                                         </div>
                                     }
                                 }
                                 <p>
-                                    <a asp-controller="SuiviExercice" asp-action="Create" asp-route-id="@suiviNiveau.Id">+ niveau </a>
+                                    <a asp-controller="SuiviExercices" asp-action="Create" asp-route-id="@suiviNiveau.Id">+ niveau </a>
                                 </p>
                             </div>
 
