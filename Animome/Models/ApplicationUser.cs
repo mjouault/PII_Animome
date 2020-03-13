@@ -13,10 +13,11 @@ namespace Animome.Models
 
         public List<SuiviApplicationUser> LesSuiviApplicationUsers { get; set; }
         public List<SuiviExercice> LesSuiviExercices { get; set; }
+
+        public ApplicationRole ApplicationRole { get;set;}
     }
 
     public class ApplicationRole : IdentityRole
     {
-        public string NomRole { get; set; }
     }
 }

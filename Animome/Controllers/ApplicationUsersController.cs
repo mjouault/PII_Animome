@@ -17,13 +17,13 @@ namespace Animome.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        //private readonly RoleManager<ApplicationUser> _roleManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
 
-        public ApplicationUsersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager) //RoleManager<ApplicationUser> roleManager
+        public ApplicationUsersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
-            //_roleManager = roleManager;
+           _roleManager = roleManager;
         }
 
         public async Task<IActionResult> Index()
@@ -82,13 +82,8 @@ namespace Animome.Controllers
 
         // GET: ApplicationUsers/Edit/5
         [Authorize]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -103,29 +98,44 @@ namespace Animome.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Prenom, Email, PhoneNumber")] ApplicationUser applicationUser)
+        public async Task<IActionResult> Edit([Bind("Id,Nom,Prenom,Email")] ApplicationUser applicationUser)
+        {
+            await _userManager.UpdateAsync(applicationUser);
+            /* try
+             {
+                 await _context.SaveChangesAsync();
+             }
+             catch (DbUpdateConcurrencyException)
+             {
+                 if (!_userManager.ApplicationUserExists(applicationUser.Id))
+                 {
+                     return NotFound();
+                 }
+                 else
+                 {
+                     throw;
+                 }
+             }*/
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult CreerRole()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreerRole ([Bind("Id,Name")] ApplicationRole applicationRole)
         {
             if (ModelState.IsValid)
             {
+                _context.Add(applicationRole);
                 await _context.SaveChangesAsync();
-                /* try
-                 {
-                     await _context.SaveChangesAsync();
-                 }
-                 catch (DbUpdateConcurrencyException)
-                 {
-                     if (!_userManager.ApplicationUserExists(applicationUser.Id))
-                     {
-                         return NotFound();
-                     }
-                     else
-                     {
-                         throw;
-                     }
-                 }*/
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("AfficherProfil", "ApplicationUsers");
             }
-            return View(applicationUser);
+            return View(applicationRole);
         }
     }
 }
