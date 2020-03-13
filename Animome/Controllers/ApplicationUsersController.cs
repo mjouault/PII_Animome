@@ -80,5 +80,52 @@ namespace Animome.Controllers
             return View(viewModel);
         }
 
+        // GET: ApplicationUsers/Edit/5
+        [Authorize]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
+
+        // POST: ApplicationUsers/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Prenom, Email, PhoneNumber")] ApplicationUser applicationUser)
+        {
+            if (ModelState.IsValid)
+            {
+                await _context.SaveChangesAsync();
+                /* try
+                 {
+                     await _context.SaveChangesAsync();
+                 }
+                 catch (DbUpdateConcurrencyException)
+                 {
+                     if (!_userManager.ApplicationUserExists(applicationUser.Id))
+                     {
+                         return NotFound();
+                     }
+                     else
+                     {
+                         throw;
+                     }
+                 }*/
+                return RedirectToAction(nameof(Index));
+            }
+            return View(applicationUser);
+        }
     }
 }
