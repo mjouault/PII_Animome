@@ -129,10 +129,9 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreerRole ([Bind("Id,Name")] ApplicationRole applicationRole)
         {
-            if (ModelState.IsValid)
+           if (ModelState.IsValid)
             {
-                _context.Add(applicationRole);
-                await _context.SaveChangesAsync();
+                await _roleManager.CreateAsync(applicationRole);
                 return RedirectToAction("AfficherProfil", "ApplicationUsers");
             }
             return View(applicationRole);
