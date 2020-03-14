@@ -8,6 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Animome</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -17,7 +18,7 @@
         {
             <li class="nav-item">
                 <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                    <button type="submit" class="nav-link">Déconnexion</button>
+                    <button type="submit" class="boutonTransparent nav-link">Déconnexion  <i class="fas fa-power-off"></i></button>
                 </form>
             </li>
         }

@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Animome</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -23,16 +24,16 @@
                             <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">Home</a>
                         </li>
                         <li>
-                            <a asp-area="" asp-controller="ApplicationUsers" asp-action="AfficherProfil" class="nav-link">Profil</a>
+                            <a asp-area="" asp-controller="ApplicationUsers" asp-action="AfficherProfil" class="nav-link">Profil  <i class="fas fa-user-cog"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a asp-area="" asp-controller="Patients" asp-action="Index" class="nav-link">Patients</a>
+                            <a asp-area="" asp-controller="Patients" asp-action="Index" class="nav-link">Patients  <i class="fas fa-address-book"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="ApplicationUsers" asp-action="Index">Collaborateurs</a>
+                            <a class="nav-link" asp-area="" asp-controller="ApplicationUsers" asp-action="Index">Collaborateurs  <i class="fas fa-user-md"></i></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Parametres" asp-action="Index">Paramètres</a>
+                        <li class="nav-item">                              
+                            <a class="nav-link" asp-area="" asp-controller="Parametres" asp-action="Index">Paramètres  <i class="fas fa-cog"></i></a>
                         </li>
                     </ul>
                 </div>

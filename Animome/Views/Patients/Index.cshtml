@@ -4,18 +4,24 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - Animome</title>
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </head>
 
-<h1>Patients</h1>
-
+<h1 class="titre">Patients</h1>
 <p>
-    <a asp-action="Create">Create</a>
+    <a asp-action="Create">Créer</a>
 </p>
 
 <form asp-controller="Patients" asp-action="Index" method="get">
-    <p>
-        Numéro de Patient: <input type="text" asp-for="RecherchePatient" />
-        <input type="submit" value="Filter" />
-    </p>
+    <div class="barreRecherche">
+        <input class="input" type="text" asp-for="RecherchePatient" /><button class="boutonRecherche"><i class="fas fa-search" type="submit" style="font-size:20px;color:lightgrey"></i></button>
+    </div>
 </form>
 
 <table class="table">
