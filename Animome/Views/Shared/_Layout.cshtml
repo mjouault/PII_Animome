@@ -12,17 +12,14 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Animome</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/logo.png" style="width:65%"/></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial"/>
+                    <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">Home</a>
-                        </li>
                         <li>
                             <a asp-area="" asp-controller="ApplicationUsers" asp-action="AfficherProfil" class="nav-link">Profil  <i class="fas fa-user-cog"></i></a>
                         </li>
@@ -32,7 +29,7 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="ApplicationUsers" asp-action="Index">Collaborateurs  <i class="fas fa-user-md"></i></a>
                         </li>
-                        <li class="nav-item">                              
+                        <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Parametres" asp-action="Index">Paramètres  <i class="fas fa-cog"></i></a>
                         </li>
                     </ul>
@@ -41,14 +38,16 @@
         </nav>
     </header>
     <div class="fond">
+        <img src="~/img/fond2.png" style="width:6%" />
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
+    <img src="~/img/fond.png" style="position :absolute;right:15px;bottom:60px;" />
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2020 - Animome - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
