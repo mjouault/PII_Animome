@@ -16,11 +16,9 @@ namespace Animome
         {
             CreateHostBuilder(args).Build().Run();
             /* var host = CreateHostBuilder(args).Build();
-
              using (var scope = host.Services.CreateScope())
              {
                  var services = scope.ServiceProvider;
-
                  try
                  {
                      SeedData.Initialize(services);
@@ -31,7 +29,6 @@ namespace Animome
                      logger.LogError(ex, "An error occurred seeding the DB.");
                  }
              }
-
              host.Run();*/
 
         }

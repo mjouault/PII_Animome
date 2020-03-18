@@ -17,13 +17,13 @@ namespace Animome.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<ApplicationRole> _roleManager;
+        //private readonly RoleManager<ApplicationRole> _roleManager;
 
-        public ApplicationUsersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
+        public ApplicationUsersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
-           _roleManager = roleManager;
+           //_roleManager = roleManager;
         }
 
         public async Task<IActionResult> Index()
@@ -125,7 +125,7 @@ namespace Animome.Controllers
             return View();
         }
 
-        [HttpPost]
+       /* [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreerRole ([Bind("Id,Name")] ApplicationRole applicationRole)
         {
@@ -135,6 +135,6 @@ namespace Animome.Controllers
                 return RedirectToAction("AfficherProfil", "ApplicationUsers");
             }
             return View(applicationRole);
-        }
+        }*/
     }
 }

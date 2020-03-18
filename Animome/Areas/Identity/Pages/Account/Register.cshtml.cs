@@ -24,7 +24,6 @@ namespace Animome.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        //private readonly UserManager<ApplicationRole> _userRole;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
@@ -85,8 +84,7 @@ namespace Animome.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-               // var applicationRole= await _context.Patient. 
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, Prenom = Input.Name, Nom=Input.Lastname};
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, Prenom = Input.Name, Nom = Input.Lastname };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
