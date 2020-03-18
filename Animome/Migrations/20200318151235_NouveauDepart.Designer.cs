@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Animome.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200313124028_retour")]
-    partial class retour
+    [Migration("20200318151235_NouveauDepart")]
+    partial class NouveauDepart
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,9 +28,6 @@ namespace Animome.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<string>("ApplicationRoleId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -84,8 +81,6 @@ namespace Animome.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationRoleId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
 
@@ -95,6 +90,26 @@ namespace Animome.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Animome.Models.Commentaire", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("SuiviApplicationUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Texte")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SuiviApplicationUserId");
+
+                    b.ToTable("Commentaire");
                 });
 
             modelBuilder.Entity("Animome.Models.Competence", b =>
@@ -193,7 +208,7 @@ namespace Animome.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Identifiant")
+                    b.Property<int>("Numero")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -251,11 +266,11 @@ namespace Animome.Migrations
                     b.Property<int?>("DomaineId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PatientId")
+                    b.Property<int>("Etat")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Valide")
-                        .HasColumnType("bit");
+                    b.Property<int?>("PatientId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -301,11 +316,11 @@ namespace Animome.Migrations
                     b.Property<DateTime>("DateValide")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("SuiviId")
+                    b.Property<int>("Etat")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Valide")
-                        .HasColumnType("bit");
+                    b.Property<int?>("SuiviId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -357,14 +372,14 @@ namespace Animome.Migrations
                     b.Property<DateTime>("DateValide")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Etat")
+                        .HasColumnType("int");
+
                     b.Property<int?>("NiveauId")
                         .HasColumnType("int");
 
                     b.Property<int?>("SuiviPrerequisId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Valide")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -385,14 +400,14 @@ namespace Animome.Migrations
                     b.Property<DateTime>("DateValide")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Etat")
+                        .HasColumnType("int");
+
                     b.Property<int?>("PrerequisId")
                         .HasColumnType("int");
 
                     b.Property<int?>("SuiviCompetenceId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Valide")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -412,10 +427,6 @@ namespace Animome.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -432,8 +443,6 @@ namespace Animome.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -544,18 +553,11 @@ namespace Animome.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Animome.Models.ApplicationRole", b =>
+            modelBuilder.Entity("Animome.Models.Commentaire", b =>
                 {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
-
-                    b.HasDiscriminator().HasValue("ApplicationRole");
-                });
-
-            modelBuilder.Entity("Animome.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("Animome.Models.ApplicationRole", "ApplicationRole")
+                    b.HasOne("Animome.Models.SuiviApplicationUser", "SuiviApplicationUser")
                         .WithMany()
-                        .HasForeignKey("ApplicationRoleId");
+                        .HasForeignKey("SuiviApplicationUserId");
                 });
 
             modelBuilder.Entity("Animome.Models.CompetencePrerequis", b =>

@@ -2,7 +2,7 @@
 
 namespace Animome.Migrations
 {
-    public partial class transfoValideEtat : Migration
+    public partial class TentativeSupreme : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

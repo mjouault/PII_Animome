@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Animome.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200302135139_TablesJointuresDomainesCompetencesPrereNivExo")]
-    partial class TablesJointuresDomainesCompetencesPrereNivExo
+    [Migration("20200318152824_TentativeSupreme")]
+    partial class TentativeSupreme
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -92,6 +92,26 @@ namespace Animome.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Animome.Models.Commentaire", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("SuiviApplicationUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Texte")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SuiviApplicationUserId");
+
+                    b.ToTable("Commentaire");
+                });
+
             modelBuilder.Entity("Animome.Models.Competence", b =>
                 {
                     b.Property<int>("Id")
@@ -166,21 +186,6 @@ namespace Animome.Migrations
                     b.ToTable("DomaineCompetence");
                 });
 
-            modelBuilder.Entity("Animome.Models.Exercice", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Intitule")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Exercice");
-                });
-
             modelBuilder.Entity("Animome.Models.Niveau", b =>
                 {
                     b.Property<int>("Id")
@@ -196,28 +201,6 @@ namespace Animome.Migrations
                     b.ToTable("Niveau");
                 });
 
-            modelBuilder.Entity("Animome.Models.NiveauExercice", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("ExerciceId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("NiveauId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ExerciceId");
-
-                    b.HasIndex("NiveauId");
-
-                    b.ToTable("NiveauExercice");
-                });
-
             modelBuilder.Entity("Animome.Models.Patient", b =>
                 {
                     b.Property<int>("Id")
@@ -225,7 +208,7 @@ namespace Animome.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Identifiant")
+                    b.Property<int>("Numero")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -267,7 +250,7 @@ namespace Animome.Migrations
 
                     b.HasIndex("PrerequisId");
 
-                    b.ToTable("GetPrerequisNiveau");
+                    b.ToTable("PrerequisNiveau");
                 });
 
             modelBuilder.Entity("Animome.Models.Suivi", b =>
@@ -277,21 +260,19 @@ namespace Animome.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("DernierExoModifieId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Domaine")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("DateValide")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("DomaineId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Etat")
                         .HasColumnType("int");
 
                     b.Property<int?>("PatientId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DernierExoModifieId");
 
                     b.HasIndex("DomaineId");
 
@@ -329,10 +310,13 @@ namespace Animome.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Competence")
+                    b.Property<int?>("CompetenceId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CompetenceId")
+                    b.Property<DateTime>("DateValide")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Etat")
                         .HasColumnType("int");
 
                     b.Property<int?>("SuiviId")
@@ -354,23 +338,20 @@ namespace Animome.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Commentaire")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("DateFait")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateValide")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Exercice")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Fait")
-                        .HasColumnType("bit");
+                    b.Property<string>("Essai")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("SuiviNiveauId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Valide")
+                        .HasColumnType("bit");
 
                     b.Property<string>("ValideurId")
                         .HasColumnType("nvarchar(450)");
@@ -391,10 +372,10 @@ namespace Animome.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Nb")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("DateValide")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int>("Niveau")
+                    b.Property<int>("Etat")
                         .HasColumnType("int");
 
                     b.Property<int?>("NiveauId")
@@ -419,7 +400,10 @@ namespace Animome.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Prerequis")
+                    b.Property<DateTime>("DateValide")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Etat")
                         .HasColumnType("int");
 
                     b.Property<int?>("PrerequisId")
@@ -572,6 +556,13 @@ namespace Animome.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Animome.Models.Commentaire", b =>
+                {
+                    b.HasOne("Animome.Models.SuiviApplicationUser", "SuiviApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("SuiviApplicationUserId");
+                });
+
             modelBuilder.Entity("Animome.Models.CompetencePrerequis", b =>
                 {
                     b.HasOne("Animome.Models.Competence", "Competence")
@@ -594,17 +585,6 @@ namespace Animome.Migrations
                         .HasForeignKey("DomaineId");
                 });
 
-            modelBuilder.Entity("Animome.Models.NiveauExercice", b =>
-                {
-                    b.HasOne("Animome.Models.Exercice", "Exercice")
-                        .WithMany("LesNveauExercices")
-                        .HasForeignKey("ExerciceId");
-
-                    b.HasOne("Animome.Models.Niveau", "Niveau")
-                        .WithMany()
-                        .HasForeignKey("NiveauId");
-                });
-
             modelBuilder.Entity("Animome.Models.PrerequisNiveau", b =>
                 {
                     b.HasOne("Animome.Models.Niveau", "Niveau")
@@ -618,11 +598,7 @@ namespace Animome.Migrations
 
             modelBuilder.Entity("Animome.Models.Suivi", b =>
                 {
-                    b.HasOne("Animome.Models.SuiviExercice", "DernierExoModifie")
-                        .WithMany()
-                        .HasForeignKey("DernierExoModifieId");
-
-                    b.HasOne("Animome.Models.Domaine", null)
+                    b.HasOne("Animome.Models.Domaine", "Domaine")
                         .WithMany("LesSuivis")
                         .HasForeignKey("DomaineId");
 
@@ -644,7 +620,7 @@ namespace Animome.Migrations
 
             modelBuilder.Entity("Animome.Models.SuiviCompetence", b =>
                 {
-                    b.HasOne("Animome.Models.Competence", null)
+                    b.HasOne("Animome.Models.Competence", "Competence")
                         .WithMany("LesSuiviCompetences")
                         .HasForeignKey("CompetenceId");
 
@@ -666,7 +642,7 @@ namespace Animome.Migrations
 
             modelBuilder.Entity("Animome.Models.SuiviNiveau", b =>
                 {
-                    b.HasOne("Animome.Models.Niveau", null)
+                    b.HasOne("Animome.Models.Niveau", "Niveau")
                         .WithMany("LesSuiviNiveaux")
                         .HasForeignKey("NiveauId");
 
@@ -677,7 +653,7 @@ namespace Animome.Migrations
 
             modelBuilder.Entity("Animome.Models.SuiviPrerequis", b =>
                 {
-                    b.HasOne("Animome.Models.Prerequis", null)
+                    b.HasOne("Animome.Models.Prerequis", "Prerequis")
                         .WithMany("LesSuiviPrerequis")
                         .HasForeignKey("PrerequisId");
 

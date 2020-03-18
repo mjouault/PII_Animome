@@ -2,7 +2,7 @@
 
 namespace Animome.Migrations
 {
-    public partial class AjoutSeedDataPrerequisNiveaux : Migration
+    public partial class NouveauDepart : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

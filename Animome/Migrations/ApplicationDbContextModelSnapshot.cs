@@ -342,6 +342,9 @@ namespace Animome.Migrations
                     b.Property<DateTime>("DateValide")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Essai")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("SuiviNiveauId")
                         .HasColumnType("int");
 
