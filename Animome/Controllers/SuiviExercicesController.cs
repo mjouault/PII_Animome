@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Animome.Data;
 using Animome.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Animome.Controllers
 {
     public class SuiviExercicesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public SuiviExercicesController(ApplicationDbContext context)
+        public SuiviExercicesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: SuiviExercices
@@ -143,6 +147,7 @@ namespace Animome.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize]
         public async Task<IActionResult> Valider(int? id)
         {
             if (id == null)
@@ -157,6 +162,7 @@ namespace Animome.Controllers
                 {
                     suiviExercice.Valide = true;
                     suiviExercice.DateValide = DateTime.Now;
+                    suiviExercice.Valideur=  await _userManager.GetUserAsync(User);
                     await _context.SaveChangesAsync();
                 }
             }

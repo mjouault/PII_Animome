@@ -9,6 +9,7 @@ namespace Animome.Models
     {
         public int Id { get; set; }
         public SuiviApplicationUser SuiviApplicationUser { get; set; }
+        public DateTime Date { get; set; }
         public string Texte { get; set; }
     }
 }

@@ -17,7 +17,5 @@ namespace Animome.Models
         public ApplicationUser Valideur { get; set; } //Application User qui a validé l'exercice
 
         public SuiviNiveau SuiviNiveau { get; set; }
-
-        public string Essai { get; set; }
     }
 }
