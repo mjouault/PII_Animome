@@ -182,9 +182,13 @@ namespace Animome.Controllers
 
                     foreach (SuiviExercice se in suiviNiveau.LesSuiviExercices)
                     {
-                        se.Valide = true;
-                        se.DateValide = DateTime.Now;
+                        if (!se.Valide)
+                        {
+                            se.Valide = true;
+                            se.DateValide = DateTime.Now;
+                        }
                     }
+                    _context.Update(suiviNiveau);
                     await _context.SaveChangesAsync();
                 }
             }
@@ -224,9 +228,14 @@ namespace Animome.Controllers
 
                     foreach (SuiviExercice se in suiviNiveau.LesSuiviExercices)
                     {
-                        se.Valide = false;
-                        se.DateValide = DateTime.MinValue;
+                        if (se.Valide)
+                        {
+                            se.Valide = false;
+                            se.DateValide = DateTime.MinValue;
+                            _context.Update(se);
+                        }
                     }
+                    _context.Update(suiviNiveau);
                     await _context.SaveChangesAsync();
                 }
             }

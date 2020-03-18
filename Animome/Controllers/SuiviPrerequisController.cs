@@ -198,15 +198,24 @@ namespace Animome.Controllers
 
                     foreach (SuiviNiveau sn in suiviPrerequis.LesSuiviNiveaux)
                     {
-                        sn.Etat = EtatEnum.e3;
-                        sn.DateValide = DateTime.Now;
-
-                        foreach (SuiviExercice se in sn.LesSuiviExercices)
+                        if (sn.Etat == EtatEnum.e1)
                         {
                             sn.Etat = EtatEnum.e3;
                             sn.DateValide = DateTime.Now;
                         }
+
+                        foreach (SuiviExercice se in sn.LesSuiviExercices)
+                        {
+                            if (!se.Valide)
+                            {
+                                se.Valide = true;
+                                se.DateValide = DateTime.Now;
+                                _context.Update(se);
+                            }
+                        }
+                        _context.Update(sn);
                     }
+                    _context.Update(suiviPrerequis);
                     await _context.SaveChangesAsync();
                 }
             }
@@ -247,15 +256,24 @@ namespace Animome.Controllers
 
                     foreach (SuiviNiveau sn in suiviPrerequis.LesSuiviNiveaux)
                     {
-                        sn.Etat = EtatEnum.e1;
-                        sn.DateValide = DateTime.MinValue;
-
-                        foreach (SuiviExercice se in sn.LesSuiviExercices)
+                        if (sn.Etat == EtatEnum.e3)
                         {
                             sn.Etat = EtatEnum.e1;
                             sn.DateValide = DateTime.MinValue;
                         }
+
+                        foreach (SuiviExercice se in sn.LesSuiviExercices)
+                        {
+                            if (se.Valide)
+                            { 
+                                se.Valide = false;
+                                se.DateValide = DateTime.MinValue;
+                                _context.Update(se);
+                            }
+                        }
+                        _context.Update(sn);
                     }
+                    _context.Update(suiviPrerequis);
                     await _context.SaveChangesAsync();
                 }
             }
