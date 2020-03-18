@@ -266,25 +266,25 @@ namespace Animome.Controllers
 
             try
             {
-                if (!suiviCompetence.Valide)
+                if (suiviCompetence.Etat==EtatEnum.e1)
                 {
-                    suiviCompetence.Valide = true;
+                    suiviCompetence.Etat = EtatEnum.e3;
                     suiviCompetence.DateValide = DateTime.Now;
 
                     foreach (SuiviPrerequis sp in suiviCompetence.LesSuiviPrerequis)
                     {
-                        sp.Valide = true;
+                        sp.Etat = EtatEnum.e3;
                         sp.DateValide = DateTime.Now;
 
                         foreach (SuiviNiveau sn in sp.LesSuiviNiveaux)
                         {
-                            sn.Valide = true;
+                            sn.Etat = EtatEnum.e3 ;
                             sn.DateValide = DateTime.Now;
                             _context.Update(sn);
 
                             foreach (SuiviExercice se in sn.LesSuiviExercices)
                             {
-                                sn.Valide = true;
+                                sn.Etat = EtatEnum.e3;
                                 sn.DateValide = DateTime.Now;
                                 _context.Update(se);
                             }
@@ -324,24 +324,24 @@ namespace Animome.Controllers
 
             try
             {
-                if (suiviCompetence.Valide)
+                if (suiviCompetence.Etat == EtatEnum.e3)
                 {
-                    suiviCompetence.Valide = false;
+                    suiviCompetence.Etat = EtatEnum.e1 ;
                     suiviCompetence.DateValide = DateTime.MinValue;
 
                     foreach (SuiviPrerequis sp in suiviCompetence.LesSuiviPrerequis)
                     {
-                        sp.Valide = false;
+                        sp.Etat = EtatEnum.e1;
                         sp.DateValide = DateTime.MinValue;
 
                         foreach (SuiviNiveau sn in sp.LesSuiviNiveaux)
                         {
-                            sn.Valide = false;
+                            sn.Etat = EtatEnum.e1;
                             sn.DateValide = DateTime.MinValue;
 
                             foreach (SuiviExercice se in sn.LesSuiviExercices)
                             {
-                                sn.Valide = false;
+                                sn.Etat = EtatEnum.e1;
                                 sn.DateValide = DateTime.MinValue;
                             }
                         }

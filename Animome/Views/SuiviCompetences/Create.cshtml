@@ -16,11 +16,6 @@
             <input type="hidden" asp-for="@Model.Suivi.Id" />
 
             <div class="form-group">
-                <label asp-for="@Model.Competence" class="control-label"></label>
-                <select asp-for="@Model.Competence" class="form-control" asp-items="Html.GetEnumSelectList<CompetenceEnum>()"></select>
-                <span asp-validation-for="@Model.Competence" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>

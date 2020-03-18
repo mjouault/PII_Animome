@@ -191,19 +191,19 @@ namespace Animome.Controllers
             var suiviPrerequis = await suiviPrerequis1.SingleAsync();
             try
             {
-                if (!suiviPrerequis.Valide)
+                if (suiviPrerequis.Etat == EtatEnum.e1)
                 {
-                    suiviPrerequis.Valide = true;
+                    suiviPrerequis.Etat = EtatEnum.e3;
                     suiviPrerequis.DateValide = DateTime.Now;
 
                     foreach (SuiviNiveau sn in suiviPrerequis.LesSuiviNiveaux)
                     {
-                        sn.Valide = true;
+                        sn.Etat = EtatEnum.e3;
                         sn.DateValide = DateTime.Now;
 
                         foreach (SuiviExercice se in sn.LesSuiviExercices)
                         {
-                            sn.Valide = true;
+                            sn.Etat = EtatEnum.e3;
                             sn.DateValide = DateTime.Now;
                         }
                     }
@@ -240,19 +240,19 @@ namespace Animome.Controllers
 
             try
             {
-                if (suiviPrerequis.Valide)
+                if (suiviPrerequis.Etat == EtatEnum.e3)
                 {
-                    suiviPrerequis.Valide = false;
+                    suiviPrerequis.Etat = EtatEnum.e1;
                     suiviPrerequis.DateValide = DateTime.MinValue;
 
                     foreach (SuiviNiveau sn in suiviPrerequis.LesSuiviNiveaux)
                     {
-                        sn.Valide = false;
+                        sn.Etat = EtatEnum.e1;
                         sn.DateValide = DateTime.MinValue;
 
                         foreach (SuiviExercice se in sn.LesSuiviExercices)
                         {
-                            sn.Valide = false;
+                            sn.Etat = EtatEnum.e1;
                             sn.DateValide = DateTime.MinValue;
                         }
                     }

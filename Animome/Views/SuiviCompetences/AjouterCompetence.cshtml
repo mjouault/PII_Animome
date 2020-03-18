@@ -15,21 +15,21 @@
 
             <div class="form-group">
                 <label asp-for="@Model.SuiviCompetence.Competence" class="control-label"></label>
-                <select asp-for="@Model.SuiviCompetence.Competence" class="form-control" asp-items="Html.GetEnumSelectList<CompetenceEnum>()"></select>
+                <select asp-for="@Model.SuiviCompetence.Competence" class="form-control" asp-items="Model.SelectListViewModel.Competences"></select>
                 <span asp-validation-for="@Model.SuiviCompetence.Competence" class="text-danger"></span>
             </div>
 
             @* prerequis a travailler dependantes des competences (checkbox a mettre) *@
             <div class="form-group">
                 <label asp-for="@Model.SuiviPrerequis.Prerequis" class="control-label"></label>
-                <select asp-for="@Model.SuiviPrerequis.Prerequis" class="form-control" asp-items="Html.GetEnumSelectList<PrerequisEnum>()"></select>
+                <select asp-for="@Model.SuiviPrerequis.Prerequis" class="form-control" asp-items="Model.SelectListViewModel.Prerequis"></select>
                 <span asp-validation-for="@Model.SuiviPrerequis.Prerequis" class="text-danger"></span>
             </div>
 
             @* niveaux automatiques *@
             <div class="form-group">
                 <label asp-for="@Model.SuiviNiveau.Niveau" class="control-label"></label>
-                <select asp-for="@Model.SuiviNiveau.Niveau" class="form-control" asp-items="Html.GetEnumSelectList<NiveauEnum>()"></select>
+                <select asp-for="@Model.SuiviNiveau.Niveau" class="form-control" asp-items="Model.SelectListViewModel.Niveaux"></select>
                 <span asp-validation-for="@Model.SuiviNiveau.Niveau" class="text-danger"></span>
             </div>
 

@@ -12,22 +12,10 @@ namespace Animome.Models
         public SuiviCompetence SuiviCompetence { get; set; }
         public List<SuiviNiveau> LesSuiviNiveaux { get; set; }
         public Prerequis Prerequis { get; set; }
-        //public PrerequisEnum Prerequis {get;set;}
-        public bool Valide { get; set; }
+        public EtatEnum Etat { get; set; }
         public DateTime DateValide { get; set; }
     }
 
-    public enum PrerequisEnum
-    {
-        [Display(Name = "Prerequis1")]
-        p1 = 1,
-        [Display(Name = "Prerequis2")]
-        p2 = 2,
-        [Display(Name = "Prerequis3")]
-        p3 = 3,
-        [Display(Name = "Prerequis4")]
-        p4 = 4
-    }
     public class Prerequis
     {
         public int Id { get; set; }

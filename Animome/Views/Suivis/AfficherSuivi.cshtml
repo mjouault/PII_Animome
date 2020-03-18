@@ -37,7 +37,7 @@
                                     <div class="alignes">
                                         @foreach (var suiviPrerequis in suiviCompetence.LesSuiviPrerequis)
                                         {
-                                            @if (suiviPrerequis.Valide)
+                                            @if (suiviPrerequis.Etat==EtatEnum.e3)
                                             {<div class="itemPrerequisValide">
                                                     <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
                                                 </div>

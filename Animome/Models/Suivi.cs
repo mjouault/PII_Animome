@@ -12,26 +12,22 @@ namespace Animome.Models
     {
         public int Id { get; set; }
         public Patient Patient { get; set; }
-        //public DomaineEnum Domaine { get; set; }
         public Domaine Domaine { get; set; }
         public List<SuiviApplicationUser> LesSuiviApplicationUsers { get; set; }
-        //public SuiviExercice DernierExoModifie { get; set; }
-        public List<SuiviCompetence> LesSuiviCompetences { get; set; }
 
-        public bool Valide { get; set; }
+        public List<SuiviCompetence> LesSuiviCompetences { get; set; }
+        public EtatEnum Etat { get; set; }
         public DateTime DateValide { get; set; }
     }
 
-    public enum DomaineEnum
+    public enum EtatEnum
     {
-        [Display(Name = "Motricité globale")]
-        d1 = 1,
-        [Display(Name = "Motricité fine")]
-        d2 = 2,
-        [Display(Name = "Langage")]
-        d3 = 3,
-        [Display(Name = "Habiletés sociales")]
-        d4 = 4
+        [Display(Name = "A faire")]
+        e1 = 0,
+        [Display(Name = "En cours")]
+        e2 = 1,
+        [Display(Name = "Validé")]
+        e3 = 2
     }
     public class Domaine
     {

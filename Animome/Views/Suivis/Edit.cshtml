@@ -17,7 +17,7 @@
 
             <div class="form-group">
                 <label asp-for="@Model.Suivi.Domaine" class="control-label"></label>
-                <select asp-for="@Model.Suivi.Domaine" class="form-control" asp-items="Html.GetEnumSelectList<DomaineEnum>()"></select>
+                <select asp-for="@Model.Suivi.Domaine" class="form-control" asp-items="Model.SelectListViewModel.Domaines"></select>
                 <span asp-validation-for="@Model.Suivi.Domaine" class="text-danger"></span>
             </div>
 

@@ -17,18 +17,5 @@ namespace Animome.Models
         public ApplicationUser Valideur { get; set; } //Application User qui a validé l'exercice
 
         public SuiviNiveau SuiviNiveau { get; set; }
-        //public ExerciceEnum Exercice {get;set;}
-    }
-
-    public enum ExerciceEnum
-    {
-        [Display(Name = "Exercice1")]
-        e1 = 1,
-        [Display(Name = "Exercice2")]
-        e2 = 2,
-        [Display(Name = "Exercice3")]
-        e3 = 3,
-        [Display(Name = "Exercice4")]
-        e4 = 4
     }
 }

@@ -30,7 +30,7 @@ namespace Animome.Controllers
 
             if (!string.IsNullOrEmpty(recherchePatient))
             {
-                patients = patients.Where(p => (p.Identifiant).ToString().Contains(recherchePatient));
+                patients = patients.Where(p => (p.Numero).ToString().Contains(recherchePatient));
             }
 
             PatientIndexViewModel patientRecherche = new PatientIndexViewModel
@@ -72,7 +72,7 @@ namespace Animome.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Identifiant")] Patient patient)
+        public async Task<IActionResult> Create([Bind("Id,Numero")] Patient patient)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +106,7 @@ namespace Animome.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Identifiant")] Patient patient)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Numero")] Patient patient)
         {
             if (id != patient.Id)
             {

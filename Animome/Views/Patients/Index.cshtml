@@ -28,7 +28,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Patients[0].Identifiant)
+                @Html.DisplayNameFor(model => model.Patients[0].Numero)
             </th>
             <th></th>
         </tr>
@@ -38,7 +38,7 @@
         {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Identifiant)
+                @Html.DisplayFor(modelItem => item.Numero)
             </td>
             <td>
                 <a asp-controller="Suivis" asp-action="Index" asp-route-id="@item.Id">Voir tous les suivis</a> |

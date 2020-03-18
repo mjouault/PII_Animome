@@ -111,7 +111,7 @@ namespace Animome.Controllers
                         {
                             Competence = uneCompetence,
                             Suivi = suiviAjoute,
-                            Valide = false
+                            Etat = EtatEnum.e1
                         };
                         _context.Add(suiviCompetenceAjoute);
                         await _context.SaveChangesAsync();
@@ -127,7 +127,7 @@ namespace Animome.Controllers
                             {
                                 Prerequis= unPrerequis,
                                 SuiviCompetence = suiviCompetenceAjoute,
-                                Valide=false
+                                Etat=EtatEnum.e1
                             };
                             _context.Add(suiviPrerequisAjoute);
                             await _context.SaveChangesAsync();
@@ -143,7 +143,7 @@ namespace Animome.Controllers
                                 {
                                     Niveau = unNiveau,
                                     SuiviPrerequis = suiviPrerequisAjoute,
-                                    Valide=false
+                                    Etat = EtatEnum.e1
                                 };
                                 _context.Add(suiviNiveauAjoute);
 
@@ -152,7 +152,7 @@ namespace Animome.Controllers
                                 {
                                     SuiviExercice suiviExerciceAjoute = new SuiviExercice
                                     {
-                                        Valide = false,
+                                       Valide = false,
                                         SuiviNiveau = suiviNiveauAjoute,
                                     };
                                     _context.Add(suiviExerciceAjoute);
@@ -266,7 +266,7 @@ namespace Animome.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Valider(int? id)
+        public async Task<IActionResult>Etatr(int? id)
         {
             if (id == null)
             {
@@ -282,29 +282,29 @@ namespace Animome.Controllers
 
             try
             {
-                if (!suivi.Valide)
+                if (suivi.Etat == EtatEnum.e1)
                 {
-                    suivi.Valide = true;
+                    suivi.Etat = EtatEnum.e3;
                     suivi.DateValide = DateTime.Now;
                     foreach (SuiviCompetence sc in suivi.LesSuiviCompetences)
                     {
-                        sc.Valide = true;
+                        sc.Etat = EtatEnum.e3;
                         sc.DateValide = DateTime.Now;
 
                         foreach (SuiviPrerequis sp in sc.LesSuiviPrerequis)
                         {
-                            sp.Valide = true;
+                            sp.Etat = EtatEnum.e3;
                             sp.DateValide = DateTime.Now;
 
                             foreach (SuiviNiveau sn in sp.LesSuiviNiveaux)
                             {
-                                sn.Valide = true;
+                                sn.Etat = EtatEnum.e3;
                                 sn.DateValide = DateTime.Now;
                                 _context.Update(sn);
 
                                 foreach (SuiviExercice se in sn.LesSuiviExercices)
                                 {
-                                    sn.Valide = true;
+                                    sn.Etat = EtatEnum.e3;
                                     sn.DateValide = DateTime.Now;
                                     _context.Update(se);
                                 }
@@ -346,29 +346,29 @@ namespace Animome.Controllers
 
             try
             {
-                if (suivi.Valide)
+                if (suivi.Etat == EtatEnum.e3)
                 {
-                    suivi.Valide = false;
+                    suivi.Etat = EtatEnum.e1;
                     suivi.DateValide = DateTime.MinValue;
                     foreach (SuiviCompetence sc in suivi.LesSuiviCompetences)
                     {
-                        sc.Valide = false;
+                        sc.Etat = EtatEnum.e1;
                         sc.DateValide = DateTime.MinValue;
 
                         foreach (SuiviPrerequis sp in sc.LesSuiviPrerequis)
                         {
-                            sp.Valide = false;
+                            sp.Etat = EtatEnum.e1;
                             sp.DateValide = DateTime.MinValue;
 
                             foreach (SuiviNiveau sn in sp.LesSuiviNiveaux)
                             {
-                                sn.Valide = false;
+                                sn.Etat = EtatEnum.e1;
                                 sn.DateValide = DateTime.MinValue;
                                 _context.Update(sn);
 
                                 foreach (SuiviExercice se in sn.LesSuiviExercices)
                                 {
-                                    sn.Valide = false;
+                                    sn.Etat = EtatEnum.e1;
                                     sn.DateValide = DateTime.MinValue;
                                     _context.Update(se);
                                 }

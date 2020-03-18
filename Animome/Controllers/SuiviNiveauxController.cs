@@ -175,9 +175,9 @@ namespace Animome.Controllers
             var suiviNiveau = await suiviNiveau1.SingleAsync();
             try
             {
-                if (!suiviNiveau.Valide)
+                if (suiviNiveau.Etat == EtatEnum.e1)
                 {
-                    suiviNiveau.Valide = true;
+                    suiviNiveau.Etat = EtatEnum.e3;
                     suiviNiveau.DateValide = DateTime.Now;
 
                     foreach (SuiviExercice se in suiviNiveau.LesSuiviExercices)
@@ -217,9 +217,9 @@ namespace Animome.Controllers
             var suiviNiveau = await suiviNiveau1.SingleAsync();
             try
             {
-                if (!suiviNiveau.Valide)
+                if (suiviNiveau.Etat == EtatEnum.e3)
                 {
-                    suiviNiveau.Valide = false;
+                    suiviNiveau.Etat = EtatEnum.e1;
                     suiviNiveau.DateValide = DateTime.MinValue;
 
                     foreach (SuiviExercice se in suiviNiveau.LesSuiviExercices)

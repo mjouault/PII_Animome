@@ -12,21 +12,8 @@ namespace Animome.Models
         public SuiviPrerequis SuiviPrerequis { get; set; }
         public List<SuiviExercice> LesSuiviExercices { get; set; }
         public Niveau Niveau { get; set; }
-        //public NiveauEnum Niveau { get; set; }
-        public bool Valide { get; set; }
+        public EtatEnum Etat { get; set; }
         public DateTime DateValide { get; set; }
-    }
-
-    public enum NiveauEnum
-    {
-        [Display(Name = "Niveau1")]
-        n1 = 1,
-        [Display(Name = "Niveau2")]
-        n2 = 2,
-        [Display(Name = "Niveau3")]
-        n3 = 3,
-        [Display(Name = "Niveau4")]
-        n4 = 4
     }
 
     public class Niveau

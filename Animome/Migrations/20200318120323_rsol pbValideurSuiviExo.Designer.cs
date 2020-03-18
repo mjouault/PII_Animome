@@ -4,14 +4,16 @@ using Animome.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Animome.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200318120323_rsol pbValideurSuiviExo")]
+    partial class rsolpbValideurSuiviExo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -336,6 +338,9 @@ namespace Animome.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("DateFait")
                         .HasColumnType("datetime2");
 
@@ -348,14 +353,11 @@ namespace Animome.Migrations
                     b.Property<bool>("Valide")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ValideurId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("SuiviNiveauId");
+                    b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("ValideurId");
+                    b.HasIndex("SuiviNiveauId");
 
                     b.ToTable("SuiviExercice");
                 });
@@ -626,13 +628,13 @@ namespace Animome.Migrations
 
             modelBuilder.Entity("Animome.Models.SuiviExercice", b =>
                 {
+                    b.HasOne("Animome.Models.ApplicationUser", null)
+                        .WithMany("LesSuiviExercices")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("Animome.Models.SuiviNiveau", "SuiviNiveau")
                         .WithMany("LesSuiviExercices")
                         .HasForeignKey("SuiviNiveauId");
-
-                    b.HasOne("Animome.Models.ApplicationUser", "Valideur")
-                        .WithMany("LesSuiviExercices")
-                        .HasForeignKey("ValideurId");
                 });
 
             modelBuilder.Entity("Animome.Models.SuiviNiveau", b =>
