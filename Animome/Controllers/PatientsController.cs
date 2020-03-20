@@ -161,9 +161,73 @@ namespace Animome.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var patient = await _context.Patient.FindAsync(id);
-            _context.Patient.Remove(patient);
+
+            var suiviExercicesSupprimes = await _context.SuiviExercice.Where(e => e.SuiviNiveau.SuiviPrerequis.SuiviCompetence.Suivi.Patient.Id == id).ToListAsync();
+            if (suiviExercicesSupprimes != null)
+            {
+                foreach (var i in suiviExercicesSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            var suiviNiveauxSupprimes = await _context.SuiviNiveau.Where(e => e.SuiviPrerequis.SuiviCompetence.Suivi.Patient.Id == id).ToListAsync();
+            if (suiviNiveauxSupprimes != null)
+            {
+                foreach (var i in suiviNiveauxSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            var suiviPrerequisSupprimes = await _context.SuiviPrerequis.Where(e => e.SuiviCompetence.Suivi.Patient.Id == id).ToListAsync();
+            if (suiviPrerequisSupprimes != null)
+            {
+                foreach (var i in suiviPrerequisSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            var suiviCompetenceSupprimes = await _context.SuiviCompetence.Where(e => e.Suivi.Patient.Id == id).ToListAsync();
+            if (suiviCompetenceSupprimes != null)
+            {
+                foreach (var i in suiviCompetenceSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            var commentaireSupprimes = await _context.Commentaire.Where(e => e.SuiviApplicationUser.Suivi.Patient.Id == id).ToListAsync();
+            if (commentaireSupprimes != null)
+            {
+                foreach (var i in commentaireSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            var suiviApplicationUserSupprimes = await _context.SuiviApplicationUser.Where(e => e.Suivi.Patient.Id == id).ToListAsync();
+            if (suiviApplicationUserSupprimes != null)
+            {
+                foreach (var i in suiviApplicationUserSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            var suiviSupprimes = await _context.Suivi.Where(e => e.Patient.Id == id).ToListAsync();
+            if (suiviSupprimes != null)
+            {
+                foreach (var i in suiviSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+                _context.Patient.Remove(patient);
+
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Patients");
         }
 
         private bool PatientExists(int id)

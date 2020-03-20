@@ -266,9 +266,64 @@ namespace Animome.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var suivi = await _context.Suivi.FindAsync(id);
+
+            var suiviExercicesSupprimes = await _context.SuiviExercice.Where(e => e.SuiviNiveau.SuiviPrerequis.SuiviCompetence.Suivi.Id==id).ToListAsync();
+            if (suiviExercicesSupprimes != null)
+            {
+                foreach (var i in suiviExercicesSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            var suiviNiveauxSupprimes = await _context.SuiviNiveau.Where(e => e.SuiviPrerequis.SuiviCompetence.Suivi.Id == id).ToListAsync();
+            if (suiviNiveauxSupprimes != null)
+            {
+                foreach (var i in suiviNiveauxSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            var suiviPrerequisSupprimes = await _context.SuiviPrerequis.Where(e => e.SuiviCompetence.Suivi.Id == id).ToListAsync();
+            if (suiviPrerequisSupprimes != null)
+            {
+                foreach (var i in suiviPrerequisSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            var suiviCompetenceSupprimes = await _context.SuiviCompetence.Where(e => e.Suivi.Id == id).ToListAsync();
+            if (suiviCompetenceSupprimes != null)
+            {
+                foreach (var i in suiviCompetenceSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            var commentaireSupprimes = await _context.Commentaire.Where(e => e.SuiviApplicationUser.Suivi.Id == id).ToListAsync();
+            if (commentaireSupprimes != null)
+            {
+                foreach (var i in commentaireSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            var suiviApplicationUserSupprimes = await _context.SuiviApplicationUser.Where(e => e.Suivi.Id == id).ToListAsync();
+            if (suiviApplicationUserSupprimes != null)
+            {
+                foreach (var i in suiviApplicationUserSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
             _context.Suivi.Remove(suivi);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Patients");
         }
 
         public async Task<IActionResult>Valider(int? id)
@@ -476,7 +531,7 @@ namespace Animome.Controllers
             return View(viewModel);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult TestSelect( SelectListViewModel viewModel)
         {
