@@ -14,6 +14,27 @@ namespace Animome.Models
         public Niveau Niveau { get; set; }
         public EtatEnum Etat { get; set; }
         public DateTime DateValide { get; set; }
+
+        public EtatEnum EtatMaj()
+        {
+            bool premierValide = LesSuiviExercices[0].Valide ? true:false; ;
+            bool valide = false;
+            bool nonValide = true;
+            foreach (var e in LesSuiviExercices)
+            {
+                if (e.Valide) valide = true;
+                if (!e.Valide) nonValide = true;
+
+                if (valide && nonValide) // s'il y a un Exercice validé et un autre non valide, le niveau est en cours
+                {
+                    Etat = EtatEnum.e2;
+                    return Etat;
+                }
+            }
+            if (premierValide) Etat = EtatEnum.e3; //s'il n'est pas en cours, il est vide ou Validé
+            else Etat = EtatEnum.e1;
+            return Etat;
+        }
     }
 
     public class Niveau

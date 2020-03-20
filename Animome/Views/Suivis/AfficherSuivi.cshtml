@@ -38,14 +38,20 @@
                                     <div class="alignes">
                                         @foreach (var suiviPrerequis in suiviCompetence.LesSuiviPrerequis)
                                         {
-                                            @if (suiviPrerequis.Etat==EtatEnum.e3)
+                                            @if (suiviPrerequis.Etat == EtatEnum.e3)
                                             {<div class="itemPrerequisValide">
                                                     <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
                                                 </div>
                                             }
-                                            else
+                                            else if (suiviPrerequis.Etat == EtatEnum.e1)
                                             {
                                                 <div class="itemPrerequisNonValide">
+                                                    <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
+                                                </div>
+                                            }
+                                            else if (suiviPrerequis.Etat == EtatEnum.e2)
+                                            {
+                                                <div class="itemPrerequisEnCours">
                                                     <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
                                                 </div>
                                             }
