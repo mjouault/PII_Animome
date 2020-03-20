@@ -271,6 +271,11 @@ namespace Animome.Controllers
                     suiviCompetence.Etat = EtatEnum.e3;
                     suiviCompetence.DateValide = DateTime.Now;
 
+                    var suivi = await _context.Suivi.FindAsync(suiviCompetence.Suivi.Id);
+                    suivi.Etat = suivi.EtatMaj();
+                    _context.Update(suivi);
+                    await _context.SaveChangesAsync();
+
                     foreach (SuiviPrerequis sp in suiviCompetence.LesSuiviPrerequis)
                     {
                         if (sp.Etat == EtatEnum.e1)
@@ -328,8 +333,10 @@ namespace Animome.Controllers
             var suiviCompetence1 = _context.SuiviCompetence.Where(x => x.Id == id)
             .Include(suiviCompetence => suiviCompetence.LesSuiviPrerequis)
                 .ThenInclude(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
-                .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices);
-                    var suiviCompetence = await suiviCompetence1.SingleAsync();
+                .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
+            .Include(suiviCompetence => suiviCompetence.Suivi);
+            var suiviCompetence = await suiviCompetence1.SingleAsync();
+
 
             try
             {
@@ -337,6 +344,11 @@ namespace Animome.Controllers
                 {
                     suiviCompetence.Etat = EtatEnum.e1 ;
                     suiviCompetence.DateValide = DateTime.MinValue;
+
+                    var suivi = await _context.Suivi.FindAsync(suiviCompetence.Suivi.Id);
+                    suivi.Etat = suivi.EtatMaj();
+                    _context.Update(suivi);
+                   await _context.SaveChangesAsync();
 
                     foreach (SuiviPrerequis sp in suiviCompetence.LesSuiviPrerequis)
                     {
