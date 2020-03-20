@@ -172,25 +172,25 @@ namespace Animome.Controllers
                     await _context.SaveChangesAsync();
 
                     //Maj bdd de l'Etat du suiviNiveau associé
-                    var suiviNiveau = await _context.SuiviNiveau.FindAsync(suiviExercice.SuiviNiveau);
+                    var suiviNiveau = await _context.SuiviNiveau.FindAsync(suiviExercice.SuiviNiveau.Id);
                     suiviNiveau.Etat = suiviNiveau.EtatMaj();
                     _context.Update(suiviNiveau);
                     await _context.SaveChangesAsync();
 
                     //Maj bdd de l'Etat du suiviPrerequis associé
-                    var suiviPrerequis = await _context.SuiviPrerequis.FindAsync(suiviNiveau.SuiviPrerequis);
+                    var suiviPrerequis = await _context.SuiviPrerequis.FindAsync(suiviNiveau.SuiviPrerequis.Id);
                     suiviPrerequis.Etat = suiviPrerequis.EtatMaj();
                     _context.Update(suiviPrerequis);
                     await _context.SaveChangesAsync();
 
                     //Maj bdd de l'Etat du suiviCompetence associé
-                    var suiviCompetence = await _context.SuiviCompetence.FindAsync(suiviPrerequis.SuiviCompetence);
+                    var suiviCompetence = await _context.SuiviCompetence.FindAsync(suiviPrerequis.SuiviCompetence.Id);
                     suiviCompetence.Etat = suiviCompetence.EtatMaj();
                     _context.Update(suiviCompetence);
                     await _context.SaveChangesAsync();
 
                     //Maj bdd de l'Etat du suivi associé
-                    var suivi = await _context.Suivi.FindAsync(suiviCompetence.Suivi);
+                    var suivi = await _context.Suivi.FindAsync(suiviCompetence.Suivi.Id);
                     suivi.Etat = suivi.EtatMaj();
                     _context.Update(suivi);
                     await _context.SaveChangesAsync();
