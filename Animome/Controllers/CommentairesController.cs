@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Animome.Data;
 using Animome.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Animome.Controllers
 {
@@ -29,10 +30,10 @@ namespace Animome.Controllers
             {
                 return NotFound();
             }
-            var suivi = await _context.Commentaire.Where(c => c.SuiviApplicationUser.Suivi.Id == id).ToListAsync();
+            var commentaires = await _context.Commentaire.Where(c => c.SuiviApplicationUser.Suivi.Id == id).ToListAsync();
 
             ViewData["idSuivi"] = id;
-            return View(suivi);
+            return View(commentaires);
         }
 
         // GET: Commentaires/Details/5
@@ -72,20 +73,21 @@ namespace Animome.Controllers
         // POST: Commentaires/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int id, [Bind("Id,Date,Texte")] Commentaire commentaire)
+        public async Task<IActionResult> Create(int id, [Bind("Date, SuiviApplicationUser,Texte")]Commentaire commentaire)
         {
 
             if (ModelState.IsValid)
             {
-               var user= await _userManager.GetUserAsync(User);
-                commentaire.SuiviApplicationUser.ApplicationUser = user;
+                var suiviApplicationUser = await _context.SuiviApplicationUser.FirstOrDefaultAsync(m => m.Suivi.Id == id);
+                commentaire.SuiviApplicationUser = suiviApplicationUser;
                 commentaire.Date = DateTime.Now;
                 _context.Add(commentaire);
-              
+
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Patients");
             }
             return View(commentaire);
         }
