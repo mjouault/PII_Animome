@@ -84,8 +84,6 @@ namespace Animome.Controllers
             else
             {
                 Patient patient = await _context.Patient.FindAsync(id);
-                ApplicationUser user = await _userManager.GetUserAsync(User);
-
                 var listeDomaines = await _context.Domaine.ToListAsync();
 
                 foreach (Domaine d in listeDomaines)
@@ -96,6 +94,13 @@ namespace Animome.Controllers
                         Domaine = d
                     };
                     _context.Add(suiviAjoute);
+
+                    SuiviApplicationUser suiviApplicationUserAjoute = new SuiviApplicationUser
+                    {
+                        ApplicationUser = await _userManager.GetUserAsync(User),
+                        Suivi=suiviAjoute
+                    };
+                    _context.Add(suiviApplicationUserAjoute);
                     await _context.SaveChangesAsync();
 
                     var listeDomaineCompetences = await _context.DomaineCompetence.Where(x => x.Domaine == d)
