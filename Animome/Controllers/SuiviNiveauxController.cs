@@ -237,8 +237,8 @@ namespace Animome.Controllers
                         }
                     }
                     _context.Update(suiviNiveau);
-                    await _context.SaveChangesAsync();
                     MajEtats(suiviNiveau);
+                    await _context.SaveChangesAsync();
                 }
             }
             catch (DbUpdateConcurrencyException)
@@ -265,29 +265,26 @@ namespace Animome.Controllers
         /// Maj des Etats des éléments de suivi du dessus
         /// </summary>
         /// <param name="suiviNiveau"></param>
-        private async void MajEtats(SuiviNiveau suiviNiveau)
+        private void MajEtats(SuiviNiveau suiviNiveau)
         {
-            var suiviPrerequis = await _context.SuiviPrerequis.Where(x => x.Id == suiviNiveau.SuiviPrerequis.SuiviCompetence.Id)
+            var suiviPrerequis =  _context.SuiviPrerequis.Where(x => x.Id == suiviNiveau.SuiviPrerequis.SuiviCompetence.Id)
                        .Include(s => s.LesSuiviNiveaux)
-                       .SingleAsync();
+                       .Single();
 
             suiviPrerequis.Etat = suiviPrerequis.EtatMaj();
             _context.Update(suiviPrerequis);
-            await _context.SaveChangesAsync();
 
-           var  suiviCompetence = await _context.SuiviCompetence.Where(x => x.Id == suiviPrerequis.SuiviCompetence.Id)
+           var  suiviCompetence =  _context.SuiviCompetence.Where(x => x.Id == suiviPrerequis.SuiviCompetence.Id)
                 .Include(s => s.LesSuiviPrerequis)
-                .SingleAsync();
+                .Single();
             suiviCompetence.Etat = suiviCompetence.EtatMaj();
             _context.Update(suiviCompetence);
-            await _context.SaveChangesAsync();
 
-           var  suivi = await _context.Suivi.Where(x => x.Id == suiviCompetence.Suivi.Id)
+           var  suivi =  _context.Suivi.Where(x => x.Id == suiviCompetence.Suivi.Id)
                 .Include(s => s.LesSuiviCompetences)
-                .SingleAsync();
+                .Single();
             suivi.Etat = suivi.EtatMaj();
             _context.Update(suivi);
-            await _context.SaveChangesAsync();
         }
     }
 }

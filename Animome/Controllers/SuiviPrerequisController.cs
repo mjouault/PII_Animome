@@ -222,7 +222,9 @@ namespace Animome.Controllers
                     }
                     _context.Update(suiviPrerequis);
                     await _context.SaveChangesAsync();
+
                     MajEtats(suiviPrerequis);
+                    await _context.SaveChangesAsync();
                 }
             }
             catch (DbUpdateConcurrencyException)
@@ -282,7 +284,9 @@ namespace Animome.Controllers
                     }
                     _context.Update(suiviPrerequis);
                     await _context.SaveChangesAsync();
+
                     MajEtats(suiviPrerequis);
+                    await _context.SaveChangesAsync();
                 }
             }
             catch (DbUpdateConcurrencyException)
@@ -304,17 +308,15 @@ namespace Animome.Controllers
             return _context.SuiviPrerequis.Any(e => e.Id == id);
         }
 
-        private async void MajEtats(SuiviPrerequis suiviPrerequis)
+        private void MajEtats(SuiviPrerequis suiviPrerequis)
         {
-            var suiviCompetence = await _context.SuiviCompetence.FindAsync(suiviPrerequis.SuiviCompetence.Id);
+            var suiviCompetence =  _context.SuiviCompetence.Find(suiviPrerequis.SuiviCompetence.Id);
             suiviCompetence.Etat = suiviCompetence.EtatMaj();
             _context.Update(suiviCompetence);
-            await _context.SaveChangesAsync();
 
-            var suivi = await _context.Suivi.FindAsync(suiviCompetence.Suivi.Id);
+            var suivi =  _context.Suivi.Find(suiviCompetence.Suivi.Id);
             suivi.Etat = suivi.EtatMaj();
             _context.Update(suivi);
-            await _context.SaveChangesAsync();
         }
        
     }

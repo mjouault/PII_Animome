@@ -258,11 +258,12 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-            var suiviCompetence1 = _context.SuiviCompetence.Where(x => x.Id == id)
+            var suiviCompetence = await _context.SuiviCompetence.Where(x => x.Id == id)
                 .Include(suiviCompetence => suiviCompetence.LesSuiviPrerequis)
                     .ThenInclude(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
-                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices);
-            var suiviCompetence = await suiviCompetence1.SingleAsync();
+                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
+                .Include(SuiviCompetence => SuiviCompetence.Suivi)
+                .SingleAsync();
 
             try
             {
@@ -301,14 +302,9 @@ namespace Animome.Controllers
                         _context.Update(sp);
                     }
                     _context.Update(suiviCompetence);
-                    await _context.SaveChangesAsync();
-
-                    var suivi = await _context.Suivi.FindAsync(suiviCompetence.Suivi.Id);
-                    suivi.Etat = suivi.EtatMaj();
-                    _context.Update(suivi);
-                    await _context.SaveChangesAsync();
 
                     MajEtats(suiviCompetence);
+                    await _context.SaveChangesAsync();
                 }
             }
             catch (DbUpdateConcurrencyException)
@@ -377,9 +373,9 @@ namespace Animome.Controllers
                         }  
                     }
                     _context.Update(suiviCompetence);
-                    await _context.SaveChangesAsync();
 
                     MajEtats(suiviCompetence);
+                    await _context.SaveChangesAsync();
                 }
             }
             catch (DbUpdateConcurrencyException)
@@ -401,12 +397,11 @@ namespace Animome.Controllers
             return _context.SuiviCompetence.Any(e => e.Id == id);
         }
 
-        public async void MajEtats(SuiviCompetence suiviCompetence)
+        public void MajEtats(SuiviCompetence suiviCompetence)
         {
-            var suivi = await _context.Suivi.FindAsync(suiviCompetence.Suivi.Id);
-            suivi.Etat = suivi.EtatMaj();
+           var suivi =  _context.Suivi.Find(suiviCompetence.Suivi.Id);
+           suivi.Etat = suivi.EtatMaj();
             _context.Update(suivi);
-            await _context.SaveChangesAsync();
         }
     }
 }
