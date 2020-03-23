@@ -30,7 +30,7 @@ namespace Animome.Models
                 if (e.Etat == EtatEnum.e3) valide = true;
                 if (e.Etat == EtatEnum.e1) vide = true;
 
-                if (e.EtatMaj() == EtatEnum.e2 || (valide && vide))
+                if (e.Etat == EtatEnum.e2 || (valide && vide))
                 {
                     Etat = EtatEnum.e2;
                     return Etat;

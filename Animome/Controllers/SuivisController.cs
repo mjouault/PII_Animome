@@ -342,49 +342,49 @@ namespace Animome.Controllers
 
             try
             {
-                if (suivi.Etat == EtatEnum.e1)
+                if (suivi.Etat != EtatEnum.e3)
                 {
                     suivi.Etat = EtatEnum.e3;
                     suivi.DateValide = DateTime.Now;
                     foreach (SuiviCompetence sc in suivi.LesSuiviCompetences)
                     {
-                        if (sc.Etat == EtatEnum.e1)
+                        if (sc.Etat != EtatEnum.e3)
                         {
                             sc.Etat = EtatEnum.e3;
                             sc.DateValide = DateTime.Now;
-                        }
 
-                        foreach (SuiviPrerequis sp in sc.LesSuiviPrerequis)
-                        {
-                            if (sp.Etat == EtatEnum.e1)
+                            foreach (SuiviPrerequis sp in sc.LesSuiviPrerequis)
                             {
-                                sp.Etat = EtatEnum.e3;
-                                sp.DateValide = DateTime.Now;
-                            }
-
-                            foreach (SuiviNiveau sn in sp.LesSuiviNiveaux)
-                            {
-                                if (sn.Etat == EtatEnum.e1)
+                                if (sp.Etat != EtatEnum.e3)
                                 {
-                                    sn.Etat = EtatEnum.e3;
-                                    sn.DateValide = DateTime.Now;
-                                    _context.Update(sn);
-                                }
+                                    sp.Etat = EtatEnum.e3;
+                                    sp.DateValide = DateTime.Now;
 
-                                foreach (SuiviExercice se in sn.LesSuiviExercices)
-                                {
-                                    if (!se.Valide)
+                                    foreach (SuiviNiveau sn in sp.LesSuiviNiveaux)
                                     {
-                                        se.Valide = true;
-                                        se.DateValide = DateTime.Now;
-                                        _context.Update(se);
+                                        if (sn.Etat != EtatEnum.e3)
+                                        {
+                                            sn.Etat = EtatEnum.e3;
+                                            sn.DateValide = DateTime.Now;
+                                            foreach (SuiviExercice se in sn.LesSuiviExercices)
+                                            {
+                                                if (!se.Valide)
+                                                {
+                                                    se.Valide = true;
+                                                    se.DateValide = DateTime.Now;
+                                                    _context.Update(se);
+                                                }
+                                            }
+                                            _context.Update(sn);
+                                        }
                                     }
                                 }
+                                _context.Update(sp);
                             }
-                            _context.Update(sp);
+                            _context.Update(sc);
                         }
-                        _context.Update(sc);
                     }
+                    suivi.Etat = suivi.EtatMaj();
                     _context.Update(suivi);
                     await _context.SaveChangesAsync();
                 }
@@ -419,50 +419,52 @@ namespace Animome.Controllers
 
             try
             {
-                if (suivi.Etat == EtatEnum.e3)
+                if (suivi.Etat != EtatEnum.e1)
                 {
                     suivi.Etat = EtatEnum.e1;
                     suivi.DateValide = DateTime.MinValue;
                     foreach (SuiviCompetence sc in suivi.LesSuiviCompetences)
                     {
-                        if (sc.Etat == EtatEnum.e3)
+                        if (sc.Etat != EtatEnum.e1)
                         {
                             sc.Etat = EtatEnum.e1;
                             sc.DateValide = DateTime.MinValue;
-                        }
 
-                        foreach (SuiviPrerequis sp in sc.LesSuiviPrerequis)
-                        {
-                            if (sp.Etat == EtatEnum.e3)
+                            foreach (SuiviPrerequis sp in sc.LesSuiviPrerequis)
                             {
-                                sp.Etat = EtatEnum.e1;
-                                sp.DateValide = DateTime.MinValue;
-                            }
-
-                            foreach (SuiviNiveau sn in sp.LesSuiviNiveaux)
-                            {
-                                if (sn.Etat == EtatEnum.e3)
+                                if (sp.Etat != EtatEnum.e1)
                                 {
-                                    sn.Etat = EtatEnum.e1;
-                                    sn.DateValide = DateTime.MinValue;
-                                    _context.Update(sn);
-                                }
+                                    sp.Etat = EtatEnum.e1;
+                                    sp.DateValide = DateTime.MinValue;
 
-                                foreach (SuiviExercice se in sn.LesSuiviExercices)
-                                {
-                                    if (se.Valide)
+                                    foreach (SuiviNiveau sn in sp.LesSuiviNiveaux)
                                     {
-                                        se.Valide = false;
-                                        se.DateValide = DateTime.MinValue;
-                                        _context.Update(se);
+                                        if (sn.Etat != EtatEnum.e1)
+                                        {
+                                            sn.Etat = EtatEnum.e1;
+                                            sn.DateValide = DateTime.MinValue;
+                                            _context.Update(sn);
+
+                                            foreach (SuiviExercice se in sn.LesSuiviExercices)
+                                            {
+                                                if (se.Valide)
+                                                {
+                                                    se.Valide = false;
+                                                    se.DateValide = DateTime.MinValue;
+                                                    _context.Update(se);
+                                                }
+                                            }
+                                        }
+                                        _context.Update(sn);
                                     }
-                                }
-                                _context.Update(sn);
+                                    _context.Update(sp);
+                                }  
                             }
-                            _context.Update(sp);
+                            _context.Update(sc);
                         }
-                        _context.Update(sc);
                     }
+                    suivi.Etat = suivi.EtatMaj();
+                    _context.Update(suivi);
                     await _context.SaveChangesAsync();
                 }
             }

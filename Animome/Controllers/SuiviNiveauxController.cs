@@ -175,7 +175,7 @@ namespace Animome.Controllers
             var suiviNiveau = await suiviNiveau1.SingleAsync();
             try
             {
-                if (suiviNiveau.Etat == EtatEnum.e1)
+                if (suiviNiveau.Etat != EtatEnum.e3)
                 {
                     suiviNiveau.Etat = EtatEnum.e3;
                     suiviNiveau.DateValide = DateTime.Now;
@@ -190,6 +190,7 @@ namespace Animome.Controllers
                     }
                     _context.Update(suiviNiveau);
                     await _context.SaveChangesAsync();
+                    MajEtats(suiviNiveau);
                 }
             }
             catch (DbUpdateConcurrencyException)
@@ -221,7 +222,7 @@ namespace Animome.Controllers
             var suiviNiveau = await suiviNiveau1.SingleAsync();
             try
             {
-                if (suiviNiveau.Etat == EtatEnum.e3)
+                if (suiviNiveau.Etat != EtatEnum.e1)
                 {
                     suiviNiveau.Etat = EtatEnum.e1;
                     suiviNiveau.DateValide = DateTime.MinValue;
@@ -237,6 +238,7 @@ namespace Animome.Controllers
                     }
                     _context.Update(suiviNiveau);
                     await _context.SaveChangesAsync();
+                    MajEtats(suiviNiveau);
                 }
             }
             catch (DbUpdateConcurrencyException)
@@ -257,6 +259,35 @@ namespace Animome.Controllers
         private bool SuiviNiveauExists(int id)
         {
             return _context.SuiviNiveau.Any(e => e.Id == id);
+        }
+
+        /// <summary>
+        /// Maj des Etats des éléments de suivi du dessus
+        /// </summary>
+        /// <param name="suiviNiveau"></param>
+        private async void MajEtats(SuiviNiveau suiviNiveau)
+        {
+            var suiviPrerequis = await _context.SuiviPrerequis.Where(x => x.Id == suiviNiveau.SuiviPrerequis.SuiviCompetence.Id)
+                       .Include(s => s.LesSuiviNiveaux)
+                       .SingleAsync();
+
+            suiviPrerequis.Etat = suiviPrerequis.EtatMaj();
+            _context.Update(suiviPrerequis);
+            await _context.SaveChangesAsync();
+
+           var  suiviCompetence = await _context.SuiviCompetence.Where(x => x.Id == suiviPrerequis.SuiviCompetence.Id)
+                .Include(s => s.LesSuiviPrerequis)
+                .SingleAsync();
+            suiviCompetence.Etat = suiviCompetence.EtatMaj();
+            _context.Update(suiviCompetence);
+            await _context.SaveChangesAsync();
+
+           var  suivi = await _context.Suivi.Where(x => x.Id == suiviCompetence.Suivi.Id)
+                .Include(s => s.LesSuiviCompetences)
+                .SingleAsync();
+            suivi.Etat = suivi.EtatMaj();
+            _context.Update(suivi);
+            await _context.SaveChangesAsync();
         }
     }
 }

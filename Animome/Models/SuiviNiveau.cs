@@ -19,7 +19,7 @@ namespace Animome.Models
         {
             bool premierValide = LesSuiviExercices[0].Valide ? true:false; ;
             bool valide = false;
-            bool nonValide = true;
+            bool nonValide = false;
             foreach (var e in LesSuiviExercices)
             {
                 if (e.Valide) valide = true;

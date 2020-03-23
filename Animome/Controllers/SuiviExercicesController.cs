@@ -170,30 +170,7 @@ namespace Animome.Controllers
                     suiviExercice.DateValide = DateTime.Now;
                     suiviExercice.Valideur=  await _userManager.GetUserAsync(User);
                     await _context.SaveChangesAsync();
-
-                    //Maj bdd de l'Etat du suiviNiveau associé
-                    var suiviNiveau = await _context.SuiviNiveau.FindAsync(suiviExercice.SuiviNiveau.Id);
-                    suiviNiveau.Etat = suiviNiveau.EtatMaj();
-                    _context.Update(suiviNiveau);
-                    await _context.SaveChangesAsync();
-
-                    //Maj bdd de l'Etat du suiviPrerequis associé
-                    var suiviPrerequis = await _context.SuiviPrerequis.FindAsync(suiviNiveau.SuiviPrerequis.Id);
-                    suiviPrerequis.Etat = suiviPrerequis.EtatMaj();
-                    _context.Update(suiviPrerequis);
-                    await _context.SaveChangesAsync();
-
-                    //Maj bdd de l'Etat du suiviCompetence associé
-                    var suiviCompetence = await _context.SuiviCompetence.FindAsync(suiviPrerequis.SuiviCompetence.Id);
-                    suiviCompetence.Etat = suiviCompetence.EtatMaj();
-                    _context.Update(suiviCompetence);
-                    await _context.SaveChangesAsync();
-
-                    //Maj bdd de l'Etat du suivi associé
-                    var suivi = await _context.Suivi.FindAsync(suiviCompetence.Suivi.Id);
-                    suivi.Etat = suivi.EtatMaj();
-                    _context.Update(suivi);
-                    await _context.SaveChangesAsync();
+                    MajEtats(suiviExercice);
                 }
             }
             catch (DbUpdateConcurrencyException)
@@ -220,11 +197,12 @@ namespace Animome.Controllers
             var suiviExercice = await _context.SuiviExercice.FindAsync(id);
             try
             {
-                if (!suiviExercice.Valide)
+                if (suiviExercice.Valide)
                 {
-                    suiviExercice.Valide = true;
-                    suiviExercice.DateValide = DateTime.Now;
+                    suiviExercice.Valide = false;
+                    suiviExercice.DateValide = DateTime.MinValue;
                     await _context.SaveChangesAsync();
+                    MajEtats(suiviExercice);
                 }
             }
             catch (DbUpdateConcurrencyException)
@@ -244,6 +222,41 @@ namespace Animome.Controllers
         private bool SuiviExerciceExists(int id)
         {
             return _context.SuiviExercice.Any(e => e.Id == id);
+        }
+
+        private async void MajEtats(SuiviExercice suiviExercice)
+        {
+            //Maj bdd de l'Etat du suiviNiveau associé
+            var suiviNiveau = await _context.SuiviNiveau.Where(x => x.Id == suiviExercice.SuiviNiveau.Id)
+                .Include(s => s.LesSuiviExercices)
+                .SingleAsync();
+            suiviNiveau.Etat = suiviNiveau.EtatMaj();
+            _context.Update(suiviNiveau);
+            await _context.SaveChangesAsync();
+
+            //Maj bdd de l'Etat du suiviPrerequis associé
+            var suiviPrerequis = await _context.SuiviPrerequis.Where(x => x.Id == suiviNiveau.SuiviPrerequis.Id)
+                .Include(s => s.LesSuiviNiveaux)
+                .SingleAsync();
+            suiviPrerequis.Etat = suiviPrerequis.EtatMaj();
+            _context.Update(suiviPrerequis);
+            await _context.SaveChangesAsync();
+
+            //Maj bdd de l'Etat du suiviCompetence associé
+            var suiviCompetence = await _context.SuiviCompetence.Where(x => x.Id == suiviPrerequis.SuiviCompetence.Id)
+                .Include(s => s.LesSuiviPrerequis)
+                .SingleAsync();
+            suiviCompetence.Etat = suiviCompetence.EtatMaj();
+            _context.Update(suiviCompetence);
+            await _context.SaveChangesAsync();
+
+            //Maj bdd de l'Etat du suivi associé
+            var suivi = await _context.Suivi.Where(x => x.Id == suiviCompetence.Suivi.Id)
+                .Include(s => s.LesSuiviCompetences)
+                .SingleAsync();
+            suivi.Etat = suivi.EtatMaj();
+            _context.Update(suivi);
+            await _context.SaveChangesAsync();
         }
     }
 }

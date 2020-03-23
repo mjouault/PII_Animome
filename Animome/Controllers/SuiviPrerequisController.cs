@@ -188,48 +188,41 @@ namespace Animome.Controllers
                 .Include(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
                     .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
                 .Include(suiviPrerequis => suiviPrerequis.SuiviCompetence)
-                    .ThenInclude(sc => sc.Suivi);
+                    .ThenInclude(sc => sc.Suivi)
+                .Include(suiviPrerequis => suiviPrerequis.SuiviCompetence);
 
             var suiviPrerequis = await suiviPrerequis1.SingleAsync();
+
+
             try
             {
-                if (suiviPrerequis.Etat == EtatEnum.e1)
+                if (suiviPrerequis.Etat != EtatEnum.e3)
                 {
                     suiviPrerequis.Etat = EtatEnum.e3;
                     suiviPrerequis.DateValide = DateTime.Now;
 
-
-                    var suiviCompetence = await _context.SuiviCompetence.FindAsync(suiviPrerequis.SuiviCompetence.Id);
-                    suiviCompetence.Etat = suiviCompetence.EtatMaj();
-                    _context.Update(suiviCompetence);
-                    await _context.SaveChangesAsync();
-
-                    var suivi = await _context.Suivi.FindAsync(suiviCompetence.Suivi.Id);
-                    suivi.Etat = suivi.EtatMaj();
-                    _context.Update(suivi);
-                    await _context.SaveChangesAsync();
-
                     foreach (SuiviNiveau sn in suiviPrerequis.LesSuiviNiveaux)
                     {
-                        if (sn.Etat == EtatEnum.e1)
+                        if (sn.Etat != EtatEnum.e3)
                         {
                             sn.Etat = EtatEnum.e3;
                             sn.DateValide = DateTime.Now;
-                        }
 
-                        foreach (SuiviExercice se in sn.LesSuiviExercices)
-                        {
-                            if (!se.Valide)
+                            foreach (SuiviExercice se in sn.LesSuiviExercices)
                             {
-                                se.Valide = true;
-                                se.DateValide = DateTime.Now;
-                                _context.Update(se);
+                                if (!se.Valide)
+                                {
+                                    se.Valide = true;
+                                    se.DateValide = DateTime.Now;
+                                    _context.Update(se);
+                                }
                             }
                         }
                         _context.Update(sn);
                     }
                     _context.Update(suiviPrerequis);
                     await _context.SaveChangesAsync();
+                    MajEtats(suiviPrerequis);
                 }
             }
             catch (DbUpdateConcurrencyException)
@@ -256,38 +249,40 @@ namespace Animome.Controllers
 
            var  suiviPrerequis1 = _context.SuiviPrerequis.Where(x => x.Id == id)
                 .Include(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
-                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices);
+                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
+                 .Include(suiviPrerequis => suiviPrerequis.SuiviCompetence);
 
             var suiviPrerequis = await suiviPrerequis1.SingleAsync();
 
             try
             {
-                if (suiviPrerequis.Etat == EtatEnum.e3)
+                if (suiviPrerequis.Etat != EtatEnum.e1)
                 {
                     suiviPrerequis.Etat = EtatEnum.e1;
                     suiviPrerequis.DateValide = DateTime.MinValue;
-
+                   
                     foreach (SuiviNiveau sn in suiviPrerequis.LesSuiviNiveaux)
                     {
-                        if (sn.Etat == EtatEnum.e3)
+                        if (sn.Etat != EtatEnum.e1)
                         {
                             sn.Etat = EtatEnum.e1;
                             sn.DateValide = DateTime.MinValue;
-                        }
 
-                        foreach (SuiviExercice se in sn.LesSuiviExercices)
-                        {
-                            if (se.Valide)
-                            { 
-                                se.Valide = false;
-                                se.DateValide = DateTime.MinValue;
-                                _context.Update(se);
+                            foreach (SuiviExercice se in sn.LesSuiviExercices)
+                            {
+                                if (se.Valide)
+                                {
+                                    se.Valide = false;
+                                    se.DateValide = DateTime.MinValue;
+                                    _context.Update(se);
+                                }
                             }
                         }
                         _context.Update(sn);
                     }
                     _context.Update(suiviPrerequis);
                     await _context.SaveChangesAsync();
+                    MajEtats(suiviPrerequis);
                 }
             }
             catch (DbUpdateConcurrencyException)
@@ -309,6 +304,18 @@ namespace Animome.Controllers
             return _context.SuiviPrerequis.Any(e => e.Id == id);
         }
 
+        private async void MajEtats(SuiviPrerequis suiviPrerequis)
+        {
+            var suiviCompetence = await _context.SuiviCompetence.FindAsync(suiviPrerequis.SuiviCompetence.Id);
+            suiviCompetence.Etat = suiviCompetence.EtatMaj();
+            _context.Update(suiviCompetence);
+            await _context.SaveChangesAsync();
+
+            var suivi = await _context.Suivi.FindAsync(suiviCompetence.Suivi.Id);
+            suivi.Etat = suivi.EtatMaj();
+            _context.Update(suivi);
+            await _context.SaveChangesAsync();
+        }
        
     }
 }

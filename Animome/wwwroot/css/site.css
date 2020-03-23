@@ -161,13 +161,37 @@ body {
 }
 
 /*Affichage Suivi*/
-.carteCompetence {
+.carteCompetenceNonValide {
     background-color: lightgrey;
     width: auto;
     height: auto;
     margin: 5px;
     padding: 5px;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.carteCompetenceValide {
+    background-color: lightgrey;
+    width: auto;
+    height: auto;
+    margin: 5px;
+    padding: 5px;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    border-width: 2px;
+    border-color: green;
+    border-style : solid;
+}
+
+.carteCompetenceEnCours {
+    background-color: lightgrey;
+    width: auto;
+    height: auto;
+    margin: 5px;
+    padding: 5px;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    border-width: 2px;
+    border-color: orangered;
+    border-style : solid;
 }
 
 .itemPrerequisValide {
