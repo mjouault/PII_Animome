@@ -496,9 +496,7 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-            var suivi = from s in _context.Suivi select s;
-
-            suivi = _context.Suivi.Where(x => x.Patient.Id == id)
+           var suivi = _context.Suivi.Where(x => x.Patient.Id == id)
                 .Include(suivi => suivi.LesSuiviCompetences)
                     .ThenInclude(lesSuiviCptces => lesSuiviCptces.LesSuiviPrerequis)
                     .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.LesSuiviNiveaux)
@@ -513,6 +511,7 @@ namespace Animome.Controllers
                     .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.Prerequis);
 
             ViewData["idPatient"] = id;
+            ViewData["pourcentages"] = CalculerPourcentage(suivi.ToList());
             return View(await suivi.ToListAsync());
         }
 
@@ -545,6 +544,23 @@ namespace Animome.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        private List<double> CalculerPourcentage(List<Suivi> suivi)
+        {
+            List<double> pourcentages = new List<double>();
+            foreach(Suivi s in suivi)
+            {
+                double nbExercicesValides = _context.SuiviExercice
+                    .Count(x => x.SuiviNiveau.SuiviPrerequis.SuiviCompetence.Suivi.Id == s.Id && x.Valide);
+                double nbExercicesTotal = _context.SuiviExercice
+                    .Count(x => x.SuiviNiveau.SuiviPrerequis.SuiviCompetence.Suivi.Id == s.Id);
+
+                var d = ((nbExercicesValides / nbExercicesTotal) * 100);
+
+                pourcentages.Add(Math.Round(d));
+            }
+            return pourcentages;
         }
     }
 }

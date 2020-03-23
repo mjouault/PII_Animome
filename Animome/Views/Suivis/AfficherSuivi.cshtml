@@ -24,6 +24,7 @@
                     <td>
                         <div class="alignes">
                             <text class="texte">@Html.DisplayFor(modelItem => item.Domaine.Intitule)</text>
+                            <text>@(ViewData["pourcentages"]).ToList()[0]</text>
                             <a asp-controller="Suivis" asp-action="Valider" asp-route-id="@item.Id">V </a>
                             <a asp-controller="Suivis" asp-action="AnnulerValidation" asp-route-id="@item.Id">A </a>
                             <a asp-controller="Commentaires" asp-action="Index" asp-route-id="@item.Id">Voir commentaires</a>
