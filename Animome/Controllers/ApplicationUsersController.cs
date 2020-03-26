@@ -75,6 +75,7 @@ namespace Animome.Controllers
                 user.Nom = applicationUser.Nom;
                 user.Prenom = applicationUser.Prenom;
                 user.Email = applicationUser.Email;
+                //user.PhoneNumber = applicationUser.PhoneNumber;
                 await _userManager.UpdateAsync(user);
              }
              catch (DbUpdateConcurrencyException)
