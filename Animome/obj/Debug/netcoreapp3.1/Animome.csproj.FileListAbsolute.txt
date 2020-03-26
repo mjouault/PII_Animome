@@ -734,7 +734,6 @@ C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcore
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\ApplicationUsers\AfficherProfil.cshtml.g.cs
-C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\ApplicationUsers\CreerDomaine.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\ApplicationUsers\Index.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Collaborateurs\Index.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
@@ -1205,3 +1204,8 @@ C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcore
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Commentaires\Details.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Commentaires\Edit.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Commentaires\Index.cshtml.g.cs
+C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\DomaineUsers\Create.cshtml.g.cs
+C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\DomaineUsers\Delete.cshtml.g.cs
+C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\DomaineUsers\Details.cshtml.g.cs
+C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\DomaineUsers\Edit.cshtml.g.cs
+C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\DomaineUsers\Index.cshtml.g.cs

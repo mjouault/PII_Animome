@@ -4,29 +4,46 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="titre">Collaborateurs</h2>
-
-
+<h2>Collaborateurs</h2>
 
 <table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nom Prénom
+            </th>
+            <th>
+                Adresse Mail
+            <th>
+                Domaines d'expertise
+            </th>
+
+        </tr>
+    </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Prenom)
+                    @Html.DisplayFor(modelItem => item.Nom) @Html.DisplayFor(modelItem => item.Prenom)
                 </td>
                 <td>
-                    @*@foreach (var domaineUser in item.LesDomaineUsers)
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @foreach (var domaineUser in item.LesDomaines)
                     {
+                        <div>
                         @Html.DisplayFor(modelItem => domaineUser.Domaine.Intitule);
-                    }*@
+                        </div>
+                    }
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-controller = "DomaineUsers" asp-action="Index" asp-route-id="@item.Id">Voir Domaines d'expertise</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
+
             </tr>
         }
 

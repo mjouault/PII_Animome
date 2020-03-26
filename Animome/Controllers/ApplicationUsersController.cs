@@ -28,9 +28,10 @@ namespace Animome.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _userManager.Users.ToListAsync());
-                //.Include(user => user.LesDomaineUsers)
-                //.ThenInclude(lesDomainesUsers => lesDomainesUsers.Domaine).ToListAsync());
+            return View(await _userManager.Users
+                .Include(user => user.LesDomaines)
+                    .ThenInclude(x => x.Domaine)
+                .ToListAsync());
         }
 
         [Authorize]
@@ -46,38 +47,6 @@ namespace Animome.Controllers
             /*return View(await _userManager.Users
                 .Include(user => user.LesDomaineUsers)
                 .ThenInclude(lesDomainesUsers => lesDomainesUsers.Domaine).ToListAsync());*/
-        }
-
-        // POST: Domaines/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreerDomaine(DomaineCreateViewModel viewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                ApplicationUser user = await _userManager.GetUserAsync(User);
-
-                Suivi suiviAjoute = new Suivi
-                {
-                    Domaine = viewModel.Suivi.Domaine,
-                };
-
-                SuiviApplicationUser suiviApplicationUserAjoute = new SuiviApplicationUser
-                {
-                    Suivi = suiviAjoute,
-                    ApplicationUser = user
-                };
-
-                _context.Add(suiviAjoute);
-                _context.Add(suiviApplicationUserAjoute);
-
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(viewModel);
         }
 
         // GET: ApplicationUsers/Edit/5
@@ -100,24 +69,20 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Bind("Id,Nom,Prenom,Email")] ApplicationUser applicationUser)
         {
-            await _userManager.UpdateAsync(applicationUser);
-            /* try
+            var user = await _userManager.GetUserAsync(User);
+            try
              {
-                 await _context.SaveChangesAsync();
+                user.Nom = applicationUser.Nom;
+                user.Prenom = applicationUser.Prenom;
+                user.Email = applicationUser.Email;
+                await _userManager.UpdateAsync(user);
              }
              catch (DbUpdateConcurrencyException)
              {
-                 if (!_userManager.ApplicationUserExists(applicationUser.Id))
-                 {
-                     return NotFound();
-                 }
-                 else
-                 {
-                     throw;
-                 }
-             }*/
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                return NotFound();
+             }
+
+            return RedirectToAction("AfficherProfil", "ApplicationUsers");
         }
 
         public IActionResult CreerRole()

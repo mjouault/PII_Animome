@@ -95,7 +95,7 @@ namespace Animome.Controllers
                     };
                     _context.Add(suiviAjoute);
 
-                    SuiviApplicationUser suiviApplicationUserAjoute = new SuiviApplicationUser
+                    SuiviUser suiviApplicationUserAjoute = new SuiviUser
                     {
                         ApplicationUser = await _userManager.GetUserAsync(User),
                         Suivi=suiviAjoute

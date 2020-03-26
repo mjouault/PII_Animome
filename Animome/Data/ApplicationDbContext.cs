@@ -24,7 +24,7 @@ namespace Animome.Data
         public DbSet<SuiviPrerequis> SuiviPrerequis { get; set; }
         public DbSet<SuiviNiveau> SuiviNiveau { get; set; }
         public DbSet<SuiviExercice> SuiviExercice { get; set; }
-        public DbSet<SuiviApplicationUser> SuiviApplicationUser { get; set; }
+        public DbSet<SuiviUser> SuiviApplicationUser { get; set; }
         public DbSet<Commentaire>Commentaire { get; set; }
 
         public DbSet<Competence> Competence { get; set; }
@@ -34,5 +34,6 @@ namespace Animome.Data
         public DbSet<DomaineCompetence> DomaineCompetence { get; set; }
         public DbSet<CompetencePrerequis> CompetencePrerequis { get; set; }
         public DbSet<PrerequisNiveau> PrerequisNiveau { get; set; }
+        public DbSet<Animome.Models.DomaineUser> DomaineUser { get; set; }
     }
 }

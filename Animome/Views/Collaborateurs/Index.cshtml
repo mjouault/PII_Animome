@@ -7,18 +7,34 @@
 <h2>Collaborateurs</h2>
 
 <table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nom Prénom
+            </th>
+            <th>
+               Adresse Mail
+            <th>
+                Domaines d'expertise
+            </th>
+
+        </tr>
+    </thead>
     <tbody>
-         @foreach (var item in Model)
-         {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Prenom)
+                @Html.DisplayFor(modelItem => item.Nom) @Html.DisplayFor(modelItem => item.Prenom)
             </td>
             <td>
-                @*@foreach (var domaineUser in item.LesDomaineUsers)
-            {
-                @Html.DisplayFor(modelItem => domaineUser.Domaine.Intitule);
-            }*@
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @foreach (var suiviUser in item.LesSuiviApplicationUsers)
+                {
+                    @Html.DisplayFor(modelItem => suiviUser.Suivi.Domaine.Intitule);
+                }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -27,7 +43,7 @@
             </td>
 
         </tr>
-         }
+        }
 
     </tbody>
 </table>

@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace Animome.Models
 {
-    public class Commentaire
+    public class SuiviUser
     {
         public int Id { get; set; }
-        public SuiviUser SuiviApplicationUser { get; set; }
-        public DateTime Date { get; set; }
-        public string Texte { get; set; }
+        public Suivi Suivi { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

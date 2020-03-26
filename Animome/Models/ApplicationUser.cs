@@ -11,8 +11,10 @@ namespace Animome.Models
         public string Prenom { get; set; }
         public string Nom { get; set; }
 
-        public List<SuiviApplicationUser> LesSuiviApplicationUsers { get; set; }
+        public List<SuiviUser> LesSuiviApplicationUsers { get; set; }
         public List<SuiviExercice> LesSuiviExercices { get; set; }
+
+        public List<DomaineUser> LesDomaines { get; set; }
 
         //public ApplicationRole ApplicationRole { get;set;}
     }
