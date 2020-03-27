@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Animome.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200327181104_ajoutRoleSupressApplicationRole")]
-    partial class ajoutRoleSupressApplicationRole
+    [Migration("20200327192810_nouvellTentativeSuppressionAppliationRole")]
+    partial class nouvellTentativeSuppressionAppliationRole
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

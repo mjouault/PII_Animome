@@ -39,7 +39,7 @@ namespace Animome.Controllers
                 var role = await _userManager.GetRolesAsync(user);
                 if (role.Count== 0)
                 {
-                    user.Role = "EnAttente";
+                    //user.Role = "EnAttente";
                 }
                 await _userManager.UpdateAsync(user);
 

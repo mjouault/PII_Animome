@@ -67,6 +67,9 @@ namespace Animome.Migrations
                     b.Property<string>("Prenom")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
