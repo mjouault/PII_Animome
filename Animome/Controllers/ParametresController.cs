@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Animome.Data;
 using Animome.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Animome.Controllers
@@ -19,6 +20,8 @@ namespace Animome.Controllers
         {
             _context = context;
         }
+
+        [Authorize (Roles ="Admin")]
         public IActionResult Index()
         {
             return View();

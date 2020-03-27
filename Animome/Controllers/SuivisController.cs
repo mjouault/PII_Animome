@@ -511,7 +511,7 @@ namespace Animome.Controllers
                     .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.Prerequis);
 
             ViewData["idPatient"] = id;
-            ViewData["pourcentages"] = CalculerPourcentage(suivi.ToList());
+            ViewData["pourcentages"] = CalculerPourcentage(suivi.ToList())[0];
             return View(await suivi.ToListAsync());
         }
 
