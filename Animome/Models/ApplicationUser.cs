@@ -16,7 +16,7 @@ namespace Animome.Models
 
         public List<DomaineUser> LesDomaines { get; set; }
 
-        //public ApplicationRole ApplicationRole { get;set;}
+        public string Role { get; set; }
     }
 
     public class ApplicationRole : IdentityRole

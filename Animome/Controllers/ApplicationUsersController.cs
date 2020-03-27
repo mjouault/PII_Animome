@@ -17,22 +17,34 @@ namespace Animome.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        //private readonly RoleManager<ApplicationRole> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public ApplicationUsersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public ApplicationUsersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
-           //_roleManager = roleManager;
+           _roleManager = roleManager;
         }
 
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            return View(await _userManager.Users
+            var users = await _userManager.Users
                 .Include(user => user.LesDomaines)
                     .ThenInclude(x => x.Domaine)
-                .ToListAsync());
+                .ToListAsync();
+
+            foreach (var user in users)
+            {
+                var role = await _userManager.GetRolesAsync(user);
+                if (role.Count== 0)
+                {
+                    user.Role = "EnAttente";
+                }
+                await _userManager.UpdateAsync(user);
+
+            }
+            return View(users);
         }
 
         [Authorize]
@@ -121,6 +133,13 @@ namespace Animome.Controllers
             }
 
             return RedirectToAction("AfficherProfil", "ApplicationUsers");
+        }
+
+        public async Task <IActionResult> Accepter(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            await _userManager.AddToRoleAsync(user, "Utilisateur");
+            return RedirectToAction("Index", "ApplicationUsers");
         }
 
         public IActionResult CreerRole()

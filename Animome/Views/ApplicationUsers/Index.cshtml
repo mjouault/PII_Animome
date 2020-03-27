@@ -17,6 +17,9 @@
             <th>
                 Domaines d'expertise
             </th>
+            <th>
+                Statut
+            </th>
 
         </tr>
     </thead>
@@ -36,6 +39,12 @@
                         <div>
                         @Html.DisplayFor(modelItem => domaineUser.Domaine.Intitule);
                         </div>
+                    }
+                </td>
+                <td>
+                    @if (item.Role == "EnAttente")
+                    {
+                      <a asp-action="Accepter" asp-route-id="@item.Id">Accepter</a>
                     }
                 </td>
                 <td>
