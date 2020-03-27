@@ -22,7 +22,10 @@
         @Html.DisplayFor(Model => Model.Email)
     </dd>
     <dt>
-        @*@Html.DisplayNameFor(Model => Model.LesDomaineUsers)*@
+        @foreach (var d in Model.LesDomaines)
+        {
+            @Html.DisplayFor(Model => d.Domaine.Intitule)
+        }
     </dt>
     <dt>
     </dt>
