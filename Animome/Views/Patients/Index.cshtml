@@ -9,14 +9,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>@ViewData["Title"] - Animome</title>
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </head>
 
 <h1 class="titre">Patients</h1>
-<p>
-    <a asp-action="Create">Créer</a>
-</p>
 
 <form asp-controller="Patients" asp-action="Index" method="get">
     <div class="barreRecherche">
@@ -41,18 +39,19 @@
                 @Html.DisplayFor(modelItem => item.Numero)
             </td>
             <td>
-                <a asp-controller="Suivis" asp-action="Index" asp-route-id="@item.Id">Voir tous les suivis</a> |
-            </td>
-            <td>
-                <a asp-controller="Suivis" asp-action="AfficherSuivi" asp-route-id="@item.Id">Afficher graphes</a> |
+                <div class="boutonParametres">
+                    <a asp-controller="Suivis" asp-action="AfficherSuivi" asp-route-id="@item.Id">Afficher graphes</a> 
+                </div>
             </td>
 
             <td>
                 <a asp-controller="Suivis" asp-action="Create" asp-route-id="@item.Id">Générer suivi</a>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline"></ion-icon></a>
             </td>
         </tr>
         }
     </tbody>
 </table>
+<p>
+    <a asp-action="Create">Ajouter <ion-icon name="add-circle" stye=""></ion-icon></a>
+</p>

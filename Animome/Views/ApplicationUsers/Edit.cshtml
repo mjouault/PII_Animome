@@ -4,41 +4,70 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="titre">Profil</h1>
-
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" method="POST">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="@Model.Nom" class="control-label"></label>
-                <input asp-for="@Model.Nom" class="form-control" />
-                <span asp-validation-for="@Model.Nom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.Prenom" class="control-label"></label>
-                <input asp-for="@Model.Prenom" class="form-control" />
-                <span asp-validation-for="@Model.Prenom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.Email" class="control-label"></label>
-                <input asp-for="@Model.Email" class="form-control" />
-                <span asp-validation-for="@Model.Email" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary"/>
-            </div>
-        </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Animome</title>
+    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div>
+        <a asp-action="Index"><ion-icon name="arrow-back"></ion-icon></a>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <h1 class="titre">Profil</h1>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit" method="POST">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="@Model.Nom" class="control-label"></label>
+                    <input asp-for="@Model.Nom" class="form-control" />
+                    <span asp-validation-for="@Model.Nom" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Prenom" class="control-label"></label>
+                    <input asp-for="@Model.Prenom" class="form-control" />
+                    <span asp-validation-for="@Model.Prenom" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Email" class="control-label"></label>
+                    <input asp-for="@Model.Email" class="form-control" />
+                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Enregistrer" class="btn btn-primary" />
+                </div>
+            </form>
+
+            <p class="container">
+                <a asp-controller="DomaineUsers" asp-action="Create" asp-route-id="@Model.Id"><ion-icon name="add-circle"></ion-icon></a>
+                @if (Model.LesDomaines.Count != 0)
+                {
+                    @foreach (var domaineUser in Model.LesDomaines)
+                    {
+                        <div class="boutonParametres">
+                            @Html.DisplayFor(modelItem => domaineUser.Domaine.Intitule)
+                        </div>
+                        <a asp-controller="DomaineUsers" asp-action="Delete" asp-route-id="@domaineUser.Id"><ion-icon name="trash-outline"></ion-icon></a>
+                    }
+                }
+            </p>
+            <a asp-controller="DomaineUsers" asp-action="Create" asp-route-id="@Model.Id">Ajouter Domaine <ion-icon name="add-circle"></ion-icon></a>
+        </div>
+    </div>
+</body>
+</html>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

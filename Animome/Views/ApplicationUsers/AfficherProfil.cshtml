@@ -5,31 +5,44 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="titre">Profil</h1>
-<dl>
-    <dt>
-        @Html.DisplayNameFor(Model => Model.Prenom)
-        @Html.DisplayNameFor(Model => Model.Nom)
-    </dt>
-    <dd>
-        @Html.DisplayFor(Model => Model.Prenom)
-        @Html.DisplayFor(Model => Model.Nom)
-    </dd>
-    <dt>
-        @Html.DisplayNameFor(Model => Model.Email)
-    </dt>
-    <dd>
-        @Html.DisplayFor(Model => Model.Email)
-    </dd>
-    <dt>
-        @foreach (var d in Model.LesDomaines)
-        {
-            @Html.DisplayFor(Model => d.Domaine.Intitule)
-        }
-    </dt>
-    <dt>
-    </dt>
-</dl>
-<p>
-    <a asp-action="Edit">Modifier mes informations</a> |
-</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Animome</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <h1 class="titre">Profil</h1>
+    <dl>
+        <dt>
+            @Html.DisplayNameFor(Model => Model.Prenom)
+            @Html.DisplayNameFor(Model => Model.Nom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(Model => Model.Prenom)
+            @Html.DisplayFor(Model => Model.Nom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(Model => Model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(Model => Model.Email)
+        </dd>
+        <dt>
+            @foreach (var d in Model.LesDomaines)
+            {
+                @Html.DisplayFor(Model => d.Domaine.Intitule)
+            }
+        </dt>
+        <dt>
+        </dt>
+    </dl>
+    <p>
+        <a asp-action="EditProfil"> <i class="fas fa-pencil-alt"></i></a> |
+    </p>
+</body>
+</html>

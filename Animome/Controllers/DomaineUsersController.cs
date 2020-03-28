@@ -161,7 +161,7 @@ namespace Animome.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "ApplicationUsers");
             }
             return View(domaineUser);
         }

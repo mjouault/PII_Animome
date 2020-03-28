@@ -58,16 +58,19 @@ namespace Animome.Controllers
             return View(user);
             //.Include(lesDomainesUsers => lesDomainesUsers.Domaine).ToListAsync());
 
-            /*return View(await _userManager.Users
+            /*return View(await _userManager.Userse
                 .Include(user => user.LesDomaineUsers)
                 .ThenInclude(lesDomainesUsers => lesDomainesUsers.Domaine).ToListAsync());*/
         }
 
         // GET: ApplicationUsers/Edit/5
         [Authorize]
-        public async Task<IActionResult> EditProfil(string id)
+        public async Task<IActionResult> Edit(string id)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.Users.Where(x => x.Id == id)
+                .Include(x => x.LesDomaines)
+                    .ThenInclude(d => d.Domaine)
+                .SingleOrDefaultAsync();
             if (user == null)
             {
                 return NotFound();
@@ -81,9 +84,12 @@ namespace Animome.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditProfil(string id, [Bind("Id,Nom,Prenom,Email")] ApplicationUser applicationUser)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Nom,Prenom,Email")] ApplicationUser applicationUser)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.Users.Where(x=>x.Id==id)
+                .Include(x=>x.LesDomaines)
+                    .ThenInclude(d=>d.Domaine)
+                .SingleOrDefaultAsync();
             try
              {
                 user.Nom = applicationUser.Nom;
@@ -100,7 +106,7 @@ namespace Animome.Controllers
             return RedirectToAction("Index", "ApplicationUsers");
         }
 
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> EditProfil()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -116,7 +122,7 @@ namespace Animome.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Id,Nom,Prenom,Email")] ApplicationUser applicationUser)
+        public async Task<IActionResult> EditProfil([Bind("Id,Nom,Prenom,Email")] ApplicationUser applicationUser)
         {
             var user = await _userManager.GetUserAsync(User);
             try
