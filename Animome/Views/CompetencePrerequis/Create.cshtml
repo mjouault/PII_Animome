@@ -5,33 +5,46 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Animome</title>
+    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <p>
+        <a asp-action="Index" asp-route-id="@ViewData["idPatient"]"><ion-icon name="arrow-back" stye=""></ion-icon></a>
+    </p>
+    <h1>Create</h1>
 
-<h4>CompetencePrerequis</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <p>
-                <select asp-for="Competence.Intitule" asp-items="Model.ListeCompetences">
-                    <option value="">All</option>
-                </select>
-            </p>
-            <p>
-                <select asp-for="Prerequis.Intitule" asp-items="Model.ListePrerequis">
-                    <option value="">All</option>
-                </select>
-            </p>
+    <h4>CompetencePrerequis</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <p>
+                    <select asp-for="Competence.Intitule" asp-items="Model.ListeCompetences">
+                        <option value="">All</option>
+                    </select>
+                </p>
+                <p>
+                    <select asp-for="Prerequis.Intitule" asp-items="Model.ListePrerequis">
+                        <option value="">All</option>
+                    </select>
+                </p>
 
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+</body>
+</html>
 

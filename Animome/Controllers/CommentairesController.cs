@@ -30,13 +30,17 @@ namespace Animome.Controllers
             {
                 return NotFound();
             }
+            var suivi = await _context.Suivi.Where(c => c.Id == id)
+                .Include(x=>x.Patient)
+                .SingleAsync();
+
             var commentaires = await _context.Commentaire.Where(c => c.SuiviApplicationUser.Suivi.Id == id)
                 .Include(x=>x.SuiviApplicationUser)
-                    .ThenInclude(sa=>sa.Suivi)
-                        .ThenInclude(s=>s.Patient)
+                    .ThenInclude(sa=>sa.ApplicationUser)
                 .ToListAsync();
 
-            ViewData["idPatient"] = commentaires[0].SuiviApplicationUser.Suivi.Patient.Id;
+
+            ViewData["idPatient"] = suivi.Patient.Id;
             ViewData["idSuivi"] = id;
             return View(commentaires);
         }

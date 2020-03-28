@@ -108,12 +108,17 @@ namespace Animome.Controllers
 
         public async Task<IActionResult> EditProfil()
         {
-            var user = await _userManager.GetUserAsync(User);
+           var id=  _userManager.GetUserId(User);
+            var user = await _userManager.Users.Where(x => x.Id == id)
+                        .Include(x => x.LesDomaines)
+                            .ThenInclude(d => d.Domaine)
+                        .SingleOrDefaultAsync();
+
             if (user == null)
             {
                 return NotFound();
             }
-            return View(user);
+            return View("Edit", user);
         }
 
         // POST: ApplicationUsers/Edit/5
@@ -124,7 +129,11 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditProfil([Bind("Id,Nom,Prenom,Email")] ApplicationUser applicationUser)
         {
-            var user = await _userManager.GetUserAsync(User);
+            var id = _userManager.GetUserId(User);
+            var user = await _userManager.Users.Where(x => x.Id == id)
+                        .Include(x => x.LesDomaines)
+                            .ThenInclude(d => d.Domaine)
+                        .SingleOrDefaultAsync();
             try
             {
                 user.Nom = applicationUser.Nom;

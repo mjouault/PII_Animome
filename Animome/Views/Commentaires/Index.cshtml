@@ -18,9 +18,12 @@
 </head>
 <body>
     <p>
-        <a asp-controller="Patients" asp-action="AfficherSuivi" asp-route-id="@ViewData["idPatient"]"><ion-icon name="arrow-back" stye=""></ion-icon></a>
+        <a asp-controller="Suivis" asp-action="AfficherSuivi" asp-route-id="@ViewData["idPatient"]"><ion-icon name="arrow-back" stye=""></ion-icon></a>
     </p>
     <h1>Index</h1>
+    <p>
+        <a asp-action="Create" asp-route-id="@ViewData["idSuivi"]"> Ajouter <ion-icon name="add-circle" stye=""></ion-icon></a>
+    </p>
     <table class="table">
         <thead>
             <tr>
@@ -51,8 +54,5 @@
             }
         </tbody>
     </table>
-    <p>
-        <a asp-action="Create" asp-route-id="@ViewData["idSuivi"]"> Ajouter <ion-icon name="add-circle" stye=""></ion-icon></a>
-    </p>
 </body>
 </html>
