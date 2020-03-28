@@ -55,14 +55,22 @@
                 <td>
                     @if (item.Role == "EnAttente") //A changer !!!!
                     {
-                        <a asp-action="Accepter" asp-route-id="@item.Id"><ion-icon name="checkbox" style="color:darkgreen"></ion-icon></a>
+
+                        <ion-icon name="checkbox" style="color:darkgreen"></ion-icon>
+                        <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="close-circle" style="color:darkred"></ion-icon></a>
+                    }
+                    else
+                    {
+                        <ion-icon name="checkbox" style="color:darkgreen"></ion-icon>
                     }
                 </td>
-                <td>
- |
-                    <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-pencil-alt"></i></a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline"></ion-icon></a>
-                </td>
+                @if (item.Role != "EnAttente")
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-pencil-alt"></i></a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline"></ion-icon></a>
+                    </td>
+                }
 
             </tr>
         }

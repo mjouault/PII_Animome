@@ -22,114 +22,186 @@
     </p>
     <h1>AfficherSuivi</h1>
     <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Domaine
+                </th>
+            </tr>
+        </thead>
         <tbody>
             @foreach (var item in Model)
             {
                 <tr>
                     <td>
+                        <a asp-controller="Suivis" asp-action="Valider" asp-route-id="@item.Id"> <ion-icon name="checkbox" style="color:darkgreen"></ion-icon></a>
+                        <a asp-controller="Suivis" asp-action="AnnulerValidation" asp-route-id="@item.Id"> <ion-icon name="close-circle" style="color:darkred"></ion-icon></a>
+                        <a asp-controller="Commentaires" asp-action="Index" asp-route-id="@item.Id">Voir commentaires</a>
                         <div class="alignes">
                             <text class="texte">@Html.DisplayFor(modelItem => item.Domaine.Intitule)</text>
                             <text>@ViewData["pourcentages"]</text>
-                            <a asp-controller="Suivis" asp-action="Valider" asp-route-id="@item.Id">V </a>
-                            <a asp-controller="Suivis" asp-action="AnnulerValidation" asp-route-id="@item.Id">A </a>
-                            <a asp-controller="Commentaires" asp-action="Index" asp-route-id="@item.Id">Voir commentaires</a>
                         </div>
+                    </td>
+                    <td>
                         <div class="alignes">
                             @foreach (var suiviCompetence in item.LesSuiviCompetences)
                             {
                                 // si compétence vide
                                 @if (suiviCompetence.Etat == EtatEnum.e1)
                                 {
+                                   
                                     <div class="carteCompetenceNonValide">
-                                        <text class="texte">@Html.DisplayFor(modelItem => suiviCompetence.Competence.Intitule) : 20 %</text>
-                                        <a asp-controller="SuiviCompetences" asp-action="Valider" asp-route-id="@suiviCompetence.Id">V </a>
-                                        <a asp-controller="SuiviCompetences" asp-action="AnnulerValidation" asp-route-id="@suiviCompetence.Id">A </a>
+                                        <div class="colonne">
+                                            <div>
+                                                <a asp-controller="SuiviCompetences" asp-action="Valider" asp-route-id="@suiviCompetence.Id"> <ion-icon name="checkbox" style="color:darkgreen"></ion-icon> </a>
+                                                <a asp-controller="SuiviCompetences" asp-action="AnnulerValidation" asp-route-id="@suiviCompetence.Id"> <ion-icon name="close-circle" style="color:darkred"></ion-icon></a>
+                                            </div>
+                                                <text class="texte">@Html.DisplayFor(modelItem => suiviCompetence.Competence.Intitule) : 20 %</text>
+                                        </div>
+
                                         <div class="alignes">
                                             @foreach (var suiviPrerequis in suiviCompetence.LesSuiviPrerequis)
                                             {
                                                 @if (suiviPrerequis.Etat == EtatEnum.e3)
-                                                {<div class="itemPrerequisValide">
-                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
+                                                {
+                                                    <div class="column">
+                                                        <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id="@suiviPrerequis.Id"><ion-icon name="close-circle" style="color:darkred"></ion-icon> </a>
+                                                        <div class="itemPrerequisValide">
+                                                            <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id"> </a>
+                                                        </div>
                                                     </div>
+
+
                                                 }
                                                 else if (suiviPrerequis.Etat == EtatEnum.e1)
                                                 {
-                                                    <div class="itemPrerequisNonValide">
-                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
+                                                    <div class="colonne">
+                                                        <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id="@suiviPrerequis.Id"> <ion-icon name="checkbox" style="color:darkgreen"></ion-icon> </a>
+                                                        <div class="itemPrerequisNonValide">
+                                                            <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id"> </a>
+                                                        </div>
                                                     </div>
+
                                                 }
                                                 else if (suiviPrerequis.Etat == EtatEnum.e2)
                                                 {
-                                                    <div class="itemPrerequisEnCours">
-                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
+                                                <div class=colonne>
+                                                    <div>
+                                                        <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id="@suiviPrerequis.Id"> <ion-icon name="checkbox" style="color:darkgreen"></ion-icon> </a>
+                                                        <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id="@suiviPrerequis.Id"><ion-icon name="close-circle" style="color:darkred"></ion-icon> </a>
                                                     </div>
+                                                    <div class="itemPrerequisEnCours">
+                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id"> </a>
+                                                    </div>
+                                                </div>
+
+
                                                 }
-                                                <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id="@suiviPrerequis.Id">V </a>
-                                                <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id="@suiviPrerequis.Id">A </a>
+
                                             }
                                         </div>
                                     </div>
                                 }
                                 @if (suiviCompetence.Etat == EtatEnum.e2)
                                 {
-                                    <div class="carteCompetenceEnCours">
-                                        <text class="texte">@Html.DisplayFor(modelItem => suiviCompetence.Competence.Intitule) : 20 %</text>
-                                        <a asp-controller="SuiviCompetences" asp-action="Valider" asp-route-id="@suiviCompetence.Id">V </a>
-                                        <a asp-controller="SuiviCompetences" asp-action="AnnulerValidation" asp-route-id="@suiviCompetence.Id">A </a>
-                                        <div class="alignes">
-                                            @foreach (var suiviPrerequis in suiviCompetence.LesSuiviPrerequis)
-                                            {
-                                                @if (suiviPrerequis.Etat == EtatEnum.e3)
-                                                {<div class="itemPrerequisValide">
-                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
-                                                    </div>
-                                                }
-                                                else if (suiviPrerequis.Etat == EtatEnum.e1)
-                                                {
-                                                    <div class="itemPrerequisNonValide">
-                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
-                                                    </div>
-                                                }
-                                                else if (suiviPrerequis.Etat == EtatEnum.e2)
-                                                {
-                                                    <div class="itemPrerequisEnCours">
-                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
-                                                    </div>
-                                                }
-                                                <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id="@suiviPrerequis.Id">V </a>
-                                                <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id="@suiviPrerequis.Id">A </a>
-                                            }
+                                <div class="carteCompetenceEnCours">
+
+                                    <div class="colonne">
+                                        <div>
+                                            <a asp-controller="SuiviCompetences" asp-action="Valider" asp-route-id="@suiviCompetence.Id"> <ion-icon name="checkbox" style="color:darkgreen"></ion-icon> </a>
+                                            <a asp-controller="SuiviCompetences" asp-action="AnnulerValidation" asp-route-id="@suiviCompetence.Id"> <ion-icon name="close-circle" style="color:darkred"></ion-icon></a>
                                         </div>
-                                    </div>
-                                }
-                                @if (suiviCompetence.Etat == EtatEnum.e3)
-                                {
-                                    <div class="carteCompetenceValide">
                                         <text class="texte">@Html.DisplayFor(modelItem => suiviCompetence.Competence.Intitule) : 20 %</text>
-                                        <a asp-controller="SuiviCompetences" asp-action="Valider" asp-route-id="@suiviCompetence.Id">V </a>
-                                        <a asp-controller="SuiviCompetences" asp-action="AnnulerValidation" asp-route-id="@suiviCompetence.Id">A </a>
+                                    </div>
+
+                                    <div class="alignes">
+                                        @foreach (var suiviPrerequis in suiviCompetence.LesSuiviPrerequis)
+                                        {
+                                            @if (suiviPrerequis.Etat == EtatEnum.e3)
+                                            {
+                                                <div class="colonne">
+                                                    <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id="@suiviPrerequis.Id"><ion-icon name="close-circle" style="color:darkred"></ion-icon> </a>
+                                                    <div class="itemPrerequisValide">
+                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id"> </a>
+                                                    </div>
+                                                </div>
+
+
+                                            }
+                                            else if (suiviPrerequis.Etat == EtatEnum.e1)
+                                            {
+                                                <div class="colonne">
+                                                    <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id="@suiviPrerequis.Id"> <ion-icon name="checkbox" style="color:darkgreen"></ion-icon> </a>
+                                                    <div class="itemPrerequisNonValide">
+                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id"> </a>
+                                                    </div>
+                                                </div>
+
+                                            }
+                                            else if (suiviPrerequis.Etat == EtatEnum.e2)
+                                            {
+                                                <div class="colonne">
+                                                    <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id="@suiviPrerequis.Id"> <ion-icon name="checkbox" style="color:darkgreen"></ion-icon> </a>
+                                                    <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id="@suiviPrerequis.Id"><ion-icon name="close-circle" style="color:darkred"></ion-icon> </a>
+                                                    <div class="itemPrerequisEnCours">
+                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id"> </a>
+                                                    </div>
+                                                </div>
+
+                                            }
+
+                                        }
+                                    </div>
+                                 </div>
+                                    }
+                                    @if (suiviCompetence.Etat == EtatEnum.e3)
+                                    {
+                                    <div class="carteCompetenceValide">
+                                        <div class="colonne">
+                                            <div>
+                                                <a asp-controller="SuiviCompetences" asp-action="Valider" asp-route-id="@suiviCompetence.Id"> <ion-icon name="checkbox" style="color:darkgreen"></ion-icon> </a>
+                                                <a asp-controller="SuiviCompetences" asp-action="AnnulerValidation" asp-route-id="@suiviCompetence.Id"> <ion-icon name="close-circle" style="color:darkred"></ion-icon></a>
+                                            </div>
+                                            <text class="texte">@Html.DisplayFor(modelItem => suiviCompetence.Competence.Intitule) : 20 %</text>
+                                        </div>
+                                       
                                         <div class="alignes">
                                             @foreach (var suiviPrerequis in suiviCompetence.LesSuiviPrerequis)
                                             {
                                                 @if (suiviPrerequis.Etat == EtatEnum.e3)
-                                                {<div class="itemPrerequisValide">
-                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
+                                                {
+                                                    <div class="colonne">
+                                                        <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id="@suiviPrerequis.Id"><ion-icon name="close-circle" style="color:darkred"></ion-icon> </a>
+                                                        <div class="itemPrerequisValide">
+                                                            <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id"> </a>
+                                                        </div>
                                                     </div>
+
+
                                                 }
                                                 else if (suiviPrerequis.Etat == EtatEnum.e1)
                                                 {
+                                                <div class="colonne">
+                                                    <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id="@suiviPrerequis.Id"> <ion-icon name="checkbox" style="color:darkgreen"></ion-icon> </a>
                                                     <div class="itemPrerequisNonValide">
-                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
+                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id"> </a>
                                                     </div>
+                                                </div>
+
                                                 }
                                                 else if (suiviPrerequis.Etat == EtatEnum.e2)
                                                 {
-                                                    <div class="itemPrerequisEnCours">
-                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
+                                                <div class="colonne">
+                                                    <div>
+                                                        <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id="@suiviPrerequis.Id"> <ion-icon name="checkbox" style="color:darkgreen"></ion-icon> </a>
+                                                        <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id="@suiviPrerequis.Id"><ion-icon name="close-circle" style="color:darkred"></ion-icon> </a>
                                                     </div>
+                                                    <div class="itemPrerequisEnCours">
+                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id"> </a>
+                                                    </div>
+                                                </div>
                                                 }
-                                                <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id="@suiviPrerequis.Id">V </a>
-                                                <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id="@suiviPrerequis.Id">A </a>
+
                                             }
                                         </div>
                                     </div>
