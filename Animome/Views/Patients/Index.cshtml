@@ -34,7 +34,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Patients[0].Numero)
             </th>
-            <th></th>
+            <th>
+                Suiveurs
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -43,6 +45,12 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Numero)
+                </td>
+                <td>
+                    @foreach (var s in Model.LesSuiveurs)
+                    {
+                        if (item.Id == s.Key)@Html.Display(s.Value.Nom) @Html.Display(s.Value.Prenom)
+                    }
                 </td>
                 <td>
                     <div class="boutonParametres">

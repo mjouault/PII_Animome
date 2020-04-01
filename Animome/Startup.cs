@@ -32,7 +32,7 @@ namespace Animome
                     options.UseSqlServer(
                         Configuration.GetConnectionString("DefaultConnection")));
                 services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddRoles<IdentityRole>()
+                    //.AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>();
                 services.AddControllersWithViews();
                 services.AddRazorPages();
@@ -67,7 +67,7 @@ namespace Animome
                         pattern: "{controller=Home}/{action=Index}/{id?}");
                     endpoints.MapRazorPages();
                 });
-                CreateRoles(services).Wait();
+                //CreateRoles(services).Wait();
             }
 
             private async Task CreateRoles(IServiceProvider serviceProvider)
@@ -92,13 +92,12 @@ namespace Animome
             //here we are assigning the Admin role to the User that we have registered above 
             //Now, we are assinging admin role to this user("Ali@gmail.com"). When will we run this project then it will
             //be assigned to that user.
-            ApplicationUser user = await UserManager.FindByEmailAsync("maurine@gmail.com");
-             //   var User = new IdentityUser();
+             ApplicationUser user = await UserManager.FindByEmailAsync("maurine@gmail.com");
+
                 await UserManager.AddToRoleAsync(user, "Admin");
 
-            ApplicationUser user2 = await UserManager.FindByEmailAsync("gautier@gmail.com");
-            //var User2 = new ApplUser();
-            await UserManager.AddToRoleAsync(user2, "Utilisateur");
+             ApplicationUser user2 = await UserManager.FindByEmailAsync("gautier@gmail.com");
+                await UserManager.AddToRoleAsync(user2, "Utilisateur");
         }
     }
     }

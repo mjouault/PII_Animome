@@ -13,33 +13,41 @@
 <div class="text-center">
     <h1 class="display-4">Tableau de bord</h1>
 </div>
+
 <div class="tableauDeBord">
     <div class="blocAccueil">
         <h6>Dernières modifications</h6>
-        @for (var i = 0; i < 5; i++)
-        {
-        <div class=tableauDeBord>
-            <div class=case>@i</div>
-            <div class=case>Ajout C113</div>
-            <div class=case>Date</div>
-        </div>
-        }
+        <table>
+            <tbody>
+                @for (var i = 0; i < 5; i++)
+                {
+                    <tr>
+                        <td class="case">
+                            Gautier Laisné
+                        </td>
+                        <td class="case">
+                            @i
+                        </td>
+                        <td class="case">
+                            Compétence .... Valide
+                        </td>
+                        <td class="case">
+                            12/03/2020
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-    <div class="blocAccueil">
-        <h6>Demandes en attente</h6>
-        @foreach (var item in Model)
-        {
-        <div>
-            <div class=case>
-                @Html.DisplayFor(modelItem => item.Prenom)
-                @Html.DisplayFor(modelItem => item.Nom)
-                <button type="submit">
-                    <img class="imgDemande" src="./../../wwwroot/img/tick.png" alt="tick" />
-                    <img class="imgDemand" src="./../../wwwroot/img/cross.png" alt="croix" />
-                </button>
+
+        <div class="blocAccueil" style="height:150px">
+            <h6 style="margin-bottom:10px">Demandes en attente</h6>
+            <div>
+                <div>
+                 <a asp-controller="ApplicationUsers" asp-action="Index" style="font-size:70px; color:white">3</a>
+                </div>
             </div>
         </div>
-        }
+
     </div>
-</div>
 

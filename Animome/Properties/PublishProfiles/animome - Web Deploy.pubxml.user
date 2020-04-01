@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Ce fichier est utilisé par le processus de publication/package de votre projet web. Vous pouvez personnaliser le comportement de ce processus
+en modifiant ce fichier MSBuild. Pour en savoir plus à ce sujet, visitez https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAO6+AjqIGHkOtPWDxJHd+tQAAAAACAAAAAAAQZgAAAAEAACAAAADFyNXvsS5xj5Sc37fOvnuLLbbupeT+GWL+MIfiRKQdagAAAAAOgAAAAAIAACAAAADexoMdmNQzYEq4VObD0QSdmWO7+MPd2+1WLv4hVnYMmIAAAADpI9O8T9Sn3Z16GQUj3W2Q6RYnSMZeTSdkTaQ+k4KOlC+4mlI80BQyLc0O3HH3FK/jb1iC0KeuAJvL88tcDtFIM7YiHyw0138WjHvelZT28uEkYqJWrCvuGGes6MP9wpGh/wHbP4s1x33U0/6LFZn6zwHXVN2hItM78jm8kwlae0AAAAAWNVK6sBNnTPGLzLmsvYzhrbvAOK5CBwIolcu+TM7UYrToWJ34F1DW+2OZ9yHQi7j1KRkY8LOhuHhKOjJXp/jE</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Data Source=tcp:animomedbserver.database.windows.net,1433%3bInitial Catalog=animome_db%3bUser Id=jouaultmaurine%40animomedbserver%3bPassword=Bl%40m1901</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="Animome.Data.ApplicationDbContext">
+      <Value>Data Source=tcp:animomedbserver.database.windows.net,1433%3bInitial Catalog=animome_db%3bUser Id=jouaultmaurine%40animomedbserver%3bPassword=Bl%40m1901</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

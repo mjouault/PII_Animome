@@ -23,7 +23,7 @@ namespace Animome.Controllers
         {
             _context = context;
             _userManager = userManager;
-           _roleManager = roleManager;
+          _roleManager = roleManager;
         }
 
         [Authorize]
@@ -39,7 +39,7 @@ namespace Animome.Controllers
                 var role = await _userManager.GetRolesAsync(user);
                 if (role.Count== 0)
                 {
-                    //user.Role = "EnAttente";
+                    user.Role = "EnAttente";
                 }
                 await _userManager.UpdateAsync(user);
 

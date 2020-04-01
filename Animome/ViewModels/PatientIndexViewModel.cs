@@ -10,5 +10,7 @@ namespace Animome.ViewModels
     {
         public List<Patient> Patients { get; set; }
         public string RecherchePatient { get; set; }
+
+        public Dictionary<int, ApplicationUser> LesSuiveurs {get;set ;}
     }
 }

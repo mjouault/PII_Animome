@@ -10,16 +10,19 @@ using Animome.Models;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
 using Animome.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace Animome.Controllers
 {
     public class PatientsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public PatientsController(ApplicationDbContext context)
+        public PatientsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Patients
@@ -27,6 +30,28 @@ namespace Animome.Controllers
         {
             var patients = from p in _context.Patient
                            select p;
+
+
+            Dictionary<int, ApplicationUser> dicoSuiveurs = new Dictionary<int,ApplicationUser>();
+
+            foreach (var p in patients)
+            {
+                var suiviUsers = await _context.SuiviApplicationUser.Where(x => x.Suivi.Patient.Id == p.Id)
+                    .Include(x => x.ApplicationUser)
+                    .Include(x=>x.Suivi)
+                        .ThenInclude(s=>s.Patient)
+                    .ToListAsync();
+
+                foreach (var s in suiviUsers)
+                {
+                    var applicationUsers = dicoSuiveurs.FirstOrDefault();
+                    if (dicoSuiveurs.ContainsValue(s.ApplicationUser) && applicationUsers.Key != s.Suivi.Patient.Id)
+                    {
+                        dicoSuiveurs.Add(s.Suivi.Patient.Id, s.ApplicationUser);
+                    }
+
+                }
+            }
 
             if (!string.IsNullOrEmpty(recherchePatient))
             {
@@ -36,6 +61,7 @@ namespace Animome.Controllers
             PatientIndexViewModel patientRecherche = new PatientIndexViewModel
             {
                 Patients = await patients.ToListAsync(),
+                LesSuiveurs = dicoSuiveurs
             };
             return View(patientRecherche);
         }

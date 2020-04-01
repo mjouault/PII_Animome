@@ -33,6 +33,7 @@ namespace Animome.Controllers
         }
         public async Task<IActionResult> IndexAdmin()
         {
+           // var maj = await _context.SuiviExercice.Where(x=>x.DateValid)
             return View(await _userManager.Users.ToListAsync());
         }
 
