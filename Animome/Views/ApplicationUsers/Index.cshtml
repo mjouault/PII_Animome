@@ -3,18 +3,7 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Animome</title>
-    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-</head>
-<body>
+
 <h2>Collaborateurs</h2>
 
 <table class="table">
@@ -37,45 +26,46 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nom) @Html.DisplayFor(modelItem => item.Prenom)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @foreach (var domaineUser in item.LesDomaines)
-                    {
-                    <div>
-                        @Html.DisplayFor(modelItem => domaineUser.Domaine.Intitule) 
-                    </div>
-                    }
-                </td>
-                <td>
-                    @if (item.Role == "EnAttente") //A changer !!!!
-                    {
-
-                        <ion-icon name="checkbox" style="color:darkgreen"></ion-icon>
-                        <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="close-circle" style="color:darkred"></ion-icon></a>
-                    }
-                    else
-                    {
-                        <ion-icon name="checkbox" style="color:darkgreen"></ion-icon>
-                    }
-                </td>
-               @if (item.Role != "EnAttente")
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom) @Html.DisplayFor(modelItem => item.Prenom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @foreach (var domaineUser in item.LesDomaines)
                 {
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-pencil-alt icon"></i></a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline" class="icon"></ion-icon></a>
-                    </td>
+                    <div>
+                        @Html.DisplayFor(modelItem => domaineUser.Domaine.Intitule)
+                    </div>
+                }
+            </td>
+            <td>
+                @if (item.Role == "") //A changer !!!!
+                {
+                    <ion-icon name="alert-circle" class="icon" style="color:orangered"></ion-icon>
+                }
+                else
+                {
+                    <ion-icon name="checkbox" class="icon" style="color:darkgreen"></ion-icon>
+                }
+            </td>
+            <td>
+                @if (item.Role == "")
+                {
+
+                <a asp-action="Accepter" asp-route-id="@item.Id"><ion-icon name="checkbox" style="color:darkgreen" class="icon"></ion-icon></a>
+                <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="close-circle" class="icon" style="color:darkred"></ion-icon></a>
+                }
+                else
+                {
+                <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-pencil-alt icon"></i></a>
+                <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline" class="icon"></ion-icon></a>
                 }
 
-            </tr>
+            </td>
+        </tr>
         }
-
     </tbody>
 </table>
-</body>
-</html>

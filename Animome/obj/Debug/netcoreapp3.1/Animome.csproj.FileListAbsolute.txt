@@ -735,7 +735,6 @@ C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcore
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\ApplicationUsers\AfficherProfil.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\ApplicationUsers\Index.cshtml.g.cs
-C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Collaborateurs\Index.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Home\IndexAdmin.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
@@ -1147,11 +1146,7 @@ C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcore
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviCompetences\Edit.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviCompetences\Index.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviCompetences\Create.cshtml.g.cs
-C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviPrerequis\Create.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviPrerequis\Delete.cshtml.g.cs
-C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviPrerequis\Details.cshtml.g.cs
-C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviPrerequis\Edit.cshtml.g.cs
-C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviPrerequis\Index.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviPrerequis\AfficherPrerequis.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Domaines\Create.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Domaines\Delete.cshtml.g.cs
@@ -1171,14 +1166,10 @@ C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcore
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\CompetencePrerequis\Create.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\CompetencePrerequis\Delete.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\CompetencePrerequis\Index.cshtml.g.cs
-C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\PrerequisNiveaux\Create.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\PrerequisNiveaux\Delete.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\PrerequisNiveaux\Index.cshtml.g.cs
-C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviNiveaux\Create.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviNiveaux\Delete.cshtml.g.cs
-C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviNiveaux\Details.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviNiveaux\Edit.cshtml.g.cs
-C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviNiveaux\Index.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviExercices\Create.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviExercices\Delete.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\SuiviExercices\Details.cshtml.g.cs
@@ -1197,3 +1188,4 @@ C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcore
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\DomaineUsers\Edit.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\DomaineUsers\Index.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Animome.csprojAssemblyReference.cache
+C:\Users\Maurine\Documents\ENSC\2A_ENSC\S8\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\PrerequisNiveaux\Create.cshtml.g.cs

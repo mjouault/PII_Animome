@@ -32,18 +32,19 @@ namespace Animome.Controllers
             var users = await _userManager.Users
                 .Include(user => user.LesDomaines)
                     .ThenInclude(x => x.Domaine)
+                .OrderBy(x=>x.Role)
                 .ToListAsync();
 
-            foreach (var user in users)
+           /* foreach (var user in users)
             {
                 var role = await _userManager.GetRolesAsync(user);
-                if (role.Count== 0)
+                if (role.Count!= 0)
                 {
-                    user.Role = "EnAttente";
+                    user.Role = role[0].ToString();
                 }
                 await _userManager.UpdateAsync(user);
 
-            }
+            }*/
             return View(users);
         }
 
@@ -154,6 +155,8 @@ namespace Animome.Controllers
         {
             var user = await _userManager.FindByIdAsync(id);
             await _userManager.AddToRoleAsync(user, "Utilisateur");
+            user.Role = "Utilisateur";
+            await _userManager.UpdateAsync(user);
             return RedirectToAction("Index", "ApplicationUsers");
         }
 

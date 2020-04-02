@@ -42,6 +42,9 @@ namespace Animome.Controllers
                         .ThenInclude(s=>s.Patient)
                     .ToListAsync();
 
+                p.lesSuivis = await _context.Suivi.Where(x => x.Patient == p).ToListAsync() ;
+
+
                 foreach (var s in suiviUsers)
                 {
                     var applicationUsers = dicoSuiveurs.FirstOrDefault();
@@ -60,7 +63,8 @@ namespace Animome.Controllers
 
             PatientIndexViewModel patientRecherche = new PatientIndexViewModel
             {
-                Patients = await patients.ToListAsync(),
+                Patients = await patients
+                .ToListAsync(),
                 LesSuiveurs = dicoSuiveurs
             };
             return View(patientRecherche);

@@ -102,6 +102,10 @@ button.accept-policy {
     justify-content: center;
 }
 
+.alinea{
+    margin-left :20px;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -344,7 +348,27 @@ body {
 
 .titre {
     text-align:center;
-    position : center;
-    top : 100px;
+    position:absolute;
+    top : 150px;
+    width : 100%;
 }
 
+
+tr:nth-child(2n+1) {
+    background-color: #C7F0C1
+}
+
+tr:nth-child(2n) {
+    background-color: #F0FAEE
+}
+
+thead {
+    background-color: transparent;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-color: red;
+}
+
+label{
+    margin-right:15px;
+}

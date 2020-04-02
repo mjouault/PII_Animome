@@ -5,58 +5,45 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h1 class="titre">Afficher Prérequis</h1>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Animome</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-</head>
-<body>
-    <h1 class="titre">Afficher Prérequis</h1>
-
-    <table class="table">
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        <text class="texte">@Html.DisplayFor(modelItem => item.Prerequis.Intitule)</text>
-                        <div class="alignes">
-                            @foreach (var suiviNiveau in item.LesSuiviNiveaux)
+<table class="table">
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <text class="texte">@Html.DisplayFor(modelItem => item.Prerequis.Intitule)</text>
+                    <div class="alignes">
+                        @foreach (var suiviNiveau in item.LesSuiviNiveaux)
+                        {
+                        <div class="carteCompetence">
+                            <text class="texte">@Html.DisplayFor(modelItem => suiviNiveau.Niveau.Intitule) : 20 %</text>
+                            @foreach (var suiviExercice in suiviNiveau.LesSuiviExercices)
                             {
-                            <div class="carteCompetence">
-                                <text class="texte">@Html.DisplayFor(modelItem => suiviNiveau.Niveau.Intitule) : 20 %</text>
-                                @foreach (var suiviExercice in suiviNiveau.LesSuiviExercices)
-                                {
 
-                                    @if (suiviExercice.Valide)
-                                    {<div class="itemExerciceValide">
-                                            <a asp-controller="SuiviExercices" asp-action="AnnulerValidation" asp-route-id="@suiviExercice.Id">@suiviExercice.Id</a>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="itemExerciceNonValide">
-                                            <a asp-controller="SuiviExercices" asp-action="Valider" asp-route-id="@suiviExercice.Id">@suiviExercice.Id</a>
-                                        </div>
-                                    }
+                                @if (suiviExercice.Valide)
+                                {<div class="itemExerciceValide">
+                                        <a asp-controller="SuiviExercices" asp-action="AnnulerValidation" asp-route-id="@suiviExercice.Id">@suiviExercice.Id</a>
+                                    </div>
                                 }
-                                <p>
-                                    <a asp-controller="SuiviExercices" asp-action="Create" asp-route-id="@suiviNiveau.Id">+ niveau </a>
-                                </p>
-                            </div>
-
+                                else
+                                {
+                                    <div class="itemExerciceNonValide">
+                                        <a asp-controller="SuiviExercices" asp-action="Valider" asp-route-id="@suiviExercice.Id">@suiviExercice.Id</a>
+                                    </div>
+                                }
                             }
+                            <p>
+                                <a asp-controller="SuiviExercices" asp-action="Create" asp-route-id="@suiviNiveau.Id">+ niveau </a>
+                            </p>
                         </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</body>
-</html>
+
+                        }
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 

@@ -4,59 +4,45 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Animome</title>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-</head>
 
-<body>
-    <p>
-        <a asp-controller="Parametres" asp-action="Index"><ion-icon name="arrow-back" stye=""></ion-icon></a>
-    </p>
-    <h1>Index</h1>
-    <p>
-        <a asp-action="Create">Ajouter <ion-icon name="add-circle" stye=""></ion-icon></a>
-    </p>
-    <table class="table">
-        <thead>
+<p>
+    <a asp-controller="Parametres" asp-action="Index"><ion-icon name="arrow-back" stye=""></ion-icon></a>
+</p>
+<h1>Index</h1>
+<p>
+    <a asp-action="Create">Ajouter <ion-icon name="add-circle" stye=""></ion-icon></a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Domaine
+            <th>
+                Compétence
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>
-                    Id
-                </th>
-                <th>
-                    Domaine
-                <th>
-                    Compétence
-                </th>
-
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Domaine.Intitule)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Competence.Intitule)
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline" stye=""></ion-icon></a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Domaine.Intitule)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Competence.Intitule)
-                    </td>
-                    <td>
-                        <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline" stye=""></ion-icon></a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</body>
-</html>
+        }
+    </tbody>
+</table>

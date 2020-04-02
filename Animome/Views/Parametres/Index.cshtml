@@ -2,24 +2,17 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@ViewData["Title"] - Animome</title>
-        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-<body>
-    <h1 class="titre">Paramètres</h1>
-    <div class="container colonne">
+<h1 class="titre">Paramètres</h1>
+<div class="container colonne">
+    <div class="alignes">
         <a class="lien boutonParametres" asp-controller="Domaines" asp-action="Index">DOMAINES</a>
         <a class="lien boutonParametres" asp-controller="Competences" asp-action="Index">COMPETENCES</a>
-        <a class="lien boutonParametres" asp-controller="DomaineCompetences" asp-action="Index">DOMAINECOMPETENCE</a>
         <a class="lien boutonParametres" asp-controller="Prerequis" asp-action="Index">PREREQUIS</a>
-        <a class="lien boutonParametres" asp-controller="CompetencePrerequis" asp-action="Index">COMPETENCEPREREQUIS</a>
         <a class="lien boutonParametres" asp-controller="Niveaux" asp-action="Index">NIVEAUX</a>
+    </div>
+    <div class="alignes">
+        <a class="lien boutonParametres" asp-controller="DomaineCompetences" asp-action="Index">DOMAINECOMPETENCE</a>
+        <a class="lien boutonParametres" asp-controller="CompetencePrerequis" asp-action="Index">COMPETENCEPREREQUIS</a>
         <a class="lien boutonParametres" asp-controller="PrerequisNiveaux" asp-action="Index">PREREQUISNIVEAUX</a>
     </div>
-</body>
+</div>

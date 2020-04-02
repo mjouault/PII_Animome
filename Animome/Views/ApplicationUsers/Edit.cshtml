@@ -4,74 +4,61 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Animome</title>
-    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-</head>
-<body>
-    <div>
-        <a asp-action="Index" class="lien"><ion-icon name="arrow-back" class="grosIcon"></ion-icon></a>
-    </div>
 
-    <h1 class="titre">Profil</h1>
+<div>
+    <a asp-action="Index" class="lien"><ion-icon name="arrow-back" class="grosIcon"></ion-icon></a>
+</div>
 
-    <hr />
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Edit" method="POST">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Id" />
-                <div class="form-group">
-                    <label asp-for="@Model.Nom" class="control-label"></label>
-                    <input asp-for="@Model.Nom" class="form-control" />
-                    <span asp-validation-for="@Model.Nom" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="@Model.Prenom" class="control-label"></label>
-                    <input asp-for="@Model.Prenom" class="form-control" />
-                    <span asp-validation-for="@Model.Prenom" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="@Model.Email" class="control-label"></label>
-                    <input asp-for="@Model.Email" class="form-control" />
-                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
-                </div>
+<h1 class="titre">Profil</h1>
 
-
-                <p class="container">
-                    @if (Model.LesDomaines.Count != 0)
-                    {
-                        @foreach (var domaineUser in Model.LesDomaines)
-                        {
-                            <div class="alignes">
-                                <div class="boutonDomaine">
-                                    @Html.DisplayFor(modelItem => domaineUser.Domaine.Intitule)
-                                </div>
-                                <div>
-                                    <a asp-controller="DomaineUsers" asp-action="Delete" asp-route-id="@domaineUser.Id" class="lien"><ion-icon name="trash-outline" class="icon"></ion-icon></a>
-                                </div>
-                            </div>
-                        }
-                    }
-                </p>
-                <a asp-controller="DomaineUsers" asp-action="Create" asp-route-id="@Model.Id" class="lien"><ion-icon name="add-circle" class="icon" style="text-align:center"></ion-icon></a>
-
-            <div class="form-group">
-                <input type="submit" value="Enregistrer" class="btn btn-primary" style="margin-top:50px" />
+<hr />
+<div class="row">
+    <div class="col-md-4" style="text-indent:15px">
+        <form asp-action="Edit" method="POST">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group alignes">
+                <label asp-for="@Model.Nom" class="control-label"></label>
+                <input asp-for="@Model.Nom" class="form-control" />
+                <span asp-validation-for="@Model.Nom" class="text-danger"></span>
             </div>
-            </form>
-        </div>
-    </div>
-</body>
-</html>
+            <div class="form-group alignes">
+                <label asp-for="@Model.Prenom" class="control-label"></label>
+                <input asp-for="@Model.Prenom" class="form-control" />
+                <span asp-validation-for="@Model.Prenom" class="text-danger"></span>
+            </div>
+            <div class="form-group alignes">
+                <label asp-for="@Model.Email" class="control-label"></label>
+                <input asp-for="@Model.Email" class="form-control" />
+                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+            </div>
 
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+
+            <p class="container">
+                @if (Model.LesDomaines.Count != 0)
+                {
+                    @foreach (var domaineUser in Model.LesDomaines)
+                    {
+                        <div class="alignes">
+                            <div class="boutonDomaine">
+                                @Html.DisplayFor(modelItem => domaineUser.Domaine.Intitule)
+                            </div>
+                            <div>
+                                <a asp-controller="DomaineUsers" asp-action="Delete" asp-route-id="@domaineUser.Id" class="lien"><ion-icon name="trash-outline" class="icon"></ion-icon></a>
+                            </div>
+                        </div>
+                    }
+                }
+            </p>
+            <a asp-controller="DomaineUsers" asp-action="Create" asp-route-id="@Model.Id" class="lien"><ion-icon name="add-circle" class="icon" style="text-align:center"></ion-icon></a>
+
+        <div class="form-group">
+            <input type="submit" value="Enregistrer" class="btn btn-primary" style="margin-top:50px" />
+        </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
