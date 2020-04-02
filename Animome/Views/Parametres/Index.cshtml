@@ -13,27 +13,13 @@
     </head>
 <body>
     <h1 class="titre">Paramètres</h1>
-    <p class="container">
-        <div class="boutonParametres">
-            <a class="lien" asp-controller="Domaines" asp-action="Index">DOMAINES</a>
-        </div>
-        <div class="boutonParametres">
-            <a class="lien" asp-controller="Competences" asp-action="Index">COMPETENCES</a>
-        </div>
-        <div class="boutonParametres">
-            <a class="lien" asp-controller="DomaineCompetences" asp-action="Index">DOMAINECOMPETENCE</a>
-        </div>
-        <div class="boutonParametres">
-            <a class="lien" asp-controller="Prerequis" asp-action="Index">PREREQUIS</a>
-        </div>
-        <div class="boutonParametres">
-            <a class="lien" asp-controller="CompetencePrerequis" asp-action="Index">COMPETENCEPREREQUIS</a>
-        </div>
-        <div class="boutonParametres">
-            <a class="lien" asp-controller="Niveaux" asp-action="Index">NIVEAUX</a>
-        </div>
-        <div class="boutonParametres">
-            <a class="lien" asp-controller="PrerequisNiveaux" asp-action="Index">PREREQUISNIVEAUX</a>
-        </div>
-    </p>
+    <div class="container colonne">
+        <a class="lien boutonParametres" asp-controller="Domaines" asp-action="Index">DOMAINES</a>
+        <a class="lien boutonParametres" asp-controller="Competences" asp-action="Index">COMPETENCES</a>
+        <a class="lien boutonParametres" asp-controller="DomaineCompetences" asp-action="Index">DOMAINECOMPETENCE</a>
+        <a class="lien boutonParametres" asp-controller="Prerequis" asp-action="Index">PREREQUIS</a>
+        <a class="lien boutonParametres" asp-controller="CompetencePrerequis" asp-action="Index">COMPETENCEPREREQUIS</a>
+        <a class="lien boutonParametres" asp-controller="Niveaux" asp-action="Index">NIVEAUX</a>
+        <a class="lien boutonParametres" asp-controller="PrerequisNiveaux" asp-action="Index">PREREQUISNIVEAUX</a>
+    </div>
 </body>

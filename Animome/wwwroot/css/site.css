@@ -17,9 +17,9 @@ a {
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #112611;
+    border-color: #112611;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -127,15 +127,18 @@ body {
 .blocAccueil {
     background-color: #343a40;
     height: auto;
-    min-width: 200px;
-    display: inline-block;
-    margin: 10px;
+   display: inline-block;
+    margin-right: 10px;
+    margin-top:20px;
     color: whitesmoke;
+    border-radius:10px;
+    padding:5px;
 }
 
 .tableauDeBord {
-    display: flex;
-    flex-direction: row;
+   /* display: flex;
+   flex-direction: row;
+   display:inline-block;*/
     text-align: center;
 }
 
@@ -148,6 +151,7 @@ body {
     margin:10px;
     color : black;
     padding:5px;
+    border-radius :8px;
 }
 
 .imgDemande{
@@ -260,6 +264,7 @@ body {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
+
 .lien {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     color: #3F3F3F;
@@ -268,6 +273,15 @@ body {
 .lien:hover {
     color: #be6508;
     text-decoration:none;
+}
+
+.icon {
+    font-size: 30px;
+    color: #3F3F3F;
+}
+
+.grosIcon{
+    font-size:50px;
 }
 
 .boutonParametres {
@@ -285,6 +299,7 @@ body {
     color: #be6508;
     border-color: #be6508;
 }
+
 
 .boutonTransparent{
     border:none;
@@ -304,6 +319,17 @@ body {
     font-size:32px
 }
 
+.boutonDomaine {
+    background-color : darkseagreen;
+    border-radius: 3px;
+    border-width: 3px;
+    width: 250px;
+    height: 50px;
+    text-align: center;
+    margin: 10px;
+    padding: 5px;
+}
+
 
 .icon {
     content:"\f375";
@@ -318,5 +344,7 @@ body {
 
 .titre {
     text-align:center;
+    position : center;
+    top : 100px;
 }
 

@@ -10,15 +10,16 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 
-<div class="text-center">
-    <h1 class="display-4">Tableau de bord</h1>
-</div>
+<body>
+    <h1 class="display-4" style="text-align:center">Tableau de bord</h1>
 
 <div class="tableauDeBord">
+
     <div class="blocAccueil">
-        <h6>Dernières modifications</h6>
+        <div>
+            <h5>Dernières modifications</h5>
+        </div>
         <table>
-            <tbody>
                 @for (var i = 0; i < 5; i++)
                 {
                     <tr>
@@ -36,18 +37,20 @@
                         </td>
                     </tr>
                 }
-            </tbody>
         </table>
     </div>
 
-        <div class="blocAccueil" style="height:150px">
-            <h6 style="margin-bottom:10px">Demandes en attente</h6>
+        <div class="blocAccueil">
+            <div>
+                <h5>Demandes en attente</h5>
+            </div>
             <div>
                 <div>
                  <a asp-controller="ApplicationUsers" asp-action="Index" style="font-size:70px; color:white">3</a>
                 </div>
             </div>
         </div>
-
     </div>
+
+</body>
 

@@ -53,7 +53,7 @@
                     }
                 </td>
                 <td>
-                    @*@if (item.Role == "EnAttente") //A changer !!!!
+                    @if (item.Role == "EnAttente") //A changer !!!!
                     {
 
                         <ion-icon name="checkbox" style="color:darkgreen"></ion-icon>
@@ -62,15 +62,15 @@
                     else
                     {
                         <ion-icon name="checkbox" style="color:darkgreen"></ion-icon>
-                    }*@
+                    }
                 </td>
-                @*@if (item.Role != "EnAttente")
+               @if (item.Role != "EnAttente")
                 {
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-pencil-alt"></i></a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline"></ion-icon></a>
+                        <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-pencil-alt icon"></i></a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline" class="icon"></ion-icon></a>
                     </td>
-                }*@
+                }
 
             </tr>
         }

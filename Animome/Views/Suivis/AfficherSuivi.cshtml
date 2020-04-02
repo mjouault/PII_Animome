@@ -36,7 +36,7 @@
                     <td>
                         <a asp-controller="Suivis" asp-action="Valider" asp-route-id="@item.Id"> <ion-icon name="checkbox" style="color:darkgreen"></ion-icon></a>
                         <a asp-controller="Suivis" asp-action="AnnulerValidation" asp-route-id="@item.Id"> <ion-icon name="close-circle" style="color:darkred"></ion-icon></a>
-                        <a asp-controller="Commentaires" asp-action="Index" asp-route-id="@item.Id">Voir commentaires</a>
+                        <a asp-controller="Commentaires" asp-action="Index" asp-route-id="@item.Id" class="lien">Voir commentaires</a>
                         <div class="alignes">
                             <text class="texte">@Html.DisplayFor(modelItem => item.Domaine.Intitule)</text>
                             <text>@ViewData["pourcentages"]</text>
@@ -67,7 +67,7 @@
                                                     <div class="column">
                                                         <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id="@suiviPrerequis.Id"><ion-icon name="close-circle" style="color:darkred"></ion-icon> </a>
                                                         <div class="itemPrerequisValide">
-                                                            <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id"> </a>
+                                                            <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
                                                         </div>
                                                     </div>
 
@@ -78,7 +78,7 @@
                                                     <div class="colonne">
                                                         <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id="@suiviPrerequis.Id"> <ion-icon name="checkbox" style="color:darkgreen"></ion-icon> </a>
                                                         <div class="itemPrerequisNonValide">
-                                                            <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id"> </a>
+                                                            <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
                                                         </div>
                                                     </div>
 
@@ -91,7 +91,7 @@
                                                         <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id="@suiviPrerequis.Id"><ion-icon name="close-circle" style="color:darkred"></ion-icon> </a>
                                                     </div>
                                                     <div class="itemPrerequisEnCours">
-                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id"> </a>
+                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
                                                     </div>
                                                 </div>
 
@@ -122,7 +122,7 @@
                                                 <div class="colonne">
                                                     <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id="@suiviPrerequis.Id"><ion-icon name="close-circle" style="color:darkred"></ion-icon> </a>
                                                     <div class="itemPrerequisValide">
-                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id"> </a>
+                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
                                                     </div>
                                                 </div>
 
@@ -133,7 +133,7 @@
                                                 <div class="colonne">
                                                     <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id="@suiviPrerequis.Id"> <ion-icon name="checkbox" style="color:darkgreen"></ion-icon> </a>
                                                     <div class="itemPrerequisNonValide">
-                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id"> </a>
+                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
                                                     </div>
                                                 </div>
 
@@ -144,7 +144,7 @@
                                                     <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id="@suiviPrerequis.Id"> <ion-icon name="checkbox" style="color:darkgreen"></ion-icon> </a>
                                                     <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id="@suiviPrerequis.Id"><ion-icon name="close-circle" style="color:darkred"></ion-icon> </a>
                                                     <div class="itemPrerequisEnCours">
-                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id"> </a>
+                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
                                                     </div>
                                                 </div>
 
@@ -173,7 +173,7 @@
                                                     <div class="colonne">
                                                         <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id="@suiviPrerequis.Id"><ion-icon name="close-circle" style="color:darkred"></ion-icon> </a>
                                                         <div class="itemPrerequisValide">
-                                                            <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id"> </a>
+                                                            <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
                                                         </div>
                                                     </div>
 
@@ -184,7 +184,7 @@
                                                 <div class="colonne">
                                                     <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id="@suiviPrerequis.Id"> <ion-icon name="checkbox" style="color:darkgreen"></ion-icon> </a>
                                                     <div class="itemPrerequisNonValide">
-                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id"> </a>
+                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
                                                     </div>
                                                 </div>
 
@@ -197,7 +197,7 @@
                                                         <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id="@suiviPrerequis.Id"><ion-icon name="close-circle" style="color:darkred"></ion-icon> </a>
                                                     </div>
                                                     <div class="itemPrerequisEnCours">
-                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id"> </a>
+                                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id">E</a>
                                                     </div>
                                                 </div>
                                                 }

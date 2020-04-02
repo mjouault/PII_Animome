@@ -17,7 +17,7 @@
 </head>
 <body>
     <div>
-        <a asp-action="Index"><ion-icon name="arrow-back"></ion-icon></a>
+        <a asp-action="Index" class="lien"><ion-icon name="arrow-back" class="grosIcon"></ion-icon></a>
     </div>
 
     <h1 class="titre">Profil</h1>
@@ -46,22 +46,25 @@
 
 
                 <p class="container">
-                    <a asp-controller="DomaineUsers" asp-action="Create" asp-route-id="@Model.Id"><ion-icon name="add-circle"></ion-icon></a>
                     @if (Model.LesDomaines.Count != 0)
                     {
                         @foreach (var domaineUser in Model.LesDomaines)
                         {
-                            <div class="boutonParametres">
-                                @Html.DisplayFor(modelItem => domaineUser.Domaine.Intitule)
+                            <div class="alignes">
+                                <div class="boutonDomaine">
+                                    @Html.DisplayFor(modelItem => domaineUser.Domaine.Intitule)
+                                </div>
+                                <div>
+                                    <a asp-controller="DomaineUsers" asp-action="Delete" asp-route-id="@domaineUser.Id" class="lien"><ion-icon name="trash-outline" class="icon"></ion-icon></a>
+                                </div>
                             </div>
-                            <a asp-controller="DomaineUsers" asp-action="Delete" asp-route-id="@domaineUser.Id"><ion-icon name="trash-outline"></ion-icon></a>
                         }
                     }
                 </p>
-                <a asp-controller="DomaineUsers" asp-action="Create" asp-route-id="@Model.Id">Ajouter Domaine <ion-icon name="add-circle"></ion-icon></a>
+                <a asp-controller="DomaineUsers" asp-action="Create" asp-route-id="@Model.Id" class="lien"><ion-icon name="add-circle" class="icon" style="text-align:center"></ion-icon></a>
 
             <div class="form-group">
-                <input type="submit" value="Enregistrer" class="btn btn-primary" />
+                <input type="submit" value="Enregistrer" class="btn btn-primary" style="margin-top:50px" />
             </div>
             </form>
         </div>

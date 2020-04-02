@@ -32,7 +32,7 @@ namespace Animome
                     options.UseSqlServer(
                         Configuration.GetConnectionString("DefaultConnection")));
                 services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    //.AddRoles<IdentityRole>()
+                    .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>();
                 services.AddControllersWithViews();
                 services.AddRazorPages();
@@ -67,7 +67,7 @@ namespace Animome
                         pattern: "{controller=Home}/{action=Index}/{id?}");
                     endpoints.MapRazorPages();
                 });
-                //CreateRoles(services).Wait();
+                CreateRoles(services).Wait();
             }
 
             private async Task CreateRoles(IServiceProvider serviceProvider)

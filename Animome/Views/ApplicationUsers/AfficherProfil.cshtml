@@ -33,16 +33,19 @@
             @Html.DisplayFor(Model => Model.Email)
         </dd>
         <dt>
+            @Html.DisplayName("Domaines d'expertise")
+        </dt>
+        <dd>
             @foreach (var d in Model.LesDomaines)
             {
+                <text>
                 @Html.DisplayFor(Model => d.Domaine.Intitule)
+                </text>
             }
-        </dt>
-        <dt>
-        </dt>
+        </dd>
     </dl>
-    <p class="boutonParametres">
-        <a asp-action="EditProfil"> Modifier informations<i class="fas fa-pencil-alt"></i></a> 
+    <p class="boutonParametres" style="margin-top:50px;">
+        <a asp-action="EditProfil" class="lien"> Modifier informations  <i class="fas fa-pencil-alt icon"></i></a> 
     </p>
 </body>
 </html>

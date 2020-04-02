@@ -20,7 +20,7 @@
 <body>
 <h1 class="titre">Patients</h1>
 <p>
-    <a asp-action="Create">Ajouter <ion-icon name="add-circle" stye=""></ion-icon></a>
+    <a asp-action="Create" class="lien">Ajouter <ion-icon name="add-circle" class="icon"></ion-icon></a>
 </p>
 <form asp-controller="Patients" asp-action="Index" method="get">
     <div class="barreRecherche">
@@ -53,14 +53,12 @@
                     }
                 </td>
                 <td>
-                    <div class="boutonParametres">
-                        <a asp-controller="Suivis" asp-action="AfficherSuivi" asp-route-id="@item.Id">Afficher graphes</a>
-                    </div>
+                    <a asp-controller="Suivis" asp-action="Create" asp-route-id="@item.Id" class="boutonParametres lien">Générer suivi</a>
+                    <a asp-controller="Suivis" asp-action="AfficherSuivi" asp-route-id="@item.Id" class="boutonParametres lien">Afficher graphes</a>
                 </td>
 
                 <td>
-                    <a asp-controller="Suivis" asp-action="Create" asp-route-id="@item.Id">Générer suivi</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline"></ion-icon></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline" class="icon"></ion-icon></a>
                 </td>
             </tr>
         }
