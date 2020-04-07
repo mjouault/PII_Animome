@@ -6,11 +6,11 @@
 }
 
 <p>
-    <a asp-controller="Parametres" asp-action="Index"><ion-icon name="arrow-back" stye=""></ion-icon></a>
+    <a asp-controller="Parametres" asp-action="Index"><ion-icon name="arrow-back" class="icon"></ion-icon></a>
 </p>
 <h1 class="titre">Domaines</h1>
 <p>
-    <a asp-action="Create">Ajouter <ion-icon name="add-circle" stye=""></ion-icon></a>
+    <a asp-action="Create" class="lien">Ajouter <ion-icon name="add-circle" class="icon"></ion-icon></a>
 </p>
 <table class="table">
     <thead>
@@ -29,7 +29,7 @@
                     @Html.DisplayFor(modelItem => item.Intitule)
                 </td>
                 <td>
-                    <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline" stye=""></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline" class="icon"></a>
                 </td>
             </tr>
         }

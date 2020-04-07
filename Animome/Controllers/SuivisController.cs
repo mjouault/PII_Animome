@@ -489,7 +489,7 @@ namespace Animome.Controllers
             return _context.Suivi.Any(e => e.Id == id);
         }
 
-        public async Task <IActionResult> AfficherSuivi (int? id)
+        public async Task <IActionResult> AfficherApercu (int? id)
         {
             if (id == null)
             {
@@ -509,6 +509,32 @@ namespace Animome.Controllers
                  .Include(suivi => suivi.LesSuiviCompetences)
                     .ThenInclude(lesSuiviCptces => lesSuiviCptces.LesSuiviPrerequis)
                     .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.Prerequis);
+
+            ViewData["idPatient"] = id;
+            ViewData["pourcentages"] = CalculerPourcentage(suivi.ToList())[0];
+            return View(await suivi.ToListAsync());
+        }
+
+        public async Task<IActionResult> AfficherSuivi(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var suivi = _context.Suivi.Where(x => x.Patient.Id == id)
+                 .Include(suivi => suivi.LesSuiviCompetences)
+                     .ThenInclude(lesSuiviCptces => lesSuiviCptces.LesSuiviPrerequis)
+                     .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.LesSuiviNiveaux)
+                     .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
+                  .Include(suivi => suivi.LesSuiviApplicationUsers)
+                       .ThenInclude(lesApplicationUsers => lesApplicationUsers.ApplicationUser)
+                 .Include(suivi => suivi.Domaine)
+                 .Include(suivi => suivi.LesSuiviCompetences)
+                     .ThenInclude(lesSuviCptces => lesSuviCptces.Competence)
+                  .Include(suivi => suivi.LesSuiviCompetences)
+                     .ThenInclude(lesSuiviCptces => lesSuiviCptces.LesSuiviPrerequis)
+                     .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.Prerequis);
 
             ViewData["idPatient"] = id;
             ViewData["pourcentages"] = CalculerPourcentage(suivi.ToList())[0];

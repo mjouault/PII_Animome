@@ -44,11 +44,11 @@
                 <td>
                     @if ((item.lesSuivis.Count) == 0)
                     {
-                        <a asp-controller="Suivis" asp-action="Create" asp-route-id="@item.Id" class="boutonParametres lien">Générer suivi</a>
+                        <a asp-controller="Suivis" asp-action="Create" asp-route-id="@item.Id" class="boutonParametres lien">Créer suivis</a>
                     }
                     else
                     {
-                    <a asp-controller="Suivis" asp-action="AfficherSuivi" asp-route-id="@item.Id" class="boutonParametres lien">Afficher graphes</a>
+                    <a asp-controller="Suivis" asp-action="AfficherApercu" asp-route-id="@item.Id" class="boutonParametres lien">Voir les suivis</a>
                     }
                 </td>
 

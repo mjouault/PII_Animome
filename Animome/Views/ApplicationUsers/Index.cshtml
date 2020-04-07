@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Collaborateurs</h2>
+<h1>Collaborateurs</h1>
 
 <table class="table">
     <thead>
@@ -56,7 +56,7 @@
                 {
 
                 <a asp-action="Accepter" asp-route-id="@item.Id"><ion-icon name="checkbox" style="color:darkgreen" class="icon"></ion-icon></a>
-                <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="close-circle" class="icon" style="color:darkred"></ion-icon></a>
+                <a asp-action="Delete" asp-route-id="@item.Id"> | <ion-icon name="close-circle" class="icon" style="color:darkred"></ion-icon></a>
                 }
                 else
                 {

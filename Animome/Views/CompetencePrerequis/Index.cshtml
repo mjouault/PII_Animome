@@ -6,11 +6,11 @@
 }
 
 <p>
-    <a asp-controller="Parametres" asp-action="Index"><ion-icon name="arrow-back" stye=""></ion-icon></a>
+    <a asp-controller="Parametres" asp-action="Index"><ion-icon name="arrow-back" class="icon"></ion-icon></a>
 </p>
 <h1>Les compétences prérequis</h1>
 <p>
-    <a asp-action="Create">Ajouter <ion-icon name="add-circle" stye=""></ion-icon></a>
+    <a asp-action="Create" class="lien">Ajouter <ion-icon name="add-circle" class="icon"></ion-icon></a>
 </p>
 
 <table class="table">
@@ -22,20 +22,20 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Competence.Intitule)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Prerequis.Intitule)
-                </td>
-                <td>
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Competence.Intitule)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prerequis.Intitule)
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline" class="icon"></ion-icon></a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
