@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "AfficherPrerequis";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var couleurP = "";
+    var couleurN="";
 }
 
 <h1 class="titre">Afficher Prérequis</h1>
@@ -11,6 +13,20 @@
     <tbody>
         @foreach (var item in Model)
         {
+            if(item.Etat==EtatEnum.e3)
+            {
+                couleurP = "darkgreen";
+            }
+            else if (item.Etat==EtatEnum.e2)
+            {
+                couleurP = "orangered";
+            }
+            else if (item.Etat==EtatEnum.e1)
+            {
+                couleurP = "darkgrey";
+            }
+
+
             <tr>
                 <td>
                     <text class="texte">@Html.DisplayFor(modelItem => item.Prerequis.Intitule)</text>
@@ -19,82 +35,42 @@
                     <div class="alignes">
                         @foreach (var suiviNiveau in item.LesSuiviNiveaux)
                         {
-                            if (suiviNiveau.Etat == EtatEnum.e1)
+                            if(suiviNiveau.Etat==EtatEnum.e3)
                             {
-                            <div class="carteCompetenceNonValide">
-                                <text class="texte">@Html.DisplayFor(modelItem => suiviNiveau.Niveau.Intitule) : 20 %</text>
-                                @foreach (var suiviExercice in suiviNiveau.LesSuiviExercices)
-                                {
-
-                                    @if (suiviExercice.Valide)
-                                    {<div class="itemExerciceValide">
-                                            <a asp-controller="SuiviExercices" asp-action="AnnulerValidation" asp-route-id="@suiviExercice.Id">@suiviExercice.Id</a>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="itemExerciceNonValide">
-                                            <a asp-controller="SuiviExercices" asp-action="Valider" asp-route-id="@suiviExercice.Id">@suiviExercice.Id</a>
-                                        </div>
-                                    }
-                                }
-                                <p>
-                                    <a asp-controller="SuiviExercices" asp-action="Create" asp-route-id="@suiviNiveau.Id">Ajouter <ion-icon name="add-circle" class="icon"></ion-icon></a>
-                                </p>
-                            </div>
-
+                                couleurN = "darkgreen";
                             }
-                            else if (suiviNiveau.Etat == EtatEnum.e2)
+                            else if (suiviNiveau.Etat==EtatEnum.e2)
                             {
-                            <div class="carteCompetenceEnCours">
-                                <text class="texte">@Html.DisplayFor(modelItem => suiviNiveau.Niveau.Intitule) : 20 %</text>
-                                @foreach (var suiviExercice in suiviNiveau.LesSuiviExercices)
-                                {
-
-                                    @if (suiviExercice.Valide)
-                                    {<div class="itemExerciceValide">
-                                            <a asp-controller="SuiviExercices" asp-action="AnnulerValidation" asp-route-id="@suiviExercice.Id">@suiviExercice.Id</a>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="itemExerciceNonValide">
-                                            <a asp-controller="SuiviExercices" asp-action="Valider" asp-route-id="@suiviExercice.Id">@suiviExercice.Id</a>
-                                        </div>
-                                    }
-                                }
-                                <p>
-                                    <a asp-controller="SuiviExercices" asp-action="Create" asp-route-id="@suiviNiveau.Id">Ajouter <ion-icon name="add-circle" class="icon"></ion-icon></a>
-                                </p>
-                            </div>
-
+                                couleurN = "orangered";
                             }
-                            else if (suiviNiveau.Etat == EtatEnum.e3)
+                            else if (suiviNiveau.Etat==EtatEnum.e1)
                             {
-                            <div class="carteCompetenceValide">
-                                <text class="texte">@Html.DisplayFor(modelItem => suiviNiveau.Niveau.Intitule) : 20 %</text>
-                                @foreach (var suiviExercice in suiviNiveau.LesSuiviExercices)
-                                {
-
-                                    @if (suiviExercice.Valide)
-                                    {
-                                        <div class="itemExerciceValide">
-                                            <a asp-controller="SuiviExercices" asp-action="AnnulerValidation" asp-route-id="@suiviExercice.Id">@suiviExercice.Id</a>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="itemExerciceNonValide">
-                                            <a asp-controller="SuiviExercices" asp-action="Valider" asp-route-id="@suiviExercice.Id">@suiviExercice.Id</a>
-                                        </div>
-                                    }
-                                }
-                                        <p>
-                                            <a asp-controller="SuiviExercices" asp-action="Create" asp-route-id="@suiviNiveau.Id">Ajouter <ion-icon name="add-circle" class="icon"></ion-icon></a>
-                                        </p>
-                            </div>
+                                couleurN = "darkgrey";
                             }
+                        <div class="carteCompetence">
+                            <text class="texte">@Html.DisplayFor(modelItem => suiviNiveau.Niveau.Intitule) : 20 %</text>
+                            @foreach (var suiviExercice in suiviNiveau.LesSuiviExercices)
+                            {
 
+                                @if (suiviExercice.Valide)
+                                {<div class="itemExerciceValide">
+                                        <a asp-controller="SuiviExercices" asp-action="AnnulerValidation" asp-route-id="@suiviExercice.Id">@suiviExercice.Id</a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="itemExerciceNonValide">
+                                        <a asp-controller="SuiviExercices" asp-action="Valider" asp-route-id="@suiviExercice.Id">@suiviExercice.Id</a>
+                                    </div>
+                                }
+                            }
+                            <p>
+                                <a asp-controller="SuiviExercices" asp-action="Create" asp-route-id="@suiviNiveau.Id">Ajouter <ion-icon name="add-circle" class="icon"></ion-icon></a>
+                            </p>
+                            <p>
+                                <a asp-controller="Note" asp-action="Create" asp-route-id="@suiviNiveau.Id">Ajouter note<ion-icon name="add-circle" class="icon"></ion-icon></a>
+                            </p>
+                        </div>                         
                         }
                     </div>
                 </td>

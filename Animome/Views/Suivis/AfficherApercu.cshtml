@@ -11,73 +11,69 @@
 <h1>AfficherApercu</h1>
 
 <a asp-action="AfficherSuivi" asp-route-id=@ViewData["idPatient"]>
-    <table class="table">
-        <tbody>
-            @foreach (var item in Model)
+
+    @foreach (var item in Model)
+    {
+        if (item.Etat == EtatEnum.e3)
+        {
+            couleurDomaine = "darkgreen";
+        }
+        else if (item.Etat == EtatEnum.e2)
+        {
+            couleurDomaine = "orangered";
+        }
+        else if (item.Etat == EtatEnum.e1)
+        {
+            couleurDomaine = "darkgrey";
+        }
+    <div class="afficherSuivi" style="border-color : @couleurDomaine ">
+        <div class="alignes">
+            @foreach (var suiviCompetence in item.LesSuiviCompetences)
             {
-                if(item.Etat==EtatEnum.e3)
+                if (suiviCompetence.Etat == EtatEnum.e3)
                 {
-                    couleurDomaine = "darkgreen";
+                    couleurComp = "darkgreen";
                 }
-                else if (item.Etat==EtatEnum.e2)
+                else if (suiviCompetence.Etat == EtatEnum.e2)
                 {
-                    couleurDomaine = "orangered";
+                    couleurComp = "orangered";
                 }
-                else if (item.Etat==EtatEnum.e1)
+                else if (suiviCompetence.Etat == EtatEnum.e1)
                 {
-                    couleurDomaine = "darkgrey";
+                    couleurComp = "darkgrey";
                 }
-                <tr class="afficherSuivi" style="border-color : @couleurDomaine">
-                    <td>
-                        <div class="alignes">
-                            @foreach (var suiviCompetence in item.LesSuiviCompetences)
+
+                <div class="carteCompetence" style="border-color : @couleurComp">
+                    <div class="alignes">
+                        @foreach (var suiviPrerequis in suiviCompetence.LesSuiviPrerequis)
+                        {
+                            if (suiviPrerequis.Etat == EtatEnum.e3)
                             {
-                                if(suiviCompetence.Etat==EtatEnum.e3)
-                                {
-                                    couleurComp = "darkgreen";
-                                }
-                                else if (suiviCompetence.Etat==EtatEnum.e2)
-                                {
-                                    couleurComp = "orangered";
-                                }
-                                else if (suiviCompetence.Etat==EtatEnum.e1)
-                                {
-                                    couleurComp = "darkgrey";
-                                }
-
-                              <div class="carteCompetenceNonValide" style="border-color : @couleurPrerequis">
-                                    <div class="alignes">
-                                        @foreach (var suiviPrerequis in suiviCompetence.LesSuiviPrerequis)
-                                        {
-                                            if(suiviPrerequis.Etat==EtatEnum.e3)
-                                            {
-                                                couleurPrerequis = "darkgreen";
-                                            }
-                                            else if (suiviPrerequis.Etat==EtatEnum.e2)
-                                            {
-                                                couleurPrerequis = "orangered";
-                                            }
-                                            else if (suiviPrerequis.Etat==EtatEnum.e1)
-                                            {
-                                                couleurPrerequis = "darkgrey";
-                                            }
-
-                                        <div class="column">
-                                            <div class="itemPrerequisNonValide" style="background-color : @couleurPrerequis" >
-                                                <text>A</text>
-                                            </div>
-                                        </div>
- 
-
-                                        }
-                                    </div>
-                                </div>   
-
+                                couleurPrerequis = "darkgreen";
                             }
-                        </div>
-                    </td>
-                </tr>
+                            else if (suiviPrerequis.Etat == EtatEnum.e2)
+                            {
+                                couleurPrerequis = "orangered";
+                            }
+                            else if (suiviPrerequis.Etat == EtatEnum.e1)
+                            {
+                                couleurPrerequis = "darkgrey";
+                            }
+
+                            <div class="column">
+                                <div class="itemPrerequis" style="background-color : @couleurPrerequis">
+                                    <text> </text>
+                                </div>
+                            </div>
+
+
+                        }
+                    </div>
+                </div>
+
             }
-        </tbody>
-    </table>
-</a>
+        </div>
+    </div>
+            }
+
+    </a>

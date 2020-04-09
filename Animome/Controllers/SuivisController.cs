@@ -303,14 +303,14 @@ namespace Animome.Controllers
                 }
             }
 
-            var commentaireSupprimes = await _context.Commentaire.Where(e => e.SuiviApplicationUser.Suivi.Id == id).ToListAsync();
+           /* var commentaireSupprimes = await _context.Commentaire.Where(e => e.SuiviApplicationUser.Suivi.Id == id).ToListAsync();
             if (commentaireSupprimes != null)
             {
                 foreach (var i in commentaireSupprimes)
                 {
                     _context.Remove(i);
                 }
-            }
+            }*/
 
             var suiviApplicationUserSupprimes = await _context.SuiviApplicationUser.Where(e => e.Suivi.Id == id).ToListAsync();
             if (suiviApplicationUserSupprimes != null)

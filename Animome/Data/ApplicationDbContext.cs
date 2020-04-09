@@ -25,7 +25,9 @@ namespace Animome.Data
         public DbSet<SuiviNiveau> SuiviNiveau { get; set; }
         public DbSet<SuiviExercice> SuiviExercice { get; set; }
         public DbSet<SuiviUser> SuiviApplicationUser { get; set; }
-        public DbSet<Commentaire>Commentaire { get; set; }
+        //public DbSet<Commentaire>Commentaire { get; set; }
+
+        public DbSet<Note>Note { get; set; }
 
         public DbSet<Competence> Competence { get; set; }
         public DbSet<Domaine> Domaine { get; set; }

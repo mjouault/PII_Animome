@@ -31,8 +31,7 @@ namespace Animome.Controllers
             var patients = from p in _context.Patient
                            select p;
 
-
-            Dictionary<int, ApplicationUser> dicoSuiveurs = new Dictionary<int,ApplicationUser>();
+            List<SuiviUser> listeSuiveurs = new List<SuiviUser>();
 
             foreach (var p in patients)
             {
@@ -42,18 +41,8 @@ namespace Animome.Controllers
                         .ThenInclude(s=>s.Patient)
                     .ToListAsync();
 
+                listeSuiveurs.AddRange(suiviUsers);
                 p.lesSuivis = await _context.Suivi.Where(x => x.Patient == p).ToListAsync() ;
-
-
-                foreach (var s in suiviUsers)
-                {
-                    var applicationUsers = dicoSuiveurs.FirstOrDefault();
-                    if (dicoSuiveurs.ContainsValue(s.ApplicationUser) && applicationUsers.Key != s.Suivi.Patient.Id)
-                    {
-                        dicoSuiveurs.Add(s.Suivi.Patient.Id, s.ApplicationUser);
-                    }
-
-                }
             }
 
             if (!string.IsNullOrEmpty(recherchePatient))
@@ -65,7 +54,7 @@ namespace Animome.Controllers
             {
                 Patients = await patients
                 .ToListAsync(),
-                LesSuiveurs = dicoSuiveurs
+                LesSuiveurs = listeSuiveurs
             };
             return View(patientRecherche);
         }
@@ -228,14 +217,14 @@ namespace Animome.Controllers
                 }
             }
 
-            var commentaireSupprimes = await _context.Commentaire.Where(e => e.SuiviApplicationUser.Suivi.Patient.Id == id).ToListAsync();
+           /* var commentaireSupprimes = await _context.Commentaire.Where(e => e.SuiviApplicationUser.Suivi.Patient.Id == id).ToListAsync();
             if (commentaireSupprimes != null)
             {
                 foreach (var i in commentaireSupprimes)
                 {
                     _context.Remove(i);
                 }
-            }
+            }*/
 
             var suiviApplicationUserSupprimes = await _context.SuiviApplicationUser.Where(e => e.Suivi.Patient.Id == id).ToListAsync();
             if (suiviApplicationUserSupprimes != null)

@@ -170,13 +170,15 @@ body {
 }
 
 /*Affichage Suivi*/
-.carteCompetenceNonValide {
+.carteCompetence {
     background-color: lightgrey;
     width: auto;
     height: auto;
-    margin: 5px;
+    margin: 10px;
     padding: 5px;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    border-width:2px;
+    border-style:solid;
 }
 
 .carteCompetenceValide {
@@ -203,16 +205,18 @@ body {
     border-style : solid;
 }
 
-.itemPrerequisValide {
-    background-color:green;
+
+
+.itemPrerequis {
+    background-color: grey;
     width: 30px;
     height: 30px;
     margin: 5px;
-    border-radius:5px;
+    border-radius: 5px;
 }
 
-.itemPrerequisNonValide {
-    background-color: grey;
+.itemPrerequisValide {
+    background-color: green;
     width: 30px;
     height: 30px;
     margin: 5px;
@@ -383,4 +387,9 @@ label{
     background-color: whitesmoke;
     border-style:solid;
     border-width:2px;
+    height:250px;
+    margin-bottom:10px;
+    margin-left:5px;
+    display:inline-block;
+    padding:5px;
 } 

@@ -12,40 +12,24 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Animome.Controllers
 {
-    public class CommentairesController : Controller
+    public class NotesController : Controller
     {
-       /* private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public CommentairesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public NotesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
-        // GET: Commentaires
-        public async Task<IActionResult> Index(int? id) //idSuivi
+        // GET: Notes
+        public async Task<IActionResult> Index()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var suivi = await _context.Suivi.Where(c => c.Id == id)
-                .Include(x=>x.Patient)
-                .SingleAsync();
-
-            var commentaires = await _context.Commentaire.Where(c => c.SuiviApplicationUser.Suivi.Id == id)
-                .Include(x=>x.SuiviApplicationUser)
-                    .ThenInclude(sa=>sa.ApplicationUser)
-                .ToListAsync();
-
-
-            ViewData["idPatient"] = suivi.Patient.Id;
-            ViewData["idSuivi"] = id;
-            return View(commentaires);
+            return View(await _context.Note.ToListAsync());
         }
 
-        // GET: Commentaires/Details/5
+        // GET: Notes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -53,17 +37,17 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-            var commentaire = await _context.Commentaire
+            var note = await _context.Note
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (commentaire == null)
+            if (note == null)
             {
                 return NotFound();
             }
 
-            return View(commentaire);
+            return View(note);
         }
 
-        // GET: Commentaires/Create
+        // GET: Notes/Create
         public async Task<IActionResult> Create(int? id)
         {
             if (id == null)
@@ -79,29 +63,28 @@ namespace Animome.Controllers
             return View();
         }
 
-        // POST: Commentaires/Create
+        // POST: Notes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int id, [Bind("Date, SuiviApplicationUser,Texte")]Commentaire commentaire)
+        public async Task<IActionResult> Create(int id, [Bind("Date, SuiviNiveau, ApplicationUser,Texte")]Note note)
         {
 
             if (ModelState.IsValid)
             {
-                var suiviApplicationUser = await _context.SuiviApplicationUser.FirstOrDefaultAsync(m => m.Suivi.Id == id);
-                commentaire.SuiviApplicationUser = suiviApplicationUser;
-                commentaire.Date = DateTime.Now;
-                _context.Add(commentaire);
+                var suiviNiveau = await _context.SuiviNiveau.FirstOrDefaultAsync(m => m.Id == id);
+                note.ApplicationUser = await _userManager.GetUserAsync(User);
+                note.Date = DateTime.Now;
+                _context.Add(note);
 
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Patients");
             }
-            return View(commentaire);
+            return View(note);
         }
-
-        // GET: Commentaires/Edit/5
+        // GET: Notes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -109,22 +92,22 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-            var commentaire = await _context.Commentaire.FindAsync(id);
-            if (commentaire == null)
+            var note = await _context.Note.FindAsync(id);
+            if (note == null)
             {
                 return NotFound();
             }
-            return View(commentaire);
+            return View(note);
         }
 
-        // POST: Commentaires/Edit/5
+        // POST: Notes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Date,Texte")] Commentaire commentaire)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Date,Texte")] Note note)
         {
-            if (id != commentaire.Id)
+            if (id != note.Id)
             {
                 return NotFound();
             }
@@ -133,12 +116,12 @@ namespace Animome.Controllers
             {
                 try
                 {
-                    _context.Update(commentaire);
+                    _context.Update(note);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CommentaireExists(commentaire.Id))
+                    if (!NoteExists(note.Id))
                     {
                         return NotFound();
                     }
@@ -149,10 +132,10 @@ namespace Animome.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(commentaire);
+            return View(note);
         }
 
-        // GET: Commentaires/Delete/5
+        // GET: Notes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -160,30 +143,30 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-            var commentaire = await _context.Commentaire
+            var note = await _context.Note
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (commentaire == null)
+            if (note == null)
             {
                 return NotFound();
             }
 
-            return View(commentaire);
+            return View(note);
         }
 
-        // POST: Commentaires/Delete/5
+        // POST: Notes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var commentaire = await _context.Commentaire.FindAsync(id);
-            _context.Commentaire.Remove(commentaire);
+            var note = await _context.Note.FindAsync(id);
+            _context.Note.Remove(note);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CommentaireExists(int id)
+        private bool NoteExists(int id)
         {
-            return _context.Commentaire.Any(e => e.Id == id);
-        }*/
+            return _context.Note.Any(e => e.Id == id);
+        }
     }
 }
