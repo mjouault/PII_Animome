@@ -16,6 +16,8 @@ namespace Animome.Models
 
         public List<DomaineUser> LesDomaines { get; set; }
 
+        public List<PatientUser> LesPatients { get; set; }
+
         public string Role { get; set; }
     }
 

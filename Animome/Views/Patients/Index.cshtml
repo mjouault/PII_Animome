@@ -46,7 +46,10 @@
                     }
                 </td>
                 <td>
-                    @if ((item.lesSuivis.Count) == 0)
+                    <a asp-controller="PatientUsers" asp-action="Index" asp-route-id="@item.Id" class="boutonParametres lien"> les suiveurs </a>
+                </td>
+                <td>
+                    @if ((item.LesSuivis.Count) == 0)
                     {
                         <a asp-controller="Suivis" asp-action="Create" asp-route-id="@item.Id" class="boutonParametres lien">Créer suivis</a>
                     }

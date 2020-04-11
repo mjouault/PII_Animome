@@ -12,6 +12,7 @@ namespace Animome.Models
 
         //public List<PatientNiveau> LesPatientsNiveaux;
 
-        public List<Suivi> lesSuivis;
+        public List<Suivi> LesSuivis { get; set; }
+        public List<PatientUser> LesSuiveurs { get; set; }
     }
 }

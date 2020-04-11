@@ -7,44 +7,39 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Animome.Data;
 using Animome.Models;
-using Animome.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Animome.ViewModels;
 
 namespace Animome.Controllers
 {
-    public class DomaineUsersController : Controller
+    public class PatientUsersController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public DomaineUsersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public PatientUsersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
-        // GET: DomaineUsers
-        public async Task<IActionResult> Index(string id)
+        // GET: PatientUsers
+        public async Task<IActionResult> Index(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            ApplicationUser user = await _userManager.FindByIdAsync(id);
-            if (user==null)
-            {
-                return NotFound();
-            }
 
-            var domaineUsers = await _context.DomaineUser.Where(x => x.ApplicationUser == user)
-                .Include(x=> x.Domaine)
-                .ToListAsync();
+            var patientUsers = _context.PatientUser.Where(x => x.Patient.Id == id)
+                .Include(x => x.ApplicationUser);
+                   
 
-            ViewData["idUser"] = id;
-            return View(domaineUsers);
+            ViewData["idPatient"] = id;
+            return View(await patientUsers.ToListAsync());
         }
 
-        // GET: DomaineUsers/Details/5
+        // GET: PatientUsers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -52,71 +47,72 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-            var domaineUser = await _context.DomaineUser
+            var patientUser = await _context.PatientUser
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (domaineUser == null)
+            if (patientUser == null)
             {
                 return NotFound();
             }
 
-            return View(domaineUser);
+            return View(patientUser);
         }
 
-        // GET: DomaineUsers/Create
-        public async Task<IActionResult> Create(string id)
+        // GET: PatientUsers/Create
+        public async Task<IActionResult> Create(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            ApplicationUser user = await _userManager.FindByIdAsync(id);
-            if (user == null)
+            var patient = await _context.Patient.FirstOrDefaultAsync(m => m.Id == id);
+           
+            if (patient == null)
             {
                 return NotFound();
             }
 
-            IQueryable<string> DomaineQuery = from x in _context.Domaine
-                                              orderby x.Intitule
-                                              select x.Intitule;
+            IQueryable<string> usersQuery = from x in _userManager.Users
+                                              orderby x.Nom
+                                              select x.Nom;
 
-            var viewModel = new DomaineUserCreateViewModel
+            var viewModel = new PatientUserCreateViewModel
             {
-                Domaines = new SelectList(await DomaineQuery.Distinct().ToListAsync()),
+                ListeUsers = new SelectList(await usersQuery.Distinct().ToListAsync()),
             };
 
-            ViewData["idUser"] = id;
+
+            ViewData["idPatient"] = id;
             return View(viewModel);
         }
 
-
-        // POST: DomaineUsers/Create
+        // POST: PatientUsers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(string id, DomaineUserCreateViewModel viewModel)
+        public async Task<IActionResult> Create(int id, PatientUserCreateViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                //var id = viewModel.ApplicationUser.Id;
-                ApplicationUser user = await _userManager.FindByIdAsync(id);
-                var domaine = await _context.Domaine.Where(x=>x.Intitule==viewModel.Domaine.Intitule).SingleOrDefaultAsync();
-                DomaineUser domaineUserAjoute = new DomaineUser
+                var patient = await _context.Patient.FirstOrDefaultAsync(m => m.Id == id);
+                var user = await _userManager.Users.Where(x=>x.Nom==viewModel.NomUser).SingleOrDefaultAsync();
+
+                PatientUser nvPatientUser = new PatientUser
                 {
-                    Domaine = domaine,
+                    Patient = patient,
                     ApplicationUser = user
+
                 };
-
-                _context.Add(domaineUserAjoute);
-
+                _context.Add(nvPatientUser);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index","ApplicationUsers");
+                return RedirectToAction(nameof(Index), patient.Id);
             }
             return View(viewModel);
         }
 
-        // GET: DomaineUsers/Edit/5
+        // GET: PatientUsers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -124,22 +120,22 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-            var domaineUser = await _context.DomaineUser.FindAsync(id);
-            if (domaineUser == null)
+            var patientUser = await _context.PatientUser.FindAsync(id);
+            if (patientUser == null)
             {
                 return NotFound();
             }
-            return View(domaineUser);
+            return View(patientUser);
         }
 
-        // POST: DomaineUsers/Edit/5
+        // POST: PatientUsers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id")] DomaineUser domaineUser)
+        public async Task<IActionResult> Edit(int id, [Bind("Id")] PatientUser patientUser)
         {
-            if (id != domaineUser.Id)
+            if (id != patientUser.Id)
             {
                 return NotFound();
             }
@@ -148,12 +144,12 @@ namespace Animome.Controllers
             {
                 try
                 {
-                    _context.Update(domaineUser);
+                    _context.Update(patientUser);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DomaineUserExists(domaineUser.Id))
+                    if (!PatientUserExists(patientUser.Id))
                     {
                         return NotFound();
                     }
@@ -162,12 +158,12 @@ namespace Animome.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index", "ApplicationUsers");
+                return RedirectToAction(nameof(Index));
             }
-            return View(domaineUser);
+            return View(patientUser);
         }
 
-        // GET: DomaineUsers/Delete/5
+        // GET: PatientUsers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -175,30 +171,30 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-            var domaineUser = await _context.DomaineUser
+            var patientUser = await _context.PatientUser
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (domaineUser == null)
+            if (patientUser == null)
             {
                 return NotFound();
             }
 
-            return View(domaineUser);
+            return View(patientUser);
         }
 
-        // POST: DomaineUsers/Delete/5
+        // POST: PatientUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var domaineUser = await _context.DomaineUser.FindAsync(id);
-            _context.DomaineUser.Remove(domaineUser);
+            var patientUser = await _context.PatientUser.FindAsync(id);
+            _context.PatientUser.Remove(patientUser);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DomaineUserExists(int id)
+        private bool PatientUserExists(int id)
         {
-            return _context.DomaineUser.Any(e => e.Id == id);
+            return _context.PatientUser.Any(e => e.Id == id);
         }
     }
 }

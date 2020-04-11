@@ -12,6 +12,5 @@ namespace Animome.ViewModels
     {
         public SelectList Domaines { get; set; }
         public Domaine Domaine { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
     }
 }

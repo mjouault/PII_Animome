@@ -36,6 +36,8 @@ namespace Animome.Data
         public DbSet<DomaineCompetence> DomaineCompetence { get; set; }
         public DbSet<CompetencePrerequis> CompetencePrerequis { get; set; }
         public DbSet<PrerequisNiveau> PrerequisNiveau { get; set; }
-        public DbSet<Animome.Models.DomaineUser> DomaineUser { get; set; }
+        public DbSet<DomaineUser> DomaineUser { get; set; }
+
+        public DbSet<PatientUser> PatientUser { get; set; }
     }
 }

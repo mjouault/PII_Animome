@@ -42,7 +42,7 @@ namespace Animome.Controllers
                     .ToListAsync();
 
                 listeSuiveurs.AddRange(suiviUsers);
-                p.lesSuivis = await _context.Suivi.Where(x => x.Patient == p).ToListAsync() ;
+                p.LesSuivis = await _context.Suivi.Where(x => x.Patient == p).ToListAsync() ;
             }
 
             if (!string.IsNullOrEmpty(recherchePatient))
