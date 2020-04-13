@@ -5,20 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Animome</title>
-    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-</head>
-<body>
     <p>
-        <a asp-action="Index" asp-route-id="@ViewData["idPatient"]"><ion-icon name="arrow-back" stye=""></ion-icon></a>
+        <a asp-action="Index"><ion-icon name="arrow-back" stye=""></ion-icon></a>
     </p>
     <h1 class="titre">Compétences</h1>
     <h4>Modification</h4>
@@ -39,6 +27,4 @@
             </form>
         </div>
     </div>
-</body>
-</html>
 

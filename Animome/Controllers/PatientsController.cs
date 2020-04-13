@@ -97,6 +97,14 @@ namespace Animome.Controllers
             {
                 _context.Add(patient);
                 await _context.SaveChangesAsync();
+
+                PatientUser patientUser = new PatientUser
+                {
+                    Patient = patient,
+                    ApplicationUser =await _userManager.GetUserAsync(User)
+                };
+                _context.Add(patientUser);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(patient);

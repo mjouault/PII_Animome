@@ -24,9 +24,25 @@ namespace Animome.Controllers
         }
 
         // GET: Notes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id) //idSuivi
         {
-            return View(await _context.Note.ToListAsync());
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var suivi = await _context.Suivi.Where(c => c.Id == id)
+                .Include(x => x.Patient)
+                .SingleAsync();
+
+            var notes = await _context.Note.Where(c => c.Id == id) //Ne marche pas !
+                .Include(x => x.ApplicationUser)
+                .ToListAsync();
+
+
+            ViewData["idPatient"] = suivi.Patient.Id;
+            ViewData["idSuivi"] = id;
+            return View(notes);
         }
 
         // GET: Notes/Details/5
@@ -55,11 +71,12 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-            var suivi = await _context.Suivi.FindAsync(id);
-            if (suivi == null)
+            var suiviN = await _context.SuiviNiveau.FindAsync(id);
+            if (suiviN == null)
             {
                 return NotFound();
             }
+
             return View();
         }
 
@@ -75,6 +92,7 @@ namespace Animome.Controllers
             if (ModelState.IsValid)
             {
                 var suiviNiveau = await _context.SuiviNiveau.FirstOrDefaultAsync(m => m.Id == id);
+                note.SuiviNiveau = suiviNiveau;
                 note.ApplicationUser = await _userManager.GetUserAsync(User);
                 note.Date = DateTime.Now;
                 _context.Add(note);

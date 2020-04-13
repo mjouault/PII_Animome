@@ -8,7 +8,7 @@
     var couleurPrerequis="";
 }
 
-<h1>AfficherApercu</h1>
+<h1>Programme du patient n° @ViewData["idPatient"]</h1>
 
 <a asp-action="AfficherSuivi" asp-route-id=@ViewData["idPatient"]>
 
@@ -26,7 +26,7 @@
         {
             couleurDomaine = "darkgrey";
         }
-    <div class="afficherSuivi" style="border-color : @couleurDomaine ">
+    <div class="afficherSuivi" style="border-color : @couleurDomaine ; height : 100px;">
         <div class="alignes">
             @foreach (var suiviCompetence in item.LesSuiviCompetences)
             {

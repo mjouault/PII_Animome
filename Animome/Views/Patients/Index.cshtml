@@ -24,7 +24,7 @@
                 @Html.DisplayNameFor(model => model.Patients[0].Numero)
             </th>
             <th>
-                Suiveurs
+                Equipe thérapeutique
             </th>
         </tr>
     </thead>
@@ -36,17 +36,7 @@
                     @Html.DisplayFor(modelItem => item.Numero)
                 </td>
                 <td>
-                    @foreach (var s in Model.LesSuiveurs)
-                    {
-                        if (item.Id == s.Suivi.Patient.Id)
-                        {
-                            <div>@s.ApplicationUser.Nom @s.ApplicationUser.Prenom</div>
-
-                        }
-                    }
-                </td>
-                <td>
-                    <a asp-controller="PatientUsers" asp-action="Index" asp-route-id="@item.Id" class="boutonParametres lien"> les suiveurs </a>
+                    <a asp-controller="PatientUsers" asp-action="Index" asp-route-id="@item.Id" class="boutonParametres lien">voir membres équipe </a>
                 </td>
                 <td>
                     @if ((item.LesSuivis.Count) == 0)

@@ -14,6 +14,7 @@ namespace Animome.Models
         public Niveau Niveau { get; set; }
         public EtatEnum Etat { get; set; }
         public DateTime DateValide { get; set; }
+        public List<Note> LesNotes { get; set; }
 
         public EtatEnum EtatMaj()
         {

@@ -155,6 +155,8 @@ namespace Animome.Controllers
             }
 
             var competencePrerequis = await _context.CompetencePrerequis
+                .Include(x=>x.Competence)
+                .Include(x=>x.Prerequis)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (competencePrerequis == null)
             {

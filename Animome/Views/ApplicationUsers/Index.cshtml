@@ -42,17 +42,17 @@
                 }
             </td>
             <td>
-                @if (item.Role == "") //A changer !!!!
-                {
-                    <ion-icon name="alert-circle" class="icon" style="color:orangered"></ion-icon>
-                }
-                else
+                @if (item.Role != null) //A changer !!!!
                 {
                     <ion-icon name="checkbox" class="icon" style="color:darkgreen"></ion-icon>
                 }
+                else
+                {
+                    <ion-icon name="alert-circle" class="icon" style="color:orangered"></ion-icon>
+                }
             </td>
             <td>
-                @if (item.Role == "")
+                @if (item.Role == null)
                 {
 
                 <a asp-action="Accepter" asp-route-id="@item.Id"><ion-icon name="checkbox" style="color:darkgreen" class="icon"></ion-icon></a>

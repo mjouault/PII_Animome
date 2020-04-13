@@ -43,14 +43,15 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-            var suiviPrerequis = from s in _context.SuiviPrerequis select s;
 
-            suiviPrerequis = _context.SuiviPrerequis.Where(x => x.Id == id)
+           var suiviPrerequis = _context.SuiviPrerequis.Where(x => x.Id == id)
                 .Include(suiviPrerequis => suiviPrerequis.Prerequis)
                 .Include(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
                     .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
                 .Include(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
-                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.Niveau);
+                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.Niveau)
+                 .Include(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
+                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesNotes);
 
             return View(await suiviPrerequis.ToListAsync());
         }

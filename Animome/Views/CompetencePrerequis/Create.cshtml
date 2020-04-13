@@ -8,27 +8,28 @@
 <p>
     <a asp-action="Index" asp-route-id="@ViewData["idPatient"]"><ion-icon name="arrow-back" class="icon"></ion-icon></a>
 </p>
-<h1>Create</h1>
+<h1>Ajout d'un lien Compétence-Prérequis</h1>
 
-<h4>CompetencePrerequis</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <p>
+                <label>Compétence : </label>
                 <select asp-for="Competence.Intitule" asp-items="Model.ListeCompetences">
-                    <option value="">All</option>
+                    <option> - Choisir une compétence - </option>
                 </select>
             </p>
             <p>
+                <label>Prérequis : </label>
                 <select asp-for="Prerequis.Intitule" asp-items="Model.ListePrerequis">
-                    <option value="">All</option>
+                    <option value="">- Choisir un prérequis - </option>
                 </select>
             </p>
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Ajouter" class="btn btn-primary" />
             </div>
         </form>
     </div>

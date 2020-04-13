@@ -11,7 +11,7 @@
 <p>
     <a asp-controller="Patients" asp-action="Index" class="lien"><ion-icon name="arrow-back" class="grosIcon"></ion-icon></a>
 </p>
-<h1 class="titre">Les suivis</h1>
+<h1 class="titre">Programme du patient n° @ViewData["idPatient"]</h1>
     @foreach (var item in Model)
     {
         if(item.Etat==EtatEnum.e3)
@@ -28,12 +28,10 @@
         }
 
         <div class="afficherSuivi" style="border-color : @couleurDomaine">
-                <a asp-controller="Suivis" asp-action="Valider" asp-route-id="@item.Id" class="lien"> <ion-icon name="checkbox" class="icon" style=" "></ion-icon></a>
-                <a asp-controller="Suivis" asp-action="AnnulerValidation" asp-route-id="@item.Id" class="lien"> <ion-icon name="close-circle" class="icon" style=" "></ion-icon></a>
-                <a asp-controller="Commentaires" asp-action="Index" asp-route-id="@item.Id" class="lien">Voir commentaires</a>
+                <a asp-controller="Suivis" asp-action="Valider" asp-route-id="@item.Id" class="lien"> <ion-icon name="checkbox" class="icon"></ion-icon></a>
+                <a asp-controller="Suivis" asp-action="AnnulerValidation" asp-route-id="@item.Id" class="lien"> <ion-icon name="close-circle" class="icon"></ion-icon></a>
                 <div class="alignes">
                     <text class="texte">@Html.DisplayFor(modelItem => item.Domaine.Intitule) </text>
-                    <text> @ViewData["pourcentages"] %</text>
                 </div>
 
                 <div class="alignes">
@@ -58,7 +56,7 @@
                                     <a asp-controller="SuiviCompetences" asp-action="Valider" asp-route-id="@suiviCompetence.Id" class="lien"> <ion-icon name="checkbox" class="icon" style=" "></ion-icon> </a>
                                     <a asp-controller="SuiviCompetences" asp-action="AnnulerValidation" asp-route-id="@suiviCompetence.Id" class="lien"> <ion-icon name="close-circle" class="icon" style=" "></ion-icon></a>
                                 </div>
-                                    <text class="texte">@Html.DisplayFor(modelItem => suiviCompetence.Competence.Intitule) : 20 %</text>
+                                    <text class="texte">@Html.DisplayFor(modelItem => suiviCompetence.Competence.Intitule)</text>
                             </div>
 
                             <div class="alignes">
@@ -78,10 +76,9 @@
                                     }
 
                                      <div class="column">
-                                            <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id="@suiviPrerequis.Id" class="lien"><ion-icon name="close-circle" class="petitIcon" style=""></ion-icon> </a>
-                                            <div class="itemPrerequis" style="background-color : @couleurPrerequis">
-                                                <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id" class="lien">E</a>
-                                            </div>
+                                            <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id" class="lien">
+                                                <div class="itemPrerequis" style="background-color : @couleurPrerequis"></div>
+                                            </a>
                                      </div>
                                 }
                             </div>
