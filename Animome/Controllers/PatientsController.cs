@@ -225,15 +225,6 @@ namespace Animome.Controllers
                 }
             }
 
-           /* var commentaireSupprimes = await _context.Commentaire.Where(e => e.SuiviApplicationUser.Suivi.Patient.Id == id).ToListAsync();
-            if (commentaireSupprimes != null)
-            {
-                foreach (var i in commentaireSupprimes)
-                {
-                    _context.Remove(i);
-                }
-            }*/
-
             var suiviApplicationUserSupprimes = await _context.SuiviApplicationUser.Where(e => e.Suivi.Patient.Id == id).ToListAsync();
             if (suiviApplicationUserSupprimes != null)
             {
@@ -251,7 +242,17 @@ namespace Animome.Controllers
                     _context.Remove(i);
                 }
             }
-                _context.Patient.Remove(patient);
+
+            var patientUserSupprimes = await _context.PatientUser.Where(e => e.Patient.Id == id).ToListAsync();
+            if (patientUserSupprimes != null)
+            {
+                foreach (var i in patientUserSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            _context.Patient.Remove(patient);
 
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Patients");

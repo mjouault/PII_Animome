@@ -165,16 +165,91 @@ namespace Animome.Controllers
             return View();
         }
 
-       /* [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreerRole ([Bind("Id,Name")] ApplicationRole applicationRole)
+        /* [HttpPost]
+         [ValidateAntiForgeryToken]
+         public async Task<IActionResult> CreerRole ([Bind("Id,Name")] ApplicationRole applicationRole)
+         {
+            if (ModelState.IsValid)
+             {
+                 await _roleManager.CreateAsync(applicationRole);
+                 return RedirectToAction("AfficherProfil", "ApplicationUsers");
+             }
+             return View(applicationRole);
+         }*/
+
+        // GET: Patients/Delete/5
+        [Authorize]
+        public async Task<IActionResult> Delete(string id)
         {
-           if (ModelState.IsValid)
+            if (id == null)
             {
-                await _roleManager.CreateAsync(applicationRole);
-                return RedirectToAction("AfficherProfil", "ApplicationUsers");
+                return NotFound();
             }
-            return View(applicationRole);
-        }*/
+
+            var user = await _userManager.Users
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
+        // POST: Patients/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            var rolesForUser = await _userManager.GetRolesAsync(user);
+            var logins = await _userManager.GetLoginsAsync(user);
+
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+               /* foreach (var login in logins.ToList())
+                {
+                    await _userManager.RemoveLoginAsync(user,login);
+                }*/
+
+                if (rolesForUser.Count() > 0)
+                {
+                    foreach (var item in rolesForUser.ToList())
+                    {
+                        // item should be the name of the role
+                        var result = await _userManager.RemoveFromRoleAsync(user, item);
+                    }
+                }
+
+                var suiviApplicationUserSupprimes = await _context.SuiviApplicationUser.Where(e => e.ApplicationUser.Id == id).ToListAsync();
+                if (suiviApplicationUserSupprimes != null)
+                {
+                    foreach (var i in suiviApplicationUserSupprimes)
+                    {
+                        _context.Remove(i);
+                    }
+                }
+
+                var patientUserSupprimes = await _context.PatientUser.Where(e => e.ApplicationUser.Id == id).ToListAsync();
+                if (patientUserSupprimes != null)
+                {
+                    foreach (var i in patientUserSupprimes)
+                    {
+                        _context.Remove(i);
+                    }
+                }
+
+                await _userManager.DeleteAsync(user);
+                transaction.Commit();
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Patients");
+            }
+        }
+
+        private bool ApplicationUserExists(string id)
+        {
+            return _userManager.Users.Any(e => e.Id == id);
+        }
     }
 }

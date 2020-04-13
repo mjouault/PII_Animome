@@ -8,16 +8,13 @@
 <p>
     <a asp-controller="Parametres" asp-action="Index"><ion-icon name="arrow-back" class="icon"></ion-icon></a>
 </p>
-<h1>Index</h1>
+<h1>Liens Domaine-Compétence</h1>
 <p>
     <a asp-action="Create" class="lien">Ajouter <ion-icon name="add-circle" class="icon"></ion-icon></a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                Id
-            </th>
             <th>
                 Domaine
             <th>
@@ -30,9 +27,6 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Domaine.Intitule)
                 </td>

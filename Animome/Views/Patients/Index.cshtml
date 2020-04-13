@@ -21,7 +21,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Patients[0].Numero)
+                Numéro de patient
             </th>
             <th>
                 Equipe thérapeutique
@@ -50,6 +50,7 @@
                 </td>
 
                 <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-pencil-alt icon"></i></a>  |
                     <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline" class="icon"></ion-icon></a>
                 </td>
             </tr>

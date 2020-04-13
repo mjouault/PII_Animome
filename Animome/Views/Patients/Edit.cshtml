@@ -5,9 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="titre">Patient</h1>
+<div>
+    <a asp-action="Index"><ion-icon name="arrow-back" class="icon"></ion-icon></a>
+</div>
+<h1 class="titre">>Modification du patient n° @Model.Numero</h1>
 
-<h4>Modification</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -26,9 +28,6 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

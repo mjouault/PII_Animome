@@ -4,10 +4,11 @@
     ViewData["Title"] = "CreerDomaine";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div>
+    <a asp-action="Index"><ion-icon name="arrow-back" class="icon"></ion-icon></a>
+</div>
+<h1>Ajouter un domaine d'expertise</h1>
 
-<h1>Create</h1>
-
-<h4>Domaine</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,21 +16,18 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <p>
+                    <label>Domaine : </label>
                     <select asp-for="Domaine.Intitule" asp-items="Model.Domaines">
-                        <option value="">All</option>
+                        <option value="">- Choisir un domaine -</option>
                     </select>
                 </p>
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" asp-route-id="@ViewData["idUser"]" />
+                <input type="submit" value="Ajouter" class="btn btn-primary" asp-route-id="@ViewData["idUser"]" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

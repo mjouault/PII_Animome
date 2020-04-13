@@ -6,7 +6,7 @@
 }
 
 <a asp-action="Index"><ion-icon name="arrow-back" class="icon"></ion-icon></a>
-<h3>Etes-vous sûr.e de vouloir supprimer l'association @Model.Competence.Intitule - @Model.Prerequis.Intitule ?</h3>
+<h3>Etes-vous sûr.e de vouloir supprimer le lien entre @Model.Competence.Intitule et @Model.Prerequis.Intitule ?</h3>
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Supprimer" class="btn btn-danger" />

@@ -32,9 +32,10 @@ namespace Animome.Controllers
             }
 
             var patientUsers = _context.PatientUser.Where(x => x.Patient.Id == id)
-                .Include(x => x.ApplicationUser);
-                   
+                .Include(x => x.ApplicationUser)
+                .Include(x=>x.Patient);
 
+                  
             ViewData["idPatient"] = id;
             return View(await patientUsers.ToListAsync());
         }

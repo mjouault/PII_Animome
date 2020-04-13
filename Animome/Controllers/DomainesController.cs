@@ -140,6 +140,79 @@ namespace Animome.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var domaine = await _context.Domaine.FindAsync(id);
+            var suivi = await _context.Suivi.FindAsync(id);
+
+            var suiviExercicesSupprimes = await _context.SuiviExercice.Where(e => e.SuiviNiveau.SuiviPrerequis.SuiviCompetence.Suivi.Domaine.Id == id).ToListAsync();
+            if (suiviExercicesSupprimes != null)
+            {
+                foreach (var i in suiviExercicesSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            var suiviNiveauxSupprimes = await _context.SuiviNiveau.Where(e => e.SuiviPrerequis.SuiviCompetence.Suivi.Domaine.Id == id).ToListAsync();
+            if (suiviNiveauxSupprimes != null)
+            {
+                foreach (var i in suiviNiveauxSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            var suiviPrerequisSupprimes = await _context.SuiviPrerequis.Where(e => e.SuiviCompetence.Suivi.Domaine.Id == id).ToListAsync();
+            if (suiviPrerequisSupprimes != null)
+            {
+                foreach (var i in suiviPrerequisSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            var suiviCompetenceSupprimes = await _context.SuiviCompetence.Where(e => e.Suivi.Domaine.Id == id).ToListAsync();
+            if (suiviCompetenceSupprimes != null)
+            {
+                foreach (var i in suiviCompetenceSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            var suiviApplicationUserSupprimes = await _context.SuiviApplicationUser.Where(e => e.Suivi.Id == id).ToListAsync();
+            if (suiviApplicationUserSupprimes != null)
+            {
+                foreach (var i in suiviApplicationUserSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            var domaineUserSupprimes = await _context.DomaineUser.Where(e => e.Domaine.Id == id).ToListAsync();
+            if (domaineUserSupprimes != null)
+            {
+                foreach (var i in domaineUserSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            var suiviSupprimes = await _context.Suivi.Where(e => e.Domaine.Id == id).ToListAsync();
+            if (suiviSupprimes != null)
+            {
+                foreach (var i in suiviSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            var domaineCompetenceSupprimes = await _context.DomaineCompetence.Where(e => e.Domaine.Id == id).ToListAsync();
+            if (domaineCompetenceSupprimes != null)
+            {
+                foreach (var i in domaineCompetenceSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
             _context.Domaine.Remove(domaine);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

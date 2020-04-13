@@ -4,87 +4,94 @@
     ViewData["Title"] = "AfficherSuivi";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var couleurDomaine = "";
-    var couleurComp="";
-    var couleurPrerequis="";
+    var couleurComp = "";
+    var couleurPrerequis = "";
 }
 
 <p>
     <a asp-controller="Patients" asp-action="Index" class="lien"><ion-icon name="arrow-back" class="grosIcon"></ion-icon></a>
 </p>
-<h1 class="titre">Programme du patient n° @ViewData["idPatient"]</h1>
+<h1 class="titre">Programme du patient n° @ViewData["numPatient"]</h1>
+<div class="alignes">
     @foreach (var item in Model)
     {
-        if(item.Etat==EtatEnum.e3)
+        if (item.Etat == EtatEnum.e3)
         {
             couleurDomaine = "darkgreen";
         }
-        else if (item.Etat==EtatEnum.e2)
+        else if (item.Etat == EtatEnum.e2)
         {
             couleurDomaine = "orangered";
         }
-        else if (item.Etat==EtatEnum.e1)
+        else if (item.Etat == EtatEnum.e1)
         {
             couleurDomaine = "darkgrey";
         }
 
-        <div class="afficherSuivi" style="border-color : @couleurDomaine">
+        <div class="colonne" style="margin:10px">
+            <div>
+                <text class="texte">@Html.DisplayFor(modelItem => item.Domaine.Intitule) </text>
                 <a asp-controller="Suivis" asp-action="Valider" asp-route-id="@item.Id" class="lien"> <ion-icon name="checkbox" class="icon"></ion-icon></a>
                 <a asp-controller="Suivis" asp-action="AnnulerValidation" asp-route-id="@item.Id" class="lien"> <ion-icon name="close-circle" class="icon"></ion-icon></a>
-                <div class="alignes">
-                    <text class="texte">@Html.DisplayFor(modelItem => item.Domaine.Intitule) </text>
-                </div>
+            </div>
+
+
+            <div class="afficherSuivi" style="border-color : @couleurDomaine">
 
                 <div class="alignes">
                     @foreach (var suiviCompetence in item.LesSuiviCompetences)
                     {
-                         if(suiviCompetence.Etat==EtatEnum.e3)
+                        if (suiviCompetence.Etat == EtatEnum.e3)
                         {
                             couleurComp = "darkgreen";
                         }
-                        else if (suiviCompetence.Etat==EtatEnum.e2)
+                        else if (suiviCompetence.Etat == EtatEnum.e2)
                         {
                             couleurComp = "orangered";
                         }
-                        else if (suiviCompetence.Etat==EtatEnum.e1)
+                        else if (suiviCompetence.Etat == EtatEnum.e1)
                         {
                             couleurComp = "darkgrey";
                         }
-                                 
+
+                    <div class="colonne">
+                        <div>
+                            <text class="texte">@Html.DisplayFor(modelItem => suiviCompetence.Competence.Intitule)</text>
+                            <a asp-controller="SuiviCompetences" asp-action="Valider" asp-route-id="@suiviCompetence.Id" class="lien"> <ion-icon name="checkbox" class="icon" style=" "></ion-icon> </a>
+                            <a asp-controller="SuiviCompetences" asp-action="AnnulerValidation" asp-route-id="@suiviCompetence.Id" class="lien"> <ion-icon name="close-circle" class="icon" style=" "></ion-icon></a>
+                        </div>
+
                         <div class="carteCompetence" style=" broder-style:solid; borderwidth:2px; border-color : @couleurComp">
-                            <div class="colonne">
-                                <div>
-                                    <a asp-controller="SuiviCompetences" asp-action="Valider" asp-route-id="@suiviCompetence.Id" class="lien"> <ion-icon name="checkbox" class="icon" style=" "></ion-icon> </a>
-                                    <a asp-controller="SuiviCompetences" asp-action="AnnulerValidation" asp-route-id="@suiviCompetence.Id" class="lien"> <ion-icon name="close-circle" class="icon" style=" "></ion-icon></a>
-                                </div>
-                                    <text class="texte">@Html.DisplayFor(modelItem => suiviCompetence.Competence.Intitule)</text>
-                            </div>
 
                             <div class="alignes">
                                 @foreach (var suiviPrerequis in suiviCompetence.LesSuiviPrerequis)
                                 {
-                                    if(suiviPrerequis.Etat==EtatEnum.e3)
+                                    if (suiviPrerequis.Etat == EtatEnum.e3)
                                     {
                                         couleurPrerequis = "darkgreen";
                                     }
-                                    else if (suiviPrerequis.Etat==EtatEnum.e2)
+                                    else if (suiviPrerequis.Etat == EtatEnum.e2)
                                     {
                                         couleurPrerequis = "orangered";
                                     }
-                                    else if (suiviPrerequis.Etat==EtatEnum.e1)
+                                    else if (suiviPrerequis.Etat == EtatEnum.e1)
                                     {
                                         couleurPrerequis = "darkgrey";
                                     }
 
-                                     <div class="column">
-                                            <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id" class="lien">
-                                                <div class="itemPrerequis" style="background-color : @couleurPrerequis"></div>
-                                            </a>
-                                     </div>
+                                    <div class="column">
+                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id" class="lien">
+                                            <div class="itemPrerequis" style="background-color : @couleurPrerequis"></div>
+                                        </a>
+                                    </div>
                                 }
                             </div>
                         </div>
+                    </div>
                     }
                 </div>
+            </div>
         </div>
     }
+</div>
 

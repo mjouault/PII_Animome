@@ -8,27 +8,27 @@
 <p>
     <a asp-action="Index"><ion-icon name="arrow-back"></ion-icon></a>
 </p>
-<h1>Create</h1>
-
-<h4>DomaineCompetence</h4>
+<h1>Ajout d'un lien Domaine - Compétence</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <p>
+                <label>Domaine : </label>
                 <select asp-for="Domaine.Intitule" asp-items="Model.Domaines">
-                    <option value="">All</option>
+                    <option value="">- Choisir un domaine - </option>
                 </select>
             </p>
             <p>
+                <label>Compétence : </label>
                 <select asp-for="Competence.Intitule" asp-items="Model.Competences">
-                    <option value="">All</option>
+                    <option value="">-Choisir une compétence - </option>
                 </select>
             </p>
 
             <div class="form-group">
-                <input type="submit" value="Créer" class="btn btn-primary" />
+                <input type="submit" value="Ajouter" class="btn btn-primary" />
             </div>
         </form>
     </div>

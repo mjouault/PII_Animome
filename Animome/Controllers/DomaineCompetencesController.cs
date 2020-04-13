@@ -161,6 +161,8 @@ namespace Animome.Controllers
             }
 
             var domaineCompetence = await _context.DomaineCompetence
+                .Include(x=>x.Domaine)
+                .Include(x=>x.Competence)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (domaineCompetence == null)
             {

@@ -53,7 +53,7 @@ namespace Animome.Controllers
                  .Include(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
                     .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesNotes);
 
-            return View(await suiviPrerequis.ToListAsync());
+            return View(await suiviPrerequis.SingleOrDefaultAsync());
         }
 
 

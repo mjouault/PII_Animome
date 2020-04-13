@@ -34,9 +34,8 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-            var suivi = from s in _context.Suivi select s;
 
-            suivi = _context.Suivi.Where(x => x.Patient.Id == id)
+            var suivi = await _context.Suivi.Where(x => x.Patient.Id == id)
                 .Include(suivi => suivi.LesSuiviCompetences)
                     .ThenInclude(lesSuiviCptces => lesSuiviCptces.LesSuiviPrerequis)
                     .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.LesSuiviNiveaux)
@@ -48,10 +47,11 @@ namespace Animome.Controllers
                     .ThenInclude(lesSuviCptces => lesSuviCptces.Competence)
                  .Include(suivi => suivi.LesSuiviCompetences)
                     .ThenInclude(lesSuiviCptces => lesSuiviCptces.LesSuiviPrerequis)
-                    .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.Prerequis);
+                    .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.Prerequis)
+                 .ToListAsync();
 
             ViewData["idPatient"] = id;
-            return View(await suivi.ToListAsync());
+            return View(suivi);
         }
 
         // GET: Suivis/Details/5
@@ -498,7 +498,7 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-           var suivi = _context.Suivi.Where(x => x.Patient.Id == id)
+           var suivi = await _context.Suivi.Where(x => x.Patient.Id == id)
                 .Include(suivi => suivi.LesSuiviCompetences)
                     .ThenInclude(lesSuiviCptces => lesSuiviCptces.LesSuiviPrerequis)
                     .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.LesSuiviNiveaux)
@@ -510,11 +510,13 @@ namespace Animome.Controllers
                     .ThenInclude(lesSuviCptces => lesSuviCptces.Competence)
                  .Include(suivi => suivi.LesSuiviCompetences)
                     .ThenInclude(lesSuiviCptces => lesSuiviCptces.LesSuiviPrerequis)
-                    .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.Prerequis);
+                    .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.Prerequis)
+                 .Include(x=>x.Patient)
+                 .ToListAsync();
 
             ViewData["idPatient"] = id;
-            ViewData["pourcentages"] = CalculerPourcentage(suivi.ToList())[0];
-            return View(await suivi.ToListAsync());
+            ViewData["numPatient"] = suivi[0].Patient.Numero;
+            return View(suivi);
         }
 
         public async Task<IActionResult> AfficherSuivi(int? id)
@@ -524,7 +526,7 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-            var suivi = _context.Suivi.Where(x => x.Patient.Id == id)
+            var suivi = await _context.Suivi.Where(x => x.Patient.Id == id)
                  .Include(suivi => suivi.LesSuiviCompetences)
                      .ThenInclude(lesSuiviCptces => lesSuiviCptces.LesSuiviPrerequis)
                      .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.LesSuiviNiveaux)
@@ -536,11 +538,14 @@ namespace Animome.Controllers
                      .ThenInclude(lesSuviCptces => lesSuviCptces.Competence)
                   .Include(suivi => suivi.LesSuiviCompetences)
                      .ThenInclude(lesSuiviCptces => lesSuiviCptces.LesSuiviPrerequis)
-                     .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.Prerequis);
+                     .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.Prerequis)
+                  .Include(x=>x.Patient)
+                  .ToListAsync();
 
             ViewData["idPatient"] = id;
+            ViewData["numPatient"] = suivi[0].Patient.Numero;
             ViewData["pourcentages"] = CalculerPourcentage(suivi.ToList())[0];
-            return View(await suivi.ToListAsync());
+            return View(suivi);
         }
 
         public async Task <IActionResult> AfficherDomaine()
