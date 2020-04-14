@@ -6,7 +6,23 @@
     var couleurN="";
 }
 
+<p>
+    <a asp-controller="Suivis" asp-action="AfficherSuivi" asp-route-id="@Model.SuiviCompetence.Suivi.Patient.Id" class="lien"><ion-icon name="arrow-back" class="grosIcon"></ion-icon></a>
+</p>
 <h1 class="titre"> Détail Prérequis @Html.Display(Model.Prerequis.Intitule)</h1>
+    @if (@Model.Etat == EtatEnum.e3)
+    {
+        <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id="@Model.Id"><ion-icon name="close-circle" class="iconSuivi"> </ion-icon></a>
+    }
+    else if (@Model.Etat == EtatEnum.e2)
+    {
+        <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id="@@Model.Id"><ion-icon name="checkbox" class="iconSuivi"></ion-icon></a>
+        <a asp-controller="SuivisPrerequis" asp-action="AnnulerValidation" asp-route-id="@Model.Id"><ion-icon name="close-circle" class="iconSuivi"> </ion-icon></a>
+    }
+    else if (@Model.Etat == EtatEnum.e1)
+    {
+        <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id="@Model.Id"><ion-icon name="checkbox" class="iconSuivi"></ion-icon></a>
+    }
 
 
 <div class="alignes">

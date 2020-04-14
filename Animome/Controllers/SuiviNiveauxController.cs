@@ -25,7 +25,7 @@ namespace Animome.Controllers
             return View(await _context.SuiviNiveau.ToListAsync());
         }
 
-        // GET: SuiviNiveaux/Details/5
+        /*// GET: SuiviNiveaux/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,7 +44,7 @@ namespace Animome.Controllers
         }
 
         // GET: SuiviNiveaux/Create
-       /* public async Task <IActionResult> Create(int? id)
+        public async Task <IActionResult> Create(int? id)
         {
             if(id!=null)
             {
@@ -78,7 +78,7 @@ namespace Animome.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(suiviNiveau);
-        }*/
+        }
 
         // GET: SuiviNiveaux/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -158,7 +158,7 @@ namespace Animome.Controllers
             _context.SuiviNiveau.Remove(suiviNiveau);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
+        }*/
 
         public async Task<IActionResult> Valider(int? id)
         {
@@ -168,11 +168,11 @@ namespace Animome.Controllers
             }
 
 
-            var suiviNiveau1 = _context.SuiviNiveau.Where(x => x.Id == id)
+            var suiviNiveau = await _context.SuiviNiveau.Where(x => x.Id == id)
                 .Include(suiviNiveau => suiviNiveau.Niveau)
-                .Include(suiviNiveau => suiviNiveau.LesSuiviExercices);
+                .Include(suiviNiveau => suiviNiveau.LesSuiviExercices)
+                .SingleAsync();
 
-            var suiviNiveau = await suiviNiveau1.SingleAsync();
             try
             {
                 if (suiviNiveau.Etat != EtatEnum.e3)
@@ -204,7 +204,7 @@ namespace Animome.Controllers
                     throw;
                 }
             }
-            return RedirectToAction("Index", "Patients");
+            return RedirectToAction("AfficherPrerequis", "SuiviPrerequis", new { suiviNiveau.SuiviPrerequis.Id});
         }
 
         public async Task<IActionResult> AnnulerValidation (int? id)
@@ -214,12 +214,10 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-
-            var suiviNiveau1 = _context.SuiviNiveau.Where(x => x.Id == id)
-                .Include(suiviNiveau => suiviNiveau.Niveau)
-                .Include(suiviNiveau => suiviNiveau.LesSuiviExercices);
-
-            var suiviNiveau = await suiviNiveau1.SingleAsync();
+            var suiviNiveau = await _context.SuiviNiveau.Where(x => x.Id == id)
+                            .Include(suiviNiveau => suiviNiveau.Niveau)
+                            .Include(suiviNiveau => suiviNiveau.LesSuiviExercices)
+                            .SingleAsync();
             try
             {
                 if (suiviNiveau.Etat != EtatEnum.e1)
@@ -252,7 +250,7 @@ namespace Animome.Controllers
                     throw;
                 }
             }
-            return RedirectToAction("Index", "Patients");
+            return RedirectToAction("AfficherPrerequis", "SuiviPrerequis", new { suiviNiveau.SuiviPrerequis.Id });
         }
 
 

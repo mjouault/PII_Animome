@@ -207,14 +207,12 @@ namespace Animome.Controllers
 
             if (ModelState.IsValid)
             {
-                Console.WriteLine("entre ds le modelValid");
                 try
                 {
                     viewModel.Suivi = await _context.Suivi.FindAsync(id);
                     // var domaine = viewModel.Suivi.Domaine;
                     //  var suivi = await _context.Suivi.FindAsync(viewModel.Suivi.Id);
 
-                    Console.WriteLine("entre ds le try");
                     _context.Update(viewModel.Suivi.Domaine);
 
                     //_context.Update(viewModel.SuiviPrerequis) ;
@@ -226,10 +224,8 @@ namespace Animome.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    Console.WriteLine("entre ds le catch");
                     if (!SuiviExists(viewModel.Suivi.Id))
                     {
-                        Console.WriteLine("pbbbbbb");
                         return NotFound();
                     }
                     else
@@ -239,7 +235,6 @@ namespace Animome.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            Console.WriteLine("sort");
             return View(viewModel);
         }
 
@@ -323,9 +318,10 @@ namespace Animome.Controllers
                 }
             }
 
+            var patientId = suivi.Patient.Id;
             _context.Suivi.Remove(suivi);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Patients");
+            return RedirectToAction("AfficherSuivi", "Suivis", new { patientId});
         }
 
         public async Task<IActionResult>Valider(int? id)
@@ -335,12 +331,13 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-            var suivi1 = _context.Suivi.Where(x => x.Id == id)
+            var suivi = await _context.Suivi.Where(x => x.Id == id)
                 .Include(suivi => suivi.LesSuiviCompetences)
                     .ThenInclude(suiviCompetence => suiviCompetence.LesSuiviPrerequis)
                     .ThenInclude(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
-                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices);
-            var suivi = await suivi1.SingleAsync();
+                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
+                .Include(suivi => suivi.Patient)
+                .SingleOrDefaultAsync();
 
             try
             {
@@ -402,7 +399,7 @@ namespace Animome.Controllers
                     throw;
                 }
             }
-            return RedirectToAction("Index", "Patients");
+            return RedirectToAction("AfficherSuivi", "Suivis", new { suivi.Patient.Id});
         }
 
         public async Task<IActionResult> AnnulerValidation(int? id)
@@ -412,12 +409,13 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-            var suivi1 = _context.Suivi.Where(x => x.Id == id)
+            var suivi = await _context.Suivi.Where(x => x.Id == id)
                 .Include(suivi => suivi.LesSuiviCompetences)
                     .ThenInclude(suiviCompetence => suiviCompetence.LesSuiviPrerequis)
                     .ThenInclude(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
-                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices);
-            var suivi = await suivi1.SingleAsync();
+                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
+                    .Include(suivi=>suivi.Patient)
+                    .SingleOrDefaultAsync();
 
             try
             {
@@ -481,7 +479,7 @@ namespace Animome.Controllers
                     throw;
                 }
             }
-            return RedirectToAction("Index", "Patients");
+            return RedirectToAction("AfficherSuivi", "Suivis", new { suivi.Patient.Id});
         }
 
 

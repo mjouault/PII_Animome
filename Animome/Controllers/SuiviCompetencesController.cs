@@ -28,7 +28,7 @@ namespace Animome.Controllers
             return View(await _context.SuiviCompetence.ToListAsync());
         }
 
-        // GET: SuiviCompetences/Details/5
+       /* // GET: SuiviCompetences/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,7 +47,7 @@ namespace Animome.Controllers
         }
 
         // GET: SuiviCompetences/Create
-        /* public async Task <IActionResult> Create(int? id)
+         public async Task <IActionResult> Create(int? id)
          {
              if (id == null)
              {
@@ -81,7 +81,7 @@ namespace Animome.Controllers
                  await _context.SaveChangesAsync();
              return RedirectToAction("Index", "Patients");
              //return RedirectToAction("AfficherSuivi", "Suivis", new { suivi.Patient.Id });
-         }*/
+         }
 
         //GET AjouterCompetence
          public async Task<IActionResult> AjouterCompetence(int? id, SuiviEditViewModel viewModel)
@@ -249,7 +249,7 @@ namespace Animome.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Patients");
             //return RedirectToAction("AfficherSuivi", "Suivis", new { suiviCompetence.Suivi.Patient.Id });
-        }
+        }*/
 
         public async Task<IActionResult> Valider(int? id)
         {
@@ -263,6 +263,7 @@ namespace Animome.Controllers
                     .ThenInclude(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
                     .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
                 .Include(SuiviCompetence => SuiviCompetence.Suivi)
+                .Include(suiviCompetence=>suiviCompetence.Suivi.Patient)
                 .SingleAsync();
 
             try
@@ -318,7 +319,7 @@ namespace Animome.Controllers
                     throw;
                 }
             }
-            return RedirectToAction("Index", "Patients");
+            return RedirectToAction("AfficherSuivi", "Suivis", new { suiviCompetence.Suivi.Patient.Id});
         }
 
         public async Task<IActionResult> AnnulerValidation (int? id)
@@ -328,12 +329,13 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-            var suiviCompetence1 = _context.SuiviCompetence.Where(x => x.Id == id)
+            var suiviCompetence = await _context.SuiviCompetence.Where(x => x.Id == id)
             .Include(suiviCompetence => suiviCompetence.LesSuiviPrerequis)
                 .ThenInclude(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
                 .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
-            .Include(suiviCompetence => suiviCompetence.Suivi);
-            var suiviCompetence = await suiviCompetence1.SingleAsync();
+            .Include(suiviCompetence => suiviCompetence.Suivi)
+            .Include(suiviCompetence => suiviCompetence.Suivi.Patient)
+            .SingleAsync();
 
 
             try
@@ -389,7 +391,7 @@ namespace Animome.Controllers
                     throw;
                 }
             }
-            return RedirectToAction("Index", "Patients");
+            return RedirectToAction("AfficherSuivi", "Suivis", new { suiviCompetence.Suivi.Patient.Id});
         }
 
         private bool SuiviCompetenceExists(int id)

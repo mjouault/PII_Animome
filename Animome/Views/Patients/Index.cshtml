@@ -11,7 +11,7 @@
     <div style="margin-left :100px;">
         <form asp-controller="Patients" asp-action="Index" method="get">
             <div class="barreRecherche">
-                <input class="input" type="text" asp-for="RecherchePatient" /><button class="boutonRecherche"><i class="fas fa-search" type="submit" style="font-size:20px;color:lightgrey"></i></button>
+                <input class="input" type="text" asp-for="RecherchePatient"/><button class="boutonRecherche"><i class="fas fa-search" type="submit" style="font-size:20px;color:lightgrey"></i></button>
             </div>
         </form>
     </div>
@@ -36,16 +36,31 @@
                     @Html.DisplayFor(modelItem => item.Numero)
                 </td>
                 <td>
-                    <a asp-controller="PatientUsers" asp-action="Index" asp-route-id="@item.Id" class="boutonParametres lien">voir membres équipe </a>
+                    <a asp-controller="PatientUsers" asp-action="Index" asp-route-id="@item.Id" class="btn btnPrinc">
+                    <div class="contentBtnPrinc">
+                        <text>Voir membres</text> 
+                        <ion-icon name="eye-outline" style="color:#fff"></ion-icon> 
+                    </div>
+                    </a>
                 </td>
                 <td>
                     @if ((item.LesSuivis.Count) == 0)
                     {
-                        <a asp-controller="Suivis" asp-action="Create" asp-route-id="@item.Id" class="boutonParametres lien">Créer suivis</a>
+                        <a asp-controller="Suivis" asp-action="Create" asp-route-id="@item.Id" class="btn btnPrinc">
+                        <div class="contentBtnPrinc">
+                            <text>Créer programme</text>
+                            <ion-icon name="add-outline" style="color:#fff"></ion-icon>
+                        </div>
+                        </a>
                     }
                     else
                     {
-                    <a asp-controller="Suivis" asp-action="AfficherApercu" asp-route-id="@item.Id" class="boutonParametres lien">Voir les suivis</a>
+                    <a asp-controller="Suivis" asp-action="AfficherApercu" asp-route-id="@item.Id" class="btn btnPrinc">
+                    <div class="contentBtnPrinc">
+                        <text>Voir programme</text>
+                        <ion-icon name="eye-outline" style="color:#fff"></ion-icon>
+                    </div>
+                    </a>
                     }
                 </td>
 

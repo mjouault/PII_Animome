@@ -98,7 +98,7 @@ namespace Animome.Controllers
                 _context.Add(note);
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Patients");
+                return RedirectToAction("AfficherPrerequis", "SuiviPrerequis", new {suiviNiveau.SuiviPrerequis.Id});
             }
             return View(note);
         }

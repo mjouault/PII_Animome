@@ -6,36 +6,34 @@
 }
 
 <h1 class="titre">Profil</h1>
-<dl style="text-indent:15px;">
-    <dt>
-        @Html.DisplayNameFor(Model => Model.Prenom)
-        @Html.DisplayNameFor(Model => Model.Nom)
-    </dt>
-    <dd>
-        @Html.DisplayFor(Model => Model.Prenom)
-        @Html.DisplayFor(Model => Model.Nom)
-    </dd>
-    <dt>
-        @Html.DisplayNameFor(Model => Model.Email)
-    </dt>
-    <dd>
-        @Html.DisplayFor(Model => Model.Email)
-    </dd>
-    <dt>
-        @Html.DisplayName("Domaines d'expertise")
-    </dt>
-    <dd>
-        @foreach (var d in Model.LesDomaines)
-        {
-            <div class="colonne">
-            @Html.DisplayFor(Model => d.Domaine.Intitule)
-            </div>
-        }
-    </dd>
-</dl>
 
-<a asp-action="EditProfil" class="lien">
-    <div class="boutonParametres" style="margin-top:50px;">
-        Modifier informations  <i class="fas fa-pencil-alt icon"></i>
-    </div>   
-</a> 
+<hr/>
+<div style="text-indent:15px; padding: 15px;">
+    <div class="row">
+        <div class="col-md-4">
+            <div style="margin-bottom:20px;">
+                Nom prénom : @Html.DisplayFor(Model => Model.Prenom) @Html.DisplayFor(Model => Model.Nom)
+            </div>
+            <div style="margin-bottom:20px;">
+                Adresse mail :  @Html.DisplayFor(Model => Model.Email)
+            </div>
+            <div style="margin-bottom:20px;">
+                Domaines d'expertise :
+                <div>
+                    @foreach (var d in Model.LesDomaines)
+                    {
+                        <div class="colonne boutonDomaine">
+                            @Html.DisplayFor(Model => d.Domaine.Intitule)
+                        </div>
+                    }
+                </div>
+            </div>
+            <a asp-action="EditProfil" class="btn btnPrinc" style="height:50px; position:relative;top:50px;">
+                <div class="contentBtnPrinc" style="position:relative;top:0px;">
+                    <text style="color:white;">Modifier informations</text>
+                    <i class="fas fa-pencil-alt icon" style="color:#fff; position:relative;top:-1px;"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

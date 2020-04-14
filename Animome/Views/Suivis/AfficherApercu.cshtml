@@ -12,6 +12,7 @@
 
 <a asp-action="AfficherSuivi" asp-route-id=@ViewData["idPatient"]>
 
+<div class="alignes">
     @foreach (var item in Model)
     {
         if (item.Etat == EtatEnum.e3)
@@ -26,7 +27,7 @@
         {
             couleurDomaine = "darkgrey";
         }
-    <div class="afficherSuivi" style="border-color : @couleurDomaine ; height : 100px;">
+    <div class="afficherSuivi" style="border-color : @couleurDomaine ; height : 100px; margin:10px;">
         <div class="alignes">
             @foreach (var suiviCompetence in item.LesSuiviCompetences)
             {
@@ -74,6 +75,6 @@
             }
         </div>
     </div>
-            }
-
-    </a>
+     }
+</div>
+</a>

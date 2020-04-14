@@ -29,7 +29,7 @@ namespace Animome.Controllers
             return View(await _context.SuiviExercice.ToListAsync());
         }
 
-        // GET: SuiviExercices/Details/5
+       /* // GET: SuiviExercices/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -145,7 +145,7 @@ namespace Animome.Controllers
             _context.SuiviExercice.Remove(suiviExercice);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
+        }*/
 
         [Authorize]
         public async Task<IActionResult> Valider(int? id)
@@ -186,7 +186,7 @@ namespace Animome.Controllers
                     throw;
                 }
             }
-            return RedirectToAction("Index", "Patients");
+            return RedirectToAction("AfficherPrerequis", "SuiviPrerequis", new { suiviExercice.SuiviNiveau.SuiviPrerequis.Id });
         }
 
         public async Task<IActionResult> AnnulerValidation (int? id)
@@ -195,13 +195,12 @@ namespace Animome.Controllers
             {
                 return NotFound();
             }
-
             var suiviExercice = await _context.SuiviExercice.Where(x => x.Id == id)
-                 .Include(se => se.SuiviNiveau)
-                     .ThenInclude(sn => sn.SuiviPrerequis)
-                         .ThenInclude(sp => sp.SuiviCompetence)
-                             .ThenInclude(sc => sc.Suivi)
-                 .SingleAsync();
+                .Include(se => se.SuiviNiveau)
+                    .ThenInclude(sn => sn.SuiviPrerequis)
+                        .ThenInclude(sp => sp.SuiviCompetence)
+                            .ThenInclude(sc => sc.Suivi)
+                .SingleAsync();
 
             try
             {
@@ -225,7 +224,7 @@ namespace Animome.Controllers
                     throw;
                 }
             }
-            return RedirectToAction("Index", "Patients");
+            return RedirectToAction("AfficherPrerequis", "SuiviPrerequis", new { suiviExercice.SuiviNiveau.SuiviPrerequis.Id });
         }
 
         private bool SuiviExerciceExists(int id)

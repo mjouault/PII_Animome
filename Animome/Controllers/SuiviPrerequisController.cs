@@ -57,7 +57,7 @@ namespace Animome.Controllers
         }
 
 
-        // GET: SuiviPrerequis/Details/5
+        /*// GET: SuiviPrerequis/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -175,7 +175,7 @@ namespace Animome.Controllers
             _context.SuiviPrerequis.Remove(suiviPrerequis);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Patients");
-        }
+        }*/
 
         public async Task<IActionResult> Valider(int? id)
         {
@@ -185,14 +185,14 @@ namespace Animome.Controllers
             }
 
 
-            var suiviPrerequis1 = _context.SuiviPrerequis.Where(x => x.Id == id)
+            var suiviPrerequis = await _context.SuiviPrerequis.Where(x => x.Id == id)
                 .Include(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
                     .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
                 .Include(suiviPrerequis => suiviPrerequis.SuiviCompetence)
                     .ThenInclude(sc => sc.Suivi)
-                .Include(suiviPrerequis => suiviPrerequis.SuiviCompetence);
-
-            var suiviPrerequis = await suiviPrerequis1.SingleAsync();
+                .Include(suiviPrerequis => suiviPrerequis.SuiviCompetence)
+                .Include(x=>x.SuiviCompetence.Suivi.Patient)
+                .SingleAsync();
 
 
             try
@@ -239,7 +239,7 @@ namespace Animome.Controllers
                     throw;
                 }
             }
-            return RedirectToAction("Index", "Patients");
+            return RedirectToAction("AfficherSuivi", "Suivis", new { suiviPrerequis.SuiviCompetence.Suivi.Patient.Id});
         }
 
         public async Task<IActionResult> AnnulerValidation(int? id)
@@ -249,13 +249,14 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-
-           var  suiviPrerequis1 = _context.SuiviPrerequis.Where(x => x.Id == id)
-                .Include(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
-                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
-                 .Include(suiviPrerequis => suiviPrerequis.SuiviCompetence);
-
-            var suiviPrerequis = await suiviPrerequis1.SingleAsync();
+            var suiviPrerequis = await _context.SuiviPrerequis.Where(x => x.Id == id)
+                   .Include(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
+                       .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
+                   .Include(suiviPrerequis => suiviPrerequis.SuiviCompetence)
+                       .ThenInclude(sc => sc.Suivi)
+                   .Include(suiviPrerequis => suiviPrerequis.SuiviCompetence)
+                   .Include(x => x.SuiviCompetence.Suivi.Patient)
+                   .SingleAsync();
 
             try
             {
@@ -301,7 +302,7 @@ namespace Animome.Controllers
                     throw;
                 }
             }
-            return RedirectToAction("Index", "Patients");
+            return RedirectToAction("AfficherSuivi", "Suivis", new { suiviPrerequis.SuiviCompetence.Suivi.Patient.Id });
         }
 
         private bool SuiviPrerequisExists(int id)
