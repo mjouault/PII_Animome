@@ -67,7 +67,7 @@ namespace Animome
                         pattern: "{controller=Home}/{action=Index}/{id?}");
                     endpoints.MapRazorPages();
                 });
-               //CreateRoles(services).Wait();
+               CreateRoles(services).Wait();
             }
 
             private async Task CreateRoles(IServiceProvider serviceProvider)
@@ -94,15 +94,21 @@ namespace Animome
             //be assigned to that user.
              ApplicationUser user = await UserManager.FindByEmailAsync("maurine@gmail.com");
 
+            if (user != null)
+            {
                 await UserManager.AddToRoleAsync(user, "Admin");
                 user.Role = "Admin";
-                await UserManager.UpdateAsync(user);
+
+            }
 
 
              ApplicationUser user2 = await UserManager.FindByEmailAsync("gautier@gmail.com");
+
+            if (user2 != null)
+            {
                 await UserManager.AddToRoleAsync(user2, "Utilisateur");
                 user2.Role = "Utilisateur";
-                await UserManager.UpdateAsync(user);
+            }
         }
     }
     }

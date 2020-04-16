@@ -8,32 +8,30 @@
 <h1 class="titre">Profil</h1>
 
 <hr/>
-<div style="text-indent:15px; padding: 15px;">
-    <div class="row">
-        <div class="col-md-4">
-            <div style="margin-bottom:20px;">
-                Nom prénom : @Html.DisplayFor(Model => Model.Prenom) @Html.DisplayFor(Model => Model.Nom)
-            </div>
-            <div style="margin-bottom:20px;">
-                Adresse mail :  @Html.DisplayFor(Model => Model.Email)
-            </div>
-            <div style="margin-bottom:20px;">
-                Domaines d'expertise :
-                <div>
-                    @foreach (var d in Model.LesDomaines)
-                    {
-                        <div class="colonne boutonDomaine">
-                            @Html.DisplayFor(Model => d.Domaine.Intitule)
-                        </div>
-                    }
+
+<div class="mx-auto container-animome">
+    <div style="margin-bottom:20px;">
+        Nom prénom : @Html.DisplayFor(Model => Model.Prenom) @Html.DisplayFor(Model => Model.Nom)
+    </div>
+    <div style="margin-bottom:20px;">
+        Adresse mail :  @Html.DisplayFor(Model => Model.Email)
+    </div>
+    <div style="margin-bottom:20px;">
+        Domaines d'expertise :
+        <div>
+            @foreach (var d in Model.LesDomaines)
+            {
+                <div class="colonne boutonDomaine">
+                    @Html.DisplayFor(Model => d.Domaine.Intitule)
                 </div>
-            </div>
-            <a asp-action="EditProfil" class="btn btnPrinc" style="height:50px; position:relative;top:50px;">
-                <div class="contentBtnPrinc" style="position:relative;top:0px;">
-                    <text style="color:white;">Modifier informations</text>
-                    <i class="fas fa-pencil-alt icon" style="color:#fff; position:relative;top:-1px;"></i>
-                </div>
-            </a>
+            }
         </div>
     </div>
+    <a asp-action="EditProfil" class="btn btnPrinc" style="height:50px;">
+        <div class="contentBtnPrinc" style="position:relative;top:0px;">
+            <text style="color:white;">Modifier informations</text>
+            <i class="fas fa-pencil-alt icon" style="color:#fff; position:relative;top:-1px;"></i>
+        </div>
+    </a>
 </div>
+

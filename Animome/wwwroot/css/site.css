@@ -418,3 +418,19 @@ form{
 }
 
 
+/* TESTS */
+main {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.container-animome {
+    display: flex;
+    flex-direction: column;
+
+    border: 0px solid #f3f3f3;
+    padding: 20px; 
+    border-radius: 7px;
+    box-shadow: 0 5px 10px gray;
+}

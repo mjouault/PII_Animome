@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Animome.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ParametresController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -21,7 +22,7 @@ namespace Animome.Controllers
             _context = context;
         }
 
-        [Authorize (Roles ="Admin")]
+
         public IActionResult Index()
         {
             return View();

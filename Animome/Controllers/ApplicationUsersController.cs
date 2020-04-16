@@ -43,6 +43,7 @@ namespace Animome.Controllers
                     user.Role = role[0].ToString();
                 }
                 await _userManager.UpdateAsync(user);
+                await _userManager.UpdateAsync(user);
 
             }*/
             return View(users);
