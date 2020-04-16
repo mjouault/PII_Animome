@@ -88,54 +88,10 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("Id,Nom,Prenom,Email")] ApplicationUser applicationUser)
         {
-            var user = await _userManager.Users.Where(x=>x.Id==id)
-                .Include(x=>x.LesDomaines)
-                    .ThenInclude(d=>d.Domaine)
+            var user = await _userManager.Users.Where(x => x.Id == id)
+                .Include(x => x.LesDomaines)
+                    .ThenInclude(d => d.Domaine)
                 .SingleOrDefaultAsync();
-            try
-             {
-                user.Nom = applicationUser.Nom;
-                user.Prenom = applicationUser.Prenom;
-                user.Email = applicationUser.Email;
-                //user.PhoneNumber = applicationUser.PhoneNumber;
-                await _userManager.UpdateAsync(user);
-             }
-             catch (DbUpdateConcurrencyException)
-             {
-                return NotFound();
-             }
-
-            return RedirectToAction("Index", "ApplicationUsers");
-        }
-
-        public async Task<IActionResult> EditProfil()
-        {
-           var id=  _userManager.GetUserId(User);
-            var user = await _userManager.Users.Where(x => x.Id == id)
-                        .Include(x => x.LesDomaines)
-                            .ThenInclude(d => d.Domaine)
-                        .SingleOrDefaultAsync();
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return View("Edit", user);
-        }
-
-        // POST: ApplicationUsers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditProfil([Bind("Id,Nom,Prenom,Email")] ApplicationUser applicationUser)
-        {
-            var id = _userManager.GetUserId(User);
-            var user = await _userManager.Users.Where(x => x.Id == id)
-                        .Include(x => x.LesDomaines)
-                            .ThenInclude(d => d.Domaine)
-                        .SingleOrDefaultAsync();
             try
             {
                 user.Nom = applicationUser.Nom;
@@ -148,8 +104,14 @@ namespace Animome.Controllers
             {
                 return NotFound();
             }
-
-            return RedirectToAction("AfficherProfil", "ApplicationUsers");
+            if (await _userManager.GetUserAsync(User) == user)
+            {
+                return RedirectToAction("AfficherProfil", "ApplicationUsers", new { id });
+            }
+            else
+            {
+                return RedirectToAction("Index", "ApplicationUsers");
+            }
         }
 
         public async Task <IActionResult> Accepter(string id)
@@ -161,22 +123,6 @@ namespace Animome.Controllers
             return RedirectToAction("Index", "ApplicationUsers");
         }
 
-        public IActionResult CreerRole()
-        {
-            return View();
-        }
-
-        /* [HttpPost]
-         [ValidateAntiForgeryToken]
-         public async Task<IActionResult> CreerRole ([Bind("Id,Name")] ApplicationRole applicationRole)
-         {
-            if (ModelState.IsValid)
-             {
-                 await _roleManager.CreateAsync(applicationRole);
-                 return RedirectToAction("AfficherProfil", "ApplicationUsers");
-             }
-             return View(applicationRole);
-         }*/
 
         // GET: Patients/Delete/5
         [Authorize]

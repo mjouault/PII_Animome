@@ -13,31 +13,33 @@
     <a asp-action="Create" class="lien">Ajouter <ion-icon name="add-circle" class="icon"></ion-icon></a>
 </p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Compétence
-            </th>
-            <th>
-                Prérequis
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Competence.Intitule)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Prerequis.Intitule)
-            </td>
-            <td>
-                <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline" class="icon"></ion-icon></a>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+<div class="container-animome">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Compétence
+                </th>
+                <th>
+                    Prérequis
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Competence.Intitule)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prerequis.Intitule)
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline" class="icon"></ion-icon></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

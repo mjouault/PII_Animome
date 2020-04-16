@@ -54,9 +54,9 @@
                             couleurComp = "darkgrey";
                         }
 
-                    <div class="colonne">
+                    <div class="colonne" style="margin:5px; padding:2px;">
                         <div>
-                            <text class="texte" style="margin-left:8px;"> @Html.DisplayFor(modelItem => suiviCompetence.Competence.Intitule)</text>
+                            <text class="texte"> @Html.DisplayFor(modelItem => suiviCompetence.Competence.Intitule)</text>
                             @if (suiviCompetence.Etat == EtatEnum.e3)
                             {
                                 <a asp-controller="SuiviCompetences" asp-action="AnnulerValidation" asp-route-id="@suiviCompetence.Id"><ion-icon name="close-circle" class="iconSuivi"> </ion-icon></a>

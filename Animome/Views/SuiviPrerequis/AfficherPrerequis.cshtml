@@ -51,13 +51,13 @@
 
                 @if (suiviExercice.Valide)
                 {
-                    <div class="itemExerciceNonValide">
+                    <div class="itemExerciceValide">
                         <a asp-controller="SuiviExercices" asp-action="AnnulerValidation" asp-route-id="@suiviExercice.Id">@suiviExercice.Id</a>
                     </div>
                 }
                 else
                 {
-                    <div class="itemExerciceValide">
+                    <div class="itemExerciceNonValide">
                         <a asp-controller="SuiviExercices" asp-action="Valider" asp-route-id="@suiviExercice.Id">@suiviExercice.Id</a>
                     </div>
                 }

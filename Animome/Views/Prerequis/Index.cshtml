@@ -12,26 +12,29 @@
 <p>
     <a asp-action="Create">Ajouter <ion-icon name="add-circle" class="icon"></ion-icon></a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Intitule)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+
+<div class="container-animome">
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Intitule)
-                </td>
-                <td>
-                    <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline" class="icon"></ion-icon></a>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Intitule)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Intitule)
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline" class="icon"></ion-icon></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

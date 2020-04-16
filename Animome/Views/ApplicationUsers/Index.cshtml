@@ -6,66 +6,68 @@
 
 <h1>Collaborateurs</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Nom Prénom
-            </th>
-            <th>
-                Adresse Mail
-            <th>
-                Domaines d'expertise
-            </th>
-            <th>
-                Statut
-            </th>
+<div class="container-animome">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Nom Prénom
+                </th>
+                <th>
+                    Adresse Mail
+                <th>
+                    Domaines d'expertise
+                </th>
+                <th>
+                    Statut
+                </th>
 
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nom) @Html.DisplayFor(modelItem => item.Prenom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @foreach (var domaineUser in item.LesDomaines)
-                {
-                    <div class="boutonDomaine">
-                        @Html.DisplayFor(modelItem => domaineUser.Domaine.Intitule)
-                    </div>
-                }
-            </td>
-            <td>
-                @if (item.Role != null) //A changer !!!!
-                {
-                    <ion-icon name="checkbox" class="icon" style="color:darkgreen"></ion-icon>
-                }
-                else
-                {
-                    <ion-icon name="alert-circle" class="icon" style="color:orangered"></ion-icon>
-                }
-            </td>
-            <td>
-                @if (item.Role == null)
-                {
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nom) @Html.DisplayFor(modelItem => item.Prenom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @foreach (var domaineUser in item.LesDomaines)
+                        {
+                            <div class="boutonDomaine">
+                                @Html.DisplayFor(modelItem => domaineUser.Domaine.Intitule)
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        @if (item.Role != null) //A changer !!!!
+                        {
+                            <ion-icon name="checkbox" class="icon" style="color:darkgreen"></ion-icon>
+                        }
+                        else
+                        {
+                            <ion-icon name="alert-circle" class="icon" style="color:orangered"></ion-icon>
+                        }
+                    </td>
+                    <td>
+                        @if (item.Role == null)
+                        {
 
-                <a asp-action="Accepter" asp-route-id="@item.Id"><ion-icon name="checkbox" style="color:darkgreen" class="icon"></ion-icon></a>
-                <a asp-action="Delete" asp-route-id="@item.Id"> | <ion-icon name="close-circle" class="icon" style="color:darkred"></ion-icon></a>
-                }
-                else
-                {
-                <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-pencil-alt icon"></i>  |  </a> 
-                <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline" class="icon"></ion-icon></a>
-                }
+                            <a asp-action="Accepter" asp-route-id="@item.Id"><ion-icon name="checkbox" style="color:darkgreen" class="icon"></ion-icon></a>
+                            <a asp-action="Delete" asp-route-id="@item.Id"> | <ion-icon name="close-circle" class="icon" style="color:darkred"></ion-icon></a>
+                        }
+                        else
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-pencil-alt icon"></i>  |  </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline" class="icon"></ion-icon></a>
+                        }
 
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

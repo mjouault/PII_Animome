@@ -44,14 +44,15 @@ namespace Animome.Controllers
             }
 
 
-           var suiviPrerequis = _context.SuiviPrerequis.Where(x => x.Id == id)
-                .Include(suiviPrerequis => suiviPrerequis.Prerequis)
-                .Include(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
-                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
-                .Include(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
-                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.Niveau)
+            var suiviPrerequis = _context.SuiviPrerequis.Where(x => x.Id == id)
+                 .Include(suiviPrerequis => suiviPrerequis.Prerequis)
                  .Include(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
-                    .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesNotes);
+                     .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
+                 .Include(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
+                     .ThenInclude(lesSuiviNivx => lesSuiviNivx.Niveau)
+                  .Include(suiviPrerequis => suiviPrerequis.LesSuiviNiveaux)
+                     .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesNotes)
+                  .Include(x => x.SuiviCompetence.Suivi.Patient);
 
             return View(await suiviPrerequis.SingleOrDefaultAsync());
         }
