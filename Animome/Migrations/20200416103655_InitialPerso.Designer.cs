@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Animome.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200328165316_Initial")]
-    partial class Initial
+    [Migration("20200416103655_InitialPerso")]
+    partial class InitialPerso
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -93,29 +93,6 @@ namespace Animome.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("Animome.Models.Commentaire", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("SuiviApplicationUserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Texte")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SuiviApplicationUserId");
-
-                    b.ToTable("Commentaire");
                 });
 
             modelBuilder.Entity("Animome.Models.Competence", b =>
@@ -229,6 +206,34 @@ namespace Animome.Migrations
                     b.ToTable("Niveau");
                 });
 
+            modelBuilder.Entity("Animome.Models.Note", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("SuiviNiveauId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Texte")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("SuiviNiveauId");
+
+                    b.ToTable("Note");
+                });
+
             modelBuilder.Entity("Animome.Models.Patient", b =>
                 {
                     b.Property<int>("Id")
@@ -242,6 +247,28 @@ namespace Animome.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Patient");
+                });
+
+            modelBuilder.Entity("Animome.Models.PatientUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("PatientId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("PatientUser");
                 });
 
             modelBuilder.Entity("Animome.Models.Prerequis", b =>
@@ -581,13 +608,6 @@ namespace Animome.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Animome.Models.Commentaire", b =>
-                {
-                    b.HasOne("Animome.Models.SuiviUser", "SuiviApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("SuiviApplicationUserId");
-                });
-
             modelBuilder.Entity("Animome.Models.CompetencePrerequis", b =>
                 {
                     b.HasOne("Animome.Models.Competence", "Competence")
@@ -621,6 +641,28 @@ namespace Animome.Migrations
                         .HasForeignKey("DomaineId");
                 });
 
+            modelBuilder.Entity("Animome.Models.Note", b =>
+                {
+                    b.HasOne("Animome.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("Animome.Models.SuiviNiveau", "SuiviNiveau")
+                        .WithMany("LesNotes")
+                        .HasForeignKey("SuiviNiveauId");
+                });
+
+            modelBuilder.Entity("Animome.Models.PatientUser", b =>
+                {
+                    b.HasOne("Animome.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("LesPatients")
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("Animome.Models.Patient", "Patient")
+                        .WithMany("LesSuiveurs")
+                        .HasForeignKey("PatientId");
+                });
+
             modelBuilder.Entity("Animome.Models.PrerequisNiveau", b =>
                 {
                     b.HasOne("Animome.Models.Niveau", "Niveau")
@@ -639,7 +681,7 @@ namespace Animome.Migrations
                         .HasForeignKey("DomaineId");
 
                     b.HasOne("Animome.Models.Patient", "Patient")
-                        .WithMany()
+                        .WithMany("LesSuivis")
                         .HasForeignKey("PatientId");
                 });
 

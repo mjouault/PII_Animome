@@ -67,7 +67,7 @@ namespace Animome
                         pattern: "{controller=Home}/{action=Index}/{id?}");
                     endpoints.MapRazorPages();
                 });
-                CreateRoles(services).Wait();
+               //CreateRoles(services).Wait();
             }
 
             private async Task CreateRoles(IServiceProvider serviceProvider)

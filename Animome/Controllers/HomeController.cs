@@ -27,8 +27,15 @@ namespace Animome.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var user = await _userManager.GetUserAsync(User);
+             ViewData["roleUser"]="";
+
+            if(user!=null && user.Role!=null)
+            {
+                ViewData["roleUser"]=user.Role;
+            }
             return View();
         }
 

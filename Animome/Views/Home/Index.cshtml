@@ -2,13 +2,25 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="accueilAttente">
-    <h1 class="display-4">Accueil</h1>
-    <h6>Bienvenue sur Animome</h6>
-    <p>
-        Ce site s'adresse uniquement aux collaborateurs de Mme HUMEAU.
-    </p>
-    <p>
-        Vous êtes actuellement en attente de confirmation de l'administrateur.
-    </p>
-</div>
+
+    <div class="accueilAttente">
+        <h1 class="display-4">Accueil</h1>
+        <h6>Bienvenue sur Animome</h6>
+        <p>
+            Ce site s'adresse uniquement aux collaborateurs de Mme HUMEAU.
+        </p>
+
+        @if(ViewData["roleUser"]=="")
+        {
+        <p>
+            Vous êtes actuellement en attente de confirmation de l'administrateur.
+        </p>
+        }
+        else
+        {
+        <p>
+            Coucou.
+        </p>
+        }
+
+    </div>

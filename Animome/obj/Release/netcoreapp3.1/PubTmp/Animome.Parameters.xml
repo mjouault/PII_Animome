@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="IIS Web Application Name" description="" value="animome" tags="IisApp">
-    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\Maurine\\Documents\\ENSC\\2A_ENSC\\S8\\PII_Animome\\Animome\\obj\\Release\\netcoreapp3\.1\\PubTmp\\Out\\$" />
+  <parameter name="IIS Web Application Name" description="" value="Animome" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\Maurine\\Documents\\ENSC\\2A\\s8\\PII\\PII_Animome\\Animome\\obj\\Release\\netcoreapp3\.1\\PubTmp\\Out\\$" />
   </parameter>
-  <parameter name="Animome.Data.ApplicationDbContext" description="" value="Data Source=tcp:animomedbserver.database.windows.net,1433;Initial Catalog=animome_db;User Id=jouaultmaurine@animomedbserver;Password=Bl@m1901" tags="dbfullsql">
-    <parameterEntry kind="ProviderPath" scope="dbfullsql" match="^C:\\Users\\Maurine\\Documents\\ENSC\\2A_ENSC\\S8\\PII_Animome\\Animome\\obj\\Release\\netcoreapp3\.1\\PubTmp\\EFSQLScripts\\Animome\.Data\.ApplicationDbContext\.sql$" />
+  <parameter name="Animome.Data.ApplicationDbContext" description="" value="Data Source=tcp:animomedbserver.database.windows.net,1433;Initial Catalog=Animome_db;User Id=mjouault@animomedbserver;Password=Bl@m1901" tags="dbfullsql">
+    <parameterEntry kind="ProviderPath" scope="dbfullsql" match="^C:\\Users\\Maurine\\Documents\\ENSC\\2A\\s8\\PII\\PII_Animome\\Animome\\obj\\Release\\netcoreapp3\.1\\PubTmp\\EFSQLScripts\\Animome\.Data\.ApplicationDbContext\.sql$" />
   </parameter>
 </parameters>

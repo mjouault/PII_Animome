@@ -6,16 +6,16 @@ en modifiant ce fichier MSBuild. Pour en savoir plus à ce sujet, visitez https:
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAO6+AjqIGHkOtPWDxJHd+tQAAAAACAAAAAAAQZgAAAAEAACAAAADFyNXvsS5xj5Sc37fOvnuLLbbupeT+GWL+MIfiRKQdagAAAAAOgAAAAAIAACAAAADexoMdmNQzYEq4VObD0QSdmWO7+MPd2+1WLv4hVnYMmIAAAADpI9O8T9Sn3Z16GQUj3W2Q6RYnSMZeTSdkTaQ+k4KOlC+4mlI80BQyLc0O3HH3FK/jb1iC0KeuAJvL88tcDtFIM7YiHyw0138WjHvelZT28uEkYqJWrCvuGGes6MP9wpGh/wHbP4s1x33U0/6LFZn6zwHXVN2hItM78jm8kwlae0AAAAAWNVK6sBNnTPGLzLmsvYzhrbvAOK5CBwIolcu+TM7UYrToWJ34F1DW+2OZ9yHQi7j1KRkY8LOhuHhKOjJXp/jE</EncryptedPassword>
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA6qnkDUbWxEejCq+RVkxo+AAAAAACAAAAAAAQZgAAAAEAACAAAADtOpWNB/+rKjVsfr9cdeByzL6PW5r98bLAlNuvKoObtQAAAAAOgAAAAAIAACAAAAAsMCUno2zM0ubMiOZlatyMkYD36+LyiU5RAr1GpFWEBoAAAACVCnBuqgtN+Po++rkXYyswxXtxXaZRBkrDgdxHJXde16UMETwIBTo85mqtpnHt5K0pIKUz464uD6PZ05W1p/ppbeLX28rYuHOFd5WeKbOYrDgDDD0uCE0CFXmAftv69/r8fA6WRXmlWoXx5hD17oGl9WkcXg+OPgOUQSBl8a0pBEAAAADhIfOan/YGSCJMn+iBgL8P/5w9zDMuwxDDtGGcvI2DjfbE+XLt+Ba1MwSjP9+5mqzy0m//T+TKVIyLY71Oc3Pk</EncryptedPassword>
   </PropertyGroup>
   <ItemGroup>
     <DestinationConnectionStrings Include="DefaultConnection">
-      <Value>Data Source=tcp:animomedbserver.database.windows.net,1433%3bInitial Catalog=animome_db%3bUser Id=jouaultmaurine%40animomedbserver%3bPassword=Bl%40m1901</Value>
+      <Value>Server=%28localdb%29\mssqllocaldb%3bDatabase=aspnet-Animome-DC7F2FCB-7114-457B-B0CA-C97909E51057%3bTrusted_Connection=True%3bMultipleActiveResultSets=true</Value>
     </DestinationConnectionStrings>
   </ItemGroup>
   <ItemGroup>
     <EFMigrations Include="Animome.Data.ApplicationDbContext">
-      <Value>Data Source=tcp:animomedbserver.database.windows.net,1433%3bInitial Catalog=animome_db%3bUser Id=jouaultmaurine%40animomedbserver%3bPassword=Bl%40m1901</Value>
+      <Value>Data Source=tcp:animomedbserver.database.windows.net,1433%3bInitial Catalog=Animome_db%3bUser Id=mjouault%40animomedbserver%3bPassword=Bl%40m1901</Value>
     </EFMigrations>
   </ItemGroup>
 </Project>

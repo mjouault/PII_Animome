@@ -646,7 +646,7 @@ namespace Animome.Migrations
                         .HasForeignKey("ApplicationUserId");
 
                     b.HasOne("Animome.Models.SuiviNiveau", "SuiviNiveau")
-                        .WithMany()
+                        .WithMany("LesNotes")
                         .HasForeignKey("SuiviNiveauId");
                 });
 
