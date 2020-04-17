@@ -15,13 +15,13 @@
         <form asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <p>
-                <label>Domaine : </label>
+                <label class="control-label col-md-3">Domaine : </label>
                 <select asp-for="Domaine.Intitule" asp-items="Model.Domaines">
                     <option value="">- Choisir un domaine - </option>
                 </select>
             </p>
             <p>
-                <label>Compétence : </label>
+                <label class="control-label col-md-3">Compétence : </label>
                 <select asp-for="Competence.Intitule" asp-items="Model.Competences">
                     <option value="">-Choisir une compétence - </option>
                 </select>

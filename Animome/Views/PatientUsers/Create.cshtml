@@ -7,7 +7,7 @@
 
 <h1>Ajout d'un membre à l'équipe pédagogique</h1>
 
-<a asp-action="Index" asp-route-id="@ViewData["idPatient"]"><ion-icon name="arrow-back" class="icon"></ion-icon></a>
+<a asp-action="Index" asp-route-id="@ViewData["idPatient"]"><ion-icon name="arrow-back"></ion-icon></a>
 
 <div class="row">
     <div class="col-md-4">
@@ -15,7 +15,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <p>
-                    <label>Collaborateur :</label>
+                    <label class="col-md-2">Collaborateur :</label>
                     <select asp-for="NomUser" asp-items="Model.ListeUsers">
                         <option value="">- Choisir un collaborateur -</option>
                     </select>

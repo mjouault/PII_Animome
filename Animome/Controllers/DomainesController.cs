@@ -58,6 +58,11 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Intitule")] Domaine domaine)
         {
+            if (AlreadyExists(domaine.Intitule))
+            {
+                ModelState.AddModelError("Intitule", "Erreur : Existe déjà");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(domaine);
@@ -181,14 +186,6 @@ namespace Animome.Controllers
                 }
             }
 
-            var suiviApplicationUserSupprimes = await _context.SuiviApplicationUser.Where(e => e.Suivi.Id == id).ToListAsync();
-            if (suiviApplicationUserSupprimes != null)
-            {
-                foreach (var i in suiviApplicationUserSupprimes)
-                {
-                    _context.Remove(i);
-                }
-            }
 
             var domaineUserSupprimes = await _context.DomaineUser.Where(e => e.Domaine.Id == id).ToListAsync();
             if (domaineUserSupprimes != null)

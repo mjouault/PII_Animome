@@ -5,11 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<p>
+    <a  asp-action="Index"><ion-icon name="arrow-back"></ion-icon></a>
+</p>
 <h3>Etes-vous sûr.e de vouloir supprimer le lien entre @Model.Domaine.Intitule et @Model.Competence.Intitule ? </h3>
 <div>   
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
     </form>
 </div>

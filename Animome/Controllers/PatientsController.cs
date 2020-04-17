@@ -33,18 +33,9 @@ namespace Animome.Controllers
             var patients = from p in _context.PatientUser.Where(x=>x.ApplicationUser.Id== userId)
                            select p.Patient;
 
-            List<SuiviUser> listeSuiveurs = new List<SuiviUser>();
-
             foreach (var p in patients)
             {
-                var suiviUsers = await _context.SuiviApplicationUser.Where(x => x.Suivi.Patient.Id == p.Id)
-                    .Include(x => x.ApplicationUser)
-                    .Include(x=>x.Suivi)
-                        .ThenInclude(s=>s.Patient)
-                    .ToListAsync();
-
-                listeSuiveurs.AddRange(suiviUsers);
-                p.LesSuivis = await _context.Suivi.Where(x => x.Patient == p).ToListAsync() ;
+                p.LesSuivis = await _context.Suivi.Where(x => x.Patient == p).ToListAsync();
             }
 
             if (!string.IsNullOrEmpty(recherchePatient))
@@ -54,9 +45,7 @@ namespace Animome.Controllers
 
             PatientIndexViewModel patientRecherche = new PatientIndexViewModel
             {
-                Patients = await patients
-                .ToListAsync(),
-                LesSuiveurs = listeSuiveurs
+                Patients = await patients.ToListAsync(),
             };
             return View(patientRecherche);
         }
@@ -229,15 +218,6 @@ namespace Animome.Controllers
             if (suiviCompetenceSupprimes != null)
             {
                 foreach (var i in suiviCompetenceSupprimes)
-                {
-                    _context.Remove(i);
-                }
-            }
-
-            var suiviApplicationUserSupprimes = await _context.SuiviApplicationUser.Where(e => e.Suivi.Patient.Id == id).ToListAsync();
-            if (suiviApplicationUserSupprimes != null)
-            {
-                foreach (var i in suiviApplicationUserSupprimes)
                 {
                     _context.Remove(i);
                 }

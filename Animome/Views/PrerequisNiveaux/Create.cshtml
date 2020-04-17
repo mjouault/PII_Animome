@@ -16,13 +16,13 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <p>
-                <label>Prérequis : </label>
+                <label class="control-label col-md-3">Prérequis : </label>
                 <select asp-for="Prerequis.Intitule" asp-items="Model.ListePrerequis">
                     <option value=""> - Choisir un Prérequis -</option>
                 </select>
             </p>
             <p>
-                <label>Compétence : </label>
+                <label class="control-label col-md-3">Compétence : </label>
                 <select asp-for="Niveau.Intitule" asp-items="Model.ListeNiveaux">
                     <option value="">- Choisir un Niveau -</option>
                 </select>

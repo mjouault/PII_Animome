@@ -40,8 +40,6 @@ namespace Animome.Controllers
                     .ThenInclude(lesSuiviCptces => lesSuiviCptces.LesSuiviPrerequis)
                     .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.LesSuiviNiveaux)
                     .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
-                 .Include(suivi => suivi.LesSuiviApplicationUsers)
-                      .ThenInclude(lesApplicationUsers => lesApplicationUsers.ApplicationUser)
                 .Include(suivi => suivi.Domaine)
                 .Include(suivi => suivi.LesSuiviCompetences)
                     .ThenInclude(lesSuviCptces => lesSuviCptces.Competence)
@@ -95,13 +93,6 @@ namespace Animome.Controllers
                         Domaine = d
                     };
                     _context.Add(suiviAjoute);
-
-                    SuiviUser suiviApplicationUserAjoute = new SuiviUser
-                    {
-                        ApplicationUser = await _userManager.GetUserAsync(User),
-                        Suivi=suiviAjoute
-                    };
-                    _context.Add(suiviApplicationUserAjoute);
 
                     PatientUser patientUserAjoute = new PatientUser
                     {
@@ -307,24 +298,6 @@ namespace Animome.Controllers
                 }
             }
 
-           /* var commentaireSupprimes = await _context.Commentaire.Where(e => e.SuiviApplicationUser.Suivi.Id == id).ToListAsync();
-            if (commentaireSupprimes != null)
-            {
-                foreach (var i in commentaireSupprimes)
-                {
-                    _context.Remove(i);
-                }
-            }*/
-
-            var suiviApplicationUserSupprimes = await _context.SuiviApplicationUser.Where(e => e.Suivi.Id == id).ToListAsync();
-            if (suiviApplicationUserSupprimes != null)
-            {
-                foreach (var i in suiviApplicationUserSupprimes)
-                {
-                    _context.Remove(i);
-                }
-            }
-
             var patientId = suivi.Patient.Id;
             _context.Suivi.Remove(suivi);
             await _context.SaveChangesAsync();
@@ -508,8 +481,6 @@ namespace Animome.Controllers
                     .ThenInclude(lesSuiviCptces => lesSuiviCptces.LesSuiviPrerequis)
                     .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.LesSuiviNiveaux)
                     .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
-                 .Include(suivi => suivi.LesSuiviApplicationUsers)
-                      .ThenInclude(lesApplicationUsers => lesApplicationUsers.ApplicationUser)
                 .Include(suivi => suivi.Domaine)
                 .Include(suivi => suivi.LesSuiviCompetences)
                     .ThenInclude(lesSuviCptces => lesSuviCptces.Competence)
@@ -536,8 +507,6 @@ namespace Animome.Controllers
                      .ThenInclude(lesSuiviCptces => lesSuiviCptces.LesSuiviPrerequis)
                      .ThenInclude(lesSuiviPrerequis => lesSuiviPrerequis.LesSuiviNiveaux)
                      .ThenInclude(lesSuiviNivx => lesSuiviNivx.LesSuiviExercices)
-                  .Include(suivi => suivi.LesSuiviApplicationUsers)
-                       .ThenInclude(lesApplicationUsers => lesApplicationUsers.ApplicationUser)
                  .Include(suivi => suivi.Domaine)
                  .Include(suivi => suivi.LesSuiviCompetences)
                      .ThenInclude(lesSuviCptces => lesSuviCptces.Competence)

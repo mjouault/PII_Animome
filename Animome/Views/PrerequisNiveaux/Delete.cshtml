@@ -5,16 +5,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<h3></h3>
+<p>
+    <a asp-action="Index"><ion-icon name="arrow-back"></ion-icon></a>
+</p>
+<h3>Etes-vous sûr.e de vouloir supprimer le lien entre @Model.Prerequis.Intitule et @Model.Niveau.Intitule ? </h3>
 <div>
-    <h4>PrerequisNiveau</h4>
     <hr />
     <dl class="row">
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Supprimer" class="btn btn-danger" /> |
+        <input type="submit" value="Supprimer" class="btn btn-danger" />
     </form>
 </div>

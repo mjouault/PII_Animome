@@ -6,7 +6,7 @@
 }
 
 <div>
-    <a asp-controller= "Patients" asp-action="Index"><ion-icon name="arrow-back" class="icon"></ion-icon></a>
+    <a asp-controller= "Patients" asp-action="Index"><ion-icon name="arrow-back" ></ion-icon></a>
 </div>
 <h1>Ajout d'une note</h1>
 
@@ -17,7 +17,7 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Texte" class="control-label"></label>
+                <label asp-for="Texte" class="control-label col-md-2"> Note : </label>
                 <input asp-for="Texte" class="form-control" />
                 <span asp-validation-for="Texte" class="text-danger"></span>
             </div>

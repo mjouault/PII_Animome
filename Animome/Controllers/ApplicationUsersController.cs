@@ -174,15 +174,6 @@ namespace Animome.Controllers
                 }
 
 
-                var suiviApplicationUserSupprimes = await _context.SuiviApplicationUser.Where(e => e.ApplicationUser.Id == id).ToListAsync();
-                if (suiviApplicationUserSupprimes != null)
-                {
-                    foreach (var i in suiviApplicationUserSupprimes)
-                    {
-                        _context.Remove(i);
-                    }
-                }
-
                 var patientUserSupprimes = await _context.PatientUser.Where(e => e.ApplicationUser.Id == id).ToListAsync();
                 if (patientUserSupprimes != null)
                 {

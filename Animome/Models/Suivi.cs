@@ -13,7 +13,6 @@ namespace Animome.Models
         public int Id { get; set; }
         public Patient Patient { get; set; }
         public Domaine Domaine { get; set; }
-        public List<SuiviUser> LesSuiviApplicationUsers { get; set; }
 
         public List<SuiviCompetence> LesSuiviCompetences { get; set; }
         public EtatEnum Etat { get; set; }

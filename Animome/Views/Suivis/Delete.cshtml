@@ -5,19 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>¨tes-vous sûr de vouloir supprimer ?</h3>
+<p>
+    <a asp-controller="Suivis" asp-action="AfficherSuivi" asp-route-id="@Model.Patient.Id"><ion-icon name="arrow-back"></ion-icon></a>
+</p>
+
+<h3>Etes-vous sûr de vouloir supprimer le programme du domaine @Model.Domaine.Intitule du patient @Model.Patient.Numero?</h3>
 <div>
-    <h4>Suivi</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Domaine)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Domaine)
-        </dd>
-    </dl>
-    
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Supprimer" class="btn btn-danger" /> |
