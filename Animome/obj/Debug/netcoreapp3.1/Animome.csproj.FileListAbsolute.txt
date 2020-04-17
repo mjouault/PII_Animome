@@ -1472,3 +1472,4 @@ C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Debug\netcorea
 C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Animome.csproj.CoreCompileInputs.cache
 C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Animome.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Animome.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\ApplicationUsers\Delete.cshtml.g.cs

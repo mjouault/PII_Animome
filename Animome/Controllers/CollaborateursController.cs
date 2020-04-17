@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Animome.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class CollaborateursController : Controller
     {
         private readonly ApplicationDbContext _context;

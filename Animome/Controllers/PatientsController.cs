@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Animome.Controllers
 {
+    [Authorize]
     public class PatientsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -28,8 +29,9 @@ namespace Animome.Controllers
         // GET: Patients
         public async Task<IActionResult> Index (string recherchePatient)
         {
-            var patients = from p in _context.Patient
-                           select p;
+            var userId = _userManager.GetUserId(User);
+            var patients = from p in _context.PatientUser.Where(x=>x.ApplicationUser.Id== userId)
+                           select p.Patient;
 
             List<SuiviUser> listeSuiveurs = new List<SuiviUser>();
 
@@ -79,9 +81,10 @@ namespace Animome.Controllers
         }
 
         // GET: Patients/Create
-        [Authorize]
+        [Authorize (Roles ="Admin")]
         public IActionResult Create()
         {
+            ViewData["erreur"] = "";
             return View();
         }
 
@@ -93,7 +96,10 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Numero")] Patient patient)
         {
-            if (ModelState.IsValid)
+            ViewData["erreur"] = "";
+            var dejaExistant = AlreadyExists(patient.Numero);
+
+            if (ModelState.IsValid && !dejaExistant )
             {
                 _context.Add(patient);
                 await _context.SaveChangesAsync();
@@ -107,6 +113,9 @@ namespace Animome.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            if (dejaExistant) ViewData["erreur"] = "Cet élément existe déjà";
+            else ViewData["erreur"] = "une erreur est survenue";
             return View(patient);
         }
 
@@ -261,6 +270,11 @@ namespace Animome.Controllers
         private bool PatientExists(int id)
         {
             return _context.Patient.Any(e => e.Id == id);
+        }
+
+        private bool AlreadyExists(int numero)
+        {
+            return _context.Patient.Any(e => e.Numero == numero);
         }
     }
 }

@@ -1,0 +1,13 @@
+﻿@model Animome.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<a asp-action="Index" ><ion-icon name="arrow-back" class="icon"></ion-icon></a>
+<h3>Etes-vous sûr.e de vouloir supprimer le compte de @Model.Nom @Model.Prenom ?</h3>
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Supprimer" class="btn btn-danger" />
+</form>

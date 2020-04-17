@@ -9,7 +9,6 @@ using Animome.Data;
 using Animome.Models;
 using Microsoft.AspNetCore.Authorization;
 
-
 namespace Animome.Controllers
 {
     [Authorize(Roles = "Admin")]

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Animome.Controllers
 {
+    [Authorize]
     public class NotesController : Controller
     {
         private readonly ApplicationDbContext _context;

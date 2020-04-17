@@ -9,9 +9,11 @@ using Animome.Data;
 using Animome.Models;
 using Microsoft.AspNetCore.Identity;
 using Animome.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Animome.Controllers
 {
+    [Authorize]
     public class PatientUsersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -108,8 +110,9 @@ namespace Animome.Controllers
                 };
                 _context.Add(nvPatientUser);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index), patient.Id);
+                return RedirectToAction(nameof(Index), new { patient.Id });
             }
+            ViewData["idPatient"] = id;
             return View(viewModel);
         }
 

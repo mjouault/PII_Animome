@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Animome.Data;
 using Animome.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Animome.Controllers
 {
+    [Authorize]
     public class PrerequisController : Controller
     {
         private readonly ApplicationDbContext _context;

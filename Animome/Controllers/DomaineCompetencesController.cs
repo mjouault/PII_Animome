@@ -14,6 +14,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Animome.Controllers
 {
+    [Authorize]
     public class DomaineCompetencesController : Controller
     {
         private readonly ApplicationDbContext _context;

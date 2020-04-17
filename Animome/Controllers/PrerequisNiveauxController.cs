@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Animome.Data;
 using Animome.Models;
 using Animome.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Animome.Controllers
 {
+    [Authorize]
     public class PrerequisNiveauxController : Controller
     {
         private readonly ApplicationDbContext _context;

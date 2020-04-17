@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Animome.Data;
 using Animome.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Animome.Controllers
 {
+    [Authorize]
     public class DomainesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -62,6 +64,7 @@ namespace Animome.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(domaine);
         }
 
@@ -221,6 +224,11 @@ namespace Animome.Controllers
         private bool DomaineExists(int id)
         {
             return _context.Domaine.Any(e => e.Id == id);
+        }
+
+        private bool AlreadyExists(string nom)
+        {
+            return _context.Domaine.Any(e => e.Intitule== nom);
         }
     }
 }

@@ -103,6 +103,13 @@ namespace Animome.Controllers
                     };
                     _context.Add(suiviApplicationUserAjoute);
 
+                    PatientUser patientUserAjoute = new PatientUser
+                    {
+                        Patient = patient,
+                        ApplicationUser = await _userManager.GetUserAsync(User)
+                    };
+                    _context.Add(patientUserAjoute);
+
                     await _context.SaveChangesAsync();
 
                     var listeDomaineCompetences = await _context.DomaineCompetence.Where(x => x.Domaine == d)

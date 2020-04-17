@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Animome.Controllers
 {
+    [Authorize]
     public class ApplicationUsersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -26,7 +27,6 @@ namespace Animome.Controllers
           _roleManager = roleManager;
         }
 
-        [Authorize]
         public async Task<IActionResult> Index()
         {
             var users = await _userManager.Users
@@ -49,7 +49,7 @@ namespace Animome.Controllers
             return View(users);
         }
 
-        [Authorize]
+        [Authorize (Roles="Admin")]
         public async Task<IActionResult> AfficherProfil()
         {
             ApplicationUser user = await _userManager.Users.Where(x=>x.Id== _userManager.GetUserId(User))
@@ -152,21 +152,27 @@ namespace Animome.Controllers
             var rolesForUser = await _userManager.GetRolesAsync(user);
             var logins = await _userManager.GetLoginsAsync(user);
 
-            using (var transaction = _context.Database.BeginTransaction())
-            {
-               /* foreach (var login in logins.ToList())
-                {
-                    await _userManager.RemoveLoginAsync(user,login);
-                }*/
+            /* using (var transaction = _context.Database.BeginTransaction())
+             {
+                 foreach (var login in logins.ToList())
+                 {
+                     await _userManager.RemoveLoginAsync(user,login);
+                 }
 
-                if (rolesForUser.Count() > 0)
+                 if (rolesForUser.Count() > 0)
+                 {
+                     foreach (var item in rolesForUser.ToList())
+                     {
+                         // item should be the name of the role
+                         var result = await _userManager.RemoveFromRoleAsync(user, item);
+                     }
+                 }*/
+
+                if (user == null)
                 {
-                    foreach (var item in rolesForUser.ToList())
-                    {
-                        // item should be the name of the role
-                        var result = await _userManager.RemoveFromRoleAsync(user, item);
-                    }
+                    return NotFound($"Une erreur est survenue.");
                 }
+
 
                 var suiviApplicationUserSupprimes = await _context.SuiviApplicationUser.Where(e => e.ApplicationUser.Id == id).ToListAsync();
                 if (suiviApplicationUserSupprimes != null)
@@ -185,13 +191,16 @@ namespace Animome.Controllers
                         _context.Remove(i);
                     }
                 }
-
-                await _userManager.DeleteAsync(user);
-                transaction.Commit();
-
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Patients");
-            }
+
+                var result = await _userManager.DeleteAsync(user);
+                    var userId = await _userManager.GetUserIdAsync(user);
+                    if (!result.Succeeded)
+                    {
+                        throw new InvalidOperationException($"Unexpected error occurred deleting user with ID '{userId}'.");
+                    }
+
+                return RedirectToAction("Index", "ApplicationUsers");
         }
 
         private bool ApplicationUserExists(string id)

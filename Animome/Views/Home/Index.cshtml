@@ -3,24 +3,25 @@
 }
 
 
+<h1 class="display-4">Accueil</h1>
 <div class="container-animome mx-auto">
-    <h1 class="display-4">Accueil</h1>
+
     <h6>Bienvenue sur Animome</h6>
     <p>
         Ce site s'adresse uniquement aux collaborateurs de Mme HUMEAU.
     </p>
 
-    @if(ViewData["roleUser"]=="")
+    @if (ViewData["roleUser"] == "")
     {
-    <p>
-        Vous êtes actuellement en attente de confirmation de l'administrateur.
-    </p>
+        <p>
+            Vous êtes actuellement en attente de confirmation de l'administrateur.
+        </p>
     }
     else
     {
-    <p>
-        Coucou.
-    </p>
+        <p>
+            Coucou.
+        </p>
     }
 
 </div>

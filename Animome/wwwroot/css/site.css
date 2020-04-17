@@ -206,6 +206,8 @@ html {
 body {
   /* Margin bottom by footer height */
   background: url("../img/fond2.png") left top  fixed no-repeat;
+  padding-top:50px;
+
 }
 .footer {
   position: absolute;
@@ -427,10 +429,18 @@ main {
 .container-animome {
     display: flex;
     flex-direction: column;
-
     border: 0px solid #f3f3f3;
-    padding: 20px; 
+    padding: 20px;
     border-radius: 7px;
     box-shadow: 0 5px 10px gray;
+    text-align: center;
 }
 
+.erreur {
+    background-color: #F9B7B7;
+    padding: 10px;
+    border-radius: 5Px;
+    margin: 10px;
+    font-family: Lucida Sans Unicode;
+    color: #A3A3A3;
+}
