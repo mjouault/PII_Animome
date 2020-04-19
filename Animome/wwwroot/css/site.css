@@ -10,7 +10,7 @@ a.navbar-brand {
 }
 
 a {
-  color: orangered; /*d#0366d6 */
+  color: #F26316; /*d#0366d6 */
 }
 
 
@@ -21,7 +21,7 @@ a {
 }
 
 .nav-link:hover {
-    color: #be6508 !important; /*#be6508 */
+    color: #be6508 !important; /*#F26316 */
 }
 
 /* Sticky footer styles
@@ -101,8 +101,8 @@ btn, .btn-primary {
 }
 
     .btnPrinc:hover {
-        background-color: orangered;
-        border-color: orangered;
+        background-color: #F26316;
+        border-color: #F26316;
         color: #fff;
     }
 
@@ -126,8 +126,8 @@ btn, .btn-primary {
 }
 
 .boutonParametres:hover {
-    color: orangered;
-    border-color: orangered;
+    color: #F26316;
+    border-color: #F26316;
 }
 
 
@@ -330,7 +330,7 @@ a {
 }
 
     a:hover {
-        color: orangered;/*#be6508*/
+        color: #F26316;/*#F26316*/
         text-decoration: none;
     }
 
@@ -348,7 +348,7 @@ ion-icon[name="arrow-back"] {
 }
 
     ion-icon:hover, .icon:hover, ion-icon[name="arrow-back"]:hover {
-        color: orangered; /*orange*/
+        color: #F26316; /*orange*/
     }
 
 .iconSuivi {
@@ -377,7 +377,8 @@ ion-icon[name="arrow-back"] {
 
 h1,h2,h3 {
     text-align:center;
-    color : orangered;
+    color : #F26316;
+    margin-bottom:2%;
 }
 
 
@@ -437,7 +438,7 @@ main {
     text-align: center;
     background-color:rgba(255,255,255,0.70);
     margin-left:50px; margin-right:50px;margin-bottom:50px;
-    height : 600px;
+    /*height : 600px;*/
     overflow : auto;
 }
 

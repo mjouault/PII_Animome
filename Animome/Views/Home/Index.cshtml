@@ -7,25 +7,49 @@
 
 
 <h1 class="display-4">Accueil</h1>
-<div class="container-animome mx-auto">
 
-    <h6>Bienvenue sur Animome</h6>
-    <p>
-        Ce site s'adresse uniquement aux collaborateurs de Mme HUMEAU.
-    </p>
 
-    @if (ViewData["roleUser"].ToString() == "")
+@if (SignInManager.IsSignedIn(User))
+{
+    var user = await UserManager.GetUserAsync(User);
+    var roles = await UserManager.GetRolesAsync(user);
+
+<div class="mx-auto text-align:center; align-content:center;">
+    <h4>Bonjour  @user.Prenom @user.Nom </h4>
+
+    @if (roles[0] == "Admin")
     {
-        <p>
-            Vous êtes actuellement en attente de confirmation de l'administrateur.
-        </p>
-    }
-    
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <p>
-            Coucou.
-        </p>
-    }
 
+        <div class="blocAccueil">
+            <h5>Demandes en attente</h5>
+        </div>
+        <div>
+            <div>
+                <a asp-controller="ApplicationUsers" asp-action="Index" style="font-size:70px; color:white">3</a>
+            </div>
+        </div>
+
+    }
 </div>
+
+        }
+        else
+        {
+        <div class="container-animome mx-auto">
+            <h4>Bienvenue sur Animome</h4>
+            <p>
+                Ce site s'adresse uniquement aux collaborateurs de Mme HUMEAU, graphothérapeute au :
+            <p>
+                45 rue hériard dubreuil
+            <p>
+                33000 BORDEAUX
+            </p>
+            </p>
+            </p>
+            <p>
+                Vous êtes actuellement en attente de confirmation de l'administrateur.
+            </p>
+        </div>
+        }
+
+
