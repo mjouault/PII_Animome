@@ -401,7 +401,10 @@ namespace Animome.Controllers
 
         public void MajEtats(SuiviCompetence suiviCompetence)
         {
-           var suivi =  _context.Suivi.Find(suiviCompetence.Suivi.Id);
+            var suivi = _context.Suivi.Where(x => x.Id == suiviCompetence.Suivi.Id)
+                 .Include(x=>x.LesSuiviCompetences)
+                 .Single();
+           //suivi.LesSuiviCompetences = _context.SuiviCompetence.Where(x => x.Suivi.Id == suivi.Id).ToList();
            suivi.Etat = suivi.EtatMaj();
             _context.Update(suivi);
         }

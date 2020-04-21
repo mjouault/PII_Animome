@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Animome.Controllers
 {
-    [Authorize]
+    [Authorize] //Nécessite une authentification de l'utilisateur
     public class ApplicationUsersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -27,6 +27,10 @@ namespace Animome.Controllers
           _roleManager = roleManager;
         }
 
+        /// <summary>
+        /// Affichage des Collaborateurs et de leurs informations
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
             var users = await _userManager.Users
@@ -34,22 +38,15 @@ namespace Animome.Controllers
                     .ThenInclude(x => x.Domaine)
                 .OrderBy(x=>x.Role)
                 .ToListAsync();
-
-           /* foreach (var user in users)
-            {
-                var role = await _userManager.GetRolesAsync(user);
-                if (role.Count!= 0)
-                {
-                    user.Role = role[0].ToString();
-                }
-                await _userManager.UpdateAsync(user);
-                await _userManager.UpdateAsync(user);
-
-            }*/
             return View(users);
         }
 
-        [Authorize (Roles="Admin")]
+        /// <summary>
+        /// Afficage des informations personnelles de l'utilisateur
+        /// </summary>
+        /// <returns></returns>
+
+        [Authorize (Roles="Admin")] //Accès restreint à l'administrateur
         public async Task<IActionResult> AfficherProfil()
         {
             ApplicationUser user = await _userManager.Users.Where(x=>x.Id== _userManager.GetUserId(User))
@@ -57,16 +54,15 @@ namespace Animome.Controllers
                     .ThenInclude(d=>d.Domaine)
                 .SingleAsync();
 
-            return View(user);
-            //.Include(lesDomainesUsers => lesDomainesUsers.Domaine).ToListAsync());
-
-            /*return View(await _userManager.Userse
-                .Include(user => user.LesDomaineUsers)
-                .ThenInclude(lesDomainesUsers => lesDomainesUsers.Domaine).ToListAsync());*/
+            return View(user);        
         }
 
-        // GET: ApplicationUsers/Edit/5
-        [Authorize]
+       /// <summary>
+       /// Modification de ses informations personnelles ou de celles de ses collaborateurs
+       /// </summary>
+       /// <param name="id"></param>
+       /// <returns></returns>
+        [Authorize (Roles ="Admin")]
         public async Task<IActionResult> Edit(string id)
         {
             var user = await _userManager.Users.Where(x => x.Id == id)
@@ -81,8 +77,6 @@ namespace Animome.Controllers
         }
 
         // POST: ApplicationUsers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -97,7 +91,6 @@ namespace Animome.Controllers
                 user.Nom = applicationUser.Nom;
                 user.Prenom = applicationUser.Prenom;
                 user.Email = applicationUser.Email;
-                //user.PhoneNumber = applicationUser.PhoneNumber;
                 await _userManager.UpdateAsync(user);
             }
             catch (DbUpdateConcurrencyException)
@@ -114,18 +107,29 @@ namespace Animome.Controllers
             }
         }
 
+        /// <summary>
+        /// Acceptation par l'administrateur d'un nouvel inscrit pour le reconnaitre en tant qu'utilisateur ou non
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        
+        [Authorize (Roles ="Admin")]
         public async Task <IActionResult> Accepter(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
             await _userManager.AddToRoleAsync(user, "Utilisateur");
-            user.Role = "Utilisateur";
+            user.Role = "Utilisateur"; //Atribution du rôle à ce nouvel inscrit
             await _userManager.UpdateAsync(user);
             return RedirectToAction("Index", "ApplicationUsers");
         }
 
-
+        /// <summary>
+        /// Suppression d'une personne inscrite sur le site
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: Patients/Delete/5
-        [Authorize]
+        [Authorize (Roles ="Admin")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -151,22 +155,6 @@ namespace Animome.Controllers
             var user = await _userManager.FindByIdAsync(id);
             var rolesForUser = await _userManager.GetRolesAsync(user);
             var logins = await _userManager.GetLoginsAsync(user);
-
-            /* using (var transaction = _context.Database.BeginTransaction())
-             {
-                 foreach (var login in logins.ToList())
-                 {
-                     await _userManager.RemoveLoginAsync(user,login);
-                 }
-
-                 if (rolesForUser.Count() > 0)
-                 {
-                     foreach (var item in rolesForUser.ToList())
-                     {
-                         // item should be the name of the role
-                         var result = await _userManager.RemoveFromRoleAsync(user, item);
-                     }
-                 }*/
 
                 if (user == null)
                 {

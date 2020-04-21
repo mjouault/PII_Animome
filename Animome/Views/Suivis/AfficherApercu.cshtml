@@ -16,7 +16,7 @@
 
 <a asp-action="AfficherSuivi" asp-route-id=@ViewData["idPatient"]>
 
-    <div class="alignes">
+    <div class="alignes mx-auto">
         @foreach (var item in Model)
         {
             if (item.Etat == EtatEnum.e3)

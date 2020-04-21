@@ -81,9 +81,15 @@ namespace Animome.Controllers
             }
             else
             {
-                Patient patient = await _context.Patient.FindAsync(id);
+                Patient patient = await _context.Patient.Where(x=>x.Id==id).SingleAsync();
                 var listeDomaines = await _context.Domaine.ToListAsync();
 
+                PatientUser patientUserAjoute = new PatientUser
+                {
+                    Patient = patient,
+                    ApplicationUser = await _userManager.GetUserAsync(User)
+                };
+                _context.Add(patientUserAjoute);
 
                 foreach (Domaine d in listeDomaines)
                 {
@@ -93,13 +99,6 @@ namespace Animome.Controllers
                         Domaine = d
                     };
                     _context.Add(suiviAjoute);
-
-                    PatientUser patientUserAjoute = new PatientUser
-                    {
-                        Patient = patient,
-                        ApplicationUser = await _userManager.GetUserAsync(User)
-                    };
-                    _context.Add(patientUserAjoute);
 
                     await _context.SaveChangesAsync();
 
@@ -363,6 +362,7 @@ namespace Animome.Controllers
                             _context.Update(sc);
                         }
                     }
+                    suivi.LesSuiviCompetences = await _context.SuiviCompetence.Where(x => x.Suivi.Id == id).ToListAsync();
                     suivi.Etat = suivi.EtatMaj();
                     _context.Update(suivi);
                     await _context.SaveChangesAsync();
@@ -443,6 +443,8 @@ namespace Animome.Controllers
                             _context.Update(sc);
                         }
                     }
+
+                    suivi.LesSuiviCompetences = await _context.SuiviCompetence.Where(x => x.Suivi.Id == id).ToListAsync();
                     suivi.Etat = suivi.EtatMaj();
                     _context.Update(suivi);
                     await _context.SaveChangesAsync();

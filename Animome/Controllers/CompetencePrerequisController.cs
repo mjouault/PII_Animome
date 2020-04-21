@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Animome.Controllers
 {
-    [Authorize]
+    [Authorize (Roles ="Admin")]
     public class CompetencePrerequisController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -33,25 +33,11 @@ namespace Animome.Controllers
             return View(competencePrerequis);
         }
 
-        // GET: CompetencePrerequis/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var competencePrerequis = await _context.CompetencePrerequis
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (competencePrerequis == null)
-            {
-                return NotFound();
-            }
-
-            return View(competencePrerequis);
-        }
-
-        // GET: CompetencePrerequis/Create
+        /// <summary>
+        /// Création de nouvelles associations compétences -Prérequis
+        /// </summary>
+        /// <returns></returns>
         public async Task <IActionResult> Create()
         {
             IQueryable<string> CompetenceQuery = from x in _context.Competence
@@ -70,12 +56,17 @@ namespace Animome.Controllers
         }
 
         // POST: CompetencePrerequis/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CompetencePrerequisCreateViewModel viewModel)
         {
+
+
+            if (AlreadyExists(viewModel.Prerequis, viewModel.Competence))
+            {
+                ModelState.AddModelError("Intitule", "Erreur : Existe déjà");
+            }
+
             if (ModelState.IsValid)
             {
                 var competence = await _context.Competence
@@ -148,7 +139,11 @@ namespace Animome.Controllers
             return View(competencePrerequis);
         }
 
-        // GET: CompetencePrerequis/Delete/5
+        /// <summary>
+        /// Suppression d'un 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -182,6 +177,11 @@ namespace Animome.Controllers
         private bool CompetencePrerequisExists(int id)
         {
             return _context.CompetencePrerequis.Any(e => e.Id == id);
+        }
+
+        private bool AlreadyExists(Prerequis prerequis, Competence competence)
+        {
+            return _context.CompetencePrerequis.Any(e => e.Prerequis.Intitule == prerequis.Intitule && e.Competence.Intitule==competence.Intitule) ;
         }
     }
 }

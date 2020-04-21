@@ -313,11 +313,15 @@ namespace Animome.Controllers
 
         private void MajEtats(SuiviPrerequis suiviPrerequis)
         {
-            var suiviCompetence =  _context.SuiviCompetence.Find(suiviPrerequis.SuiviCompetence.Id);
+            var suiviCompetence = _context.SuiviCompetence.Where(x => x.Id == suiviPrerequis.SuiviCompetence.Id)
+                .Include(x=>x.LesSuiviPrerequis)
+                .Single();
             suiviCompetence.Etat = suiviCompetence.EtatMaj();
             _context.Update(suiviCompetence);
 
-            var suivi =  _context.Suivi.Find(suiviCompetence.Suivi.Id);
+            var suivi =  _context.Suivi.Where(x=>x.Id==suiviCompetence.Suivi.Id)
+                .Include(x=>x.LesSuiviCompetences)
+                .Single();
             suivi.Etat = suivi.EtatMaj();
             _context.Update(suivi);
         }

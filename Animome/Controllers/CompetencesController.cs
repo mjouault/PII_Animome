@@ -58,6 +58,11 @@ namespace Animome.Models
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Intitule")] Competence competence)
         {
+            if (AlreadyExists(competence))
+            {
+                ModelState.AddModelError("Intitule", "Erreur : Existe déjà");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(competence);
@@ -150,6 +155,11 @@ namespace Animome.Models
         private bool CompetenceExists(int id)
         {
             return _context.Competence.Any(e => e.Id == id);
+        }
+
+        private bool AlreadyExists(Competence c)
+        {
+            return _context.Competence.Any(e => e.Intitule == c.Intitule);
         }
     }
 }

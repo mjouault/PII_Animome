@@ -79,6 +79,11 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(DomaineCompetencesCreateViewModel viewModel)
         {
+            if (AlreadyExists(viewModel.Domaine, viewModel.Competence))
+            {
+                ModelState.AddModelError("Intitule", "Erreur : élément déjà existant");
+            }
+
             if (ModelState.IsValid)
             {
                 var domaine = await _context.Domaine
@@ -187,6 +192,11 @@ namespace Animome.Controllers
         private bool DomaineCompetenceExists(int id)
         {
             return _context.DomaineCompetence.Any(e => e.Id == id);
+        }
+
+        private bool AlreadyExists(Domaine d, Competence c)
+        {
+            return _context.DomaineCompetence.Any(e => e.Domaine.Intitule == d.Intitule && e.Competence.Intitule == c.Intitule);
         }
     }
 }

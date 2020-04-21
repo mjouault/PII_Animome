@@ -58,6 +58,11 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Intitule")] Niveau niveau)
         {
+            if (AlreadyExists(niveau))
+            {
+                ModelState.AddModelError("Intitule", "Erreur : Existe déjà");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(niveau);
@@ -150,6 +155,10 @@ namespace Animome.Controllers
         private bool NiveauExists(int id)
         {
             return _context.Niveau.Any(e => e.Id == id);
+        }
+        private bool AlreadyExists(Niveau niveau)
+        {
+            return _context.Niveau.Any(e => e.Intitule== niveau.Intitule);
         }
     }
 }

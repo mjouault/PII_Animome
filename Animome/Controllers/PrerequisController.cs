@@ -58,6 +58,11 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Intitule")] Prerequis prerequis)
         {
+            if (AlreadyExists(prerequis))
+            {
+                ModelState.AddModelError("Intitule", "Erreur : élément déjà existant");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(prerequis);
@@ -150,6 +155,11 @@ namespace Animome.Controllers
         private bool PrerequisExists(int id)
         {
             return _context.Prerequis.Any(e => e.Id == id);
+        }
+
+        private bool AlreadyExists(Prerequis prerequis)
+        {
+            return _context.Prerequis.Any(e => e.Intitule == prerequis.Intitule);
         }
     }
 }

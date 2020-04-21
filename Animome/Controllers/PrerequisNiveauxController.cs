@@ -78,6 +78,11 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PrerequisNiveauxCreateViewModel viewModel)
         {
+            if (AlreadyExists(viewModel.Prerequis, viewModel.Niveau))
+            {
+                ModelState.AddModelError("Intitule", "Erreur : élément déjà existant");
+            }
+
             if (ModelState.IsValid)
             {
                 var niveau = await _context.Niveau
@@ -182,6 +187,11 @@ namespace Animome.Controllers
         private bool PrerequisNiveauExists(int id)
         {
             return _context.PrerequisNiveau.Any(e => e.Id == id);
+        }
+
+        private bool AlreadyExists(Prerequis prerequis, Niveau niveau)
+        {
+            return _context.PrerequisNiveau.Any(e => e.Prerequis.Intitule == prerequis.Intitule && e.Niveau.Intitule == niveau.Intitule);
         }
     }
 }

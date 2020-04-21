@@ -29,15 +29,14 @@ namespace Animome.Controllers
         // GET: Patients
         public async Task<IActionResult> Index (string recherchePatient)
         {
-            var userId = _userManager.GetUserId(User);
-            var patients = from p in _context.PatientUser.Where(x=>x.ApplicationUser.Id== userId)
-                           select p.Patient;
+            var patients = from p in _context.Patient select p;
 
             foreach (var p in patients)
             {
                 p.LesSuivis = await _context.Suivi.Where(x => x.Patient == p).ToListAsync();
             }
 
+            //Gestion de la barre de recherche
             if (!string.IsNullOrEmpty(recherchePatient))
             {
                 patients = patients.Where(p => (p.Numero).ToString().Contains(recherchePatient));
@@ -85,8 +84,12 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Numero")] Patient patient)
         {
-            ViewData["erreur"] = "";
             var dejaExistant = AlreadyExists(patient.Numero);
+
+            if (AlreadyExists(patient.Numero))
+            {
+                ModelState.AddModelError("Intitule", "Erreur : Existe déjà");
+            }
 
             if (ModelState.IsValid && !dejaExistant )
             {
@@ -102,9 +105,6 @@ namespace Animome.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-
-            if (dejaExistant) ViewData["erreur"] = "Cet élément existe déjà";
-            else ViewData["erreur"] = "une erreur est survenue";
             return View(patient);
         }
 
