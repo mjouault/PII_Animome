@@ -60,7 +60,7 @@ namespace Animome.Models
         {
             if (AlreadyExists(competence))
             {
-                ModelState.AddModelError("Intitule", "Erreur : Existe déjà");
+                ModelState.AddModelError("Intitule", "Erreur : élément déjà existant");
             }
 
             if (ModelState.IsValid)

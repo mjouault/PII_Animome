@@ -61,12 +61,6 @@ namespace Animome.Controllers
         public async Task<IActionResult> Create(CompetencePrerequisCreateViewModel viewModel)
         {
 
-
-            if (AlreadyExists(viewModel.Prerequis, viewModel.Competence))
-            {
-                ModelState.AddModelError("Intitule", "Erreur : Existe déjà");
-            }
-
             if (ModelState.IsValid)
             {
                 var competence = await _context.Competence
@@ -75,15 +69,23 @@ namespace Animome.Controllers
                 var prerequis = await _context.Prerequis
              .FirstOrDefaultAsync(m => m.Intitule == viewModel.Prerequis.Intitule);
 
-                var CompetencePrerequisAjoute = new CompetencePrerequis
+                if (competence != null && prerequis != null)
                 {
-                    Competence = competence,
-                    Prerequis = prerequis
-                };
+                    var CompetencePrerequisAjoute = new CompetencePrerequis
+                    {
+                        Competence = competence,
+                        Prerequis = prerequis
+                    };
 
-                _context.Add(CompetencePrerequisAjoute);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    _context.Add(CompetencePrerequisAjoute);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ModelState.AddModelError("Id", "Erreur : veuillez choisir un domaine/une compétence");
+                    return View(viewModel);
+                }
             }
             return View(viewModel);
         }

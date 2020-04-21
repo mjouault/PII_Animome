@@ -84,14 +84,13 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Numero")] Patient patient)
         {
-            var dejaExistant = AlreadyExists(patient.Numero);
 
             if (AlreadyExists(patient.Numero))
             {
-                ModelState.AddModelError("Intitule", "Erreur : Existe déjà");
+                ModelState.AddModelError("Numero", "Erreur : élément déjà existant");
             }
 
-            if (ModelState.IsValid && !dejaExistant )
+            if (ModelState.IsValid )
             {
                 _context.Add(patient);
                 await _context.SaveChangesAsync();

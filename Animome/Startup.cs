@@ -76,24 +76,25 @@ namespace Animome
                 var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
                 IdentityResult roleResult;
-                //here in this line we are adding Admin Role
+                //Ajout de rôles
                 var roleCheck = await RoleManager.RoleExistsAsync("Admin");
                 var roleCheck2 = await RoleManager.RoleExistsAsync("Utilisateur");
             if (!roleCheck)
                 {
-                    //here in this line we are creating admin role and seed it to the database
+                    //création du rôle d'admin si inexistant
                     roleResult = await RoleManager.CreateAsync(new IdentityRole("Admin"));
                 }
             if (!roleCheck2)
             {
-                //here in this line we are creating admin role and seed it to the database
+                //Création du rôle Utilisateur si inexistant
                 roleResult = await RoleManager.CreateAsync(new IdentityRole("Utilisateur"));
             }
-            //here we are assigning the Admin role to the User that we have registered above 
-            //Now, we are assinging admin role to this user("Ali@gmail.com"). When will we run this project then it will
-            //be assigned to that user.
-             ApplicationUser user = await UserManager.FindByEmailAsync("maurine@gmail.com");
 
+
+             ApplicationUser user = await UserManager.FindByEmailAsync("maurine@gmail.com");
+            ApplicationUser user3 = await UserManager.FindByEmailAsync("test@gmail.com");
+
+            //Attribution du rôle d Admin
             if (user != null)
             {
                 await UserManager.AddToRoleAsync(user, "Admin");
@@ -101,9 +102,9 @@ namespace Animome
 
             }
 
-
              ApplicationUser user2 = await UserManager.FindByEmailAsync("gautier@gmail.com");
 
+            //Attribution du rôle d utilisateur
             if (user2 != null)
             {
                 await UserManager.AddToRoleAsync(user2, "Utilisateur");

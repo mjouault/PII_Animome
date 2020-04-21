@@ -79,10 +79,6 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(DomaineCompetencesCreateViewModel viewModel)
         {
-            if (AlreadyExists(viewModel.Domaine, viewModel.Competence))
-            {
-                ModelState.AddModelError("Intitule", "Erreur : élément déjà existant");
-            }
 
             if (ModelState.IsValid)
             {

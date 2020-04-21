@@ -1410,7 +1410,6 @@ C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Debug\netcorea
 C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\DomaineUsers\Delete.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\DomaineUsers\Index.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
-C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Home\IndexAdmin.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Niveaux\Create.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Niveaux\Delete.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Debug\netcoreapp3.1\Razor\Views\Niveaux\Edit.cshtml.g.cs

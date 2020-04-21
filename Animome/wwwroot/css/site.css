@@ -136,6 +136,10 @@ btn, .btn-primary {
     background-color: transparent;
 }
 
+.boutonTransparent:focus{
+    outline:none;
+}
+
 .boutonBlanc {
     border-style: solid;
     border-color: whitesmoke;

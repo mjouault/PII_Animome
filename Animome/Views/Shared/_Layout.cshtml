@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager 
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,33 +16,50 @@
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript"></script>
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/logo.png" style="width:65%"/></a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/logo.png" style="width:65%" /></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li>
-                            <a asp-area="" asp-controller="ApplicationUsers" asp-action="AfficherProfil" class="nav-link">Profil <i class="fas fa-user-cog"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-area="" asp-controller="Patients" asp-action="Index" class="nav-link">Patients  <i class="fas fa-address-book"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="ApplicationUsers" asp-action="Index">Collaborateurs  <i class="fas fa-user-md"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Parametres" asp-action="Index">Paramètres  <i class="fas fa-cog"></i></a>
-                        </li>
-                    </ul>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        var user = await UserManager.GetUserAsync(User);
+                        var roles = await UserManager.GetRolesAsync(user);
+
+                        <ul class="navbar-nav flex-grow-1">
+
+                            @if (roles.Count != 0 && roles[0] == "Admin")
+                            {
+                                <li>
+                                    <a asp-area="" asp-controller="ApplicationUsers" asp-action="AfficherProfil" class="nav-link">Profil <i class="fas fa-user-cog"></i></a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="Patients" asp-action="Index" class="nav-link">Patients  <i class="fas fa-address-book"></i></a>
+                            </li>
+
+                            @if (roles.Count != 0 && roles[0] == "Admin")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="ApplicationUsers" asp-action="Index">Collaborateurs  <i class="fas fa-user-md"></i></a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Parametres" asp-action="Index">Paramètres  <i class="fas fa-cog"></i></a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    </div>
+                }
                 </div>
-            </div>
         </nav>
     </header>
 
@@ -49,10 +70,10 @@
         </main>
     </div>
 
-   
+
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - Animome - 
+            &copy; 2020 - Animome -
 
         </div>
     </footer>
@@ -60,5 +81,5 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
-    </body>
+</body>
 </html>

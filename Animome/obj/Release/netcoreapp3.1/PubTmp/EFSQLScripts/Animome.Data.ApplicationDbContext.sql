@@ -579,3 +579,18 @@ END;
 
 GO
 
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20200417161322_suppressionSuiviuser')
+BEGIN
+    DROP TABLE [SuiviApplicationUser];
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20200417161322_suppressionSuiviuser')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20200417161322_suppressionSuiviuser', N'3.1.3');
+END;
+
+GO
+
