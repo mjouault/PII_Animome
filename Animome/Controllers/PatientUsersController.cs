@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Animome.Controllers
 {
-    [Authorize]
+    [Authorize (Roles="Admin, Utilisateur")]
     public class PatientUsersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -42,24 +42,8 @@ namespace Animome.Controllers
             return View(await patientUsers.ToListAsync());
         }
 
-        // GET: PatientUsers/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var patientUser = await _context.PatientUser
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (patientUser == null)
-            {
-                return NotFound();
-            }
-
-            return View(patientUser);
-        }
-
+        [Authorize(Roles ="Admin")] // seul l'administrateur peut affecter une équipe thérapeutique à un patient
         // GET: PatientUsers/Create
         public async Task<IActionResult> Create(int? id)
         {
@@ -91,8 +75,6 @@ namespace Animome.Controllers
         }
 
         // POST: PatientUsers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int id, PatientUserCreateViewModel viewModel)
@@ -112,60 +94,20 @@ namespace Animome.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index), new { patient.Id });
             }
+            //Permet d'afficher de nouveau le contenu de la SelectList en cas d'erreur
+            else
+            {
+                IQueryable<string> usersQuery = from x in _userManager.Users
+                                                orderby x.Nom
+                                                select x.Nom;
+
+                 viewModel.ListeUsers = new SelectList(await usersQuery.Distinct().ToListAsync());
+            }
+
             ViewData["idPatient"] = id;
             return View(viewModel);
         }
 
-        // GET: PatientUsers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var patientUser = await _context.PatientUser.FindAsync(id);
-            if (patientUser == null)
-            {
-                return NotFound();
-            }
-            return View(patientUser);
-        }
-
-        // POST: PatientUsers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id")] PatientUser patientUser)
-        {
-            if (id != patientUser.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(patientUser);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PatientUserExists(patientUser.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(patientUser);
-        }
 
         // GET: PatientUsers/Delete/5
         public async Task<IActionResult> Delete(int? id)

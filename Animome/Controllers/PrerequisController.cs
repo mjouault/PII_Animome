@@ -27,23 +27,7 @@ namespace Animome.Controllers
             return View(await _context.Prerequis.ToListAsync());
         }
 
-        // GET: Prerequis/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var prerequis = await _context.Prerequis
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (prerequis == null)
-            {
-                return NotFound();
-            }
-
-            return View(prerequis);
-        }
+      
 
         // GET: Prerequis/Create
         public IActionResult Create()
@@ -52,8 +36,6 @@ namespace Animome.Controllers
         }
 
         // POST: Prerequis/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Intitule")] Prerequis prerequis)
@@ -146,6 +128,23 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var competencePrerequisSupprimes = await _context.CompetencePrerequis.Where(e => e.Prerequis.Id == id).ToListAsync();
+            if (competencePrerequisSupprimes != null)
+            {
+                foreach (var i in competencePrerequisSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            var prerequisNiveauSupprimes = await _context.PrerequisNiveau.Where(e => e.Prerequis.Id == id).ToListAsync();
+            if (prerequisNiveauSupprimes != null)
+            {
+                foreach (var i in prerequisNiveauSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
             var prerequis = await _context.Prerequis.FindAsync(id);
             _context.Prerequis.Remove(prerequis);
             await _context.SaveChangesAsync();

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
 namespace Animome.Models
@@ -41,6 +39,8 @@ namespace Animome.Models
     public class Niveau
     {
         public int Id { get; set; }
+
+        [Required(ErrorMessage = "Ce champ ne peut être vide")]
         public string Intitule { get; set; }
         public List<SuiviNiveau> LesSuiviNiveaux { get; set; }
 
@@ -56,7 +56,11 @@ namespace Animome.Models
     public class PrerequisNiveau
     {
         public int Id { get; set; }
+
+        [Required(ErrorMessage = "Ce champ ne peut être vide")]
         public Niveau Niveau { get; set;}
+
+        [Required(ErrorMessage = "Ce champ ne peut être vide")]
         public Prerequis Prerequis { get; set; }
     }
 }

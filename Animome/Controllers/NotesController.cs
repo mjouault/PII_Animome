@@ -36,7 +36,7 @@ namespace Animome.Controllers
                 .Include(x => x.Patient)
                 .SingleAsync();
 
-            var notes = await _context.Note.Where(c => c.Id == id) //Ne marche pas !
+            var notes = await _context.Note.Where(c => c.Id == id) 
                 .Include(x => x.ApplicationUser)
                 .ToListAsync();
 
@@ -46,23 +46,6 @@ namespace Animome.Controllers
             return View(notes);
         }
 
-        // GET: Notes/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var note = await _context.Note
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (note == null)
-            {
-                return NotFound();
-            }
-
-            return View(note);
-        }
 
         // GET: Notes/Create
         public async Task<IActionResult> Create(int? id)
@@ -82,8 +65,6 @@ namespace Animome.Controllers
         }
 
         // POST: Notes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -120,8 +101,6 @@ namespace Animome.Controllers
         }
 
         // POST: Notes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Date,Texte")] Note note)

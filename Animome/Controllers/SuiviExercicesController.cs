@@ -29,124 +29,11 @@ namespace Animome.Controllers
             return View(await _context.SuiviExercice.ToListAsync());
         }
 
-       /* // GET: SuiviExercices/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var suiviExercice = await _context.SuiviExercice
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (suiviExercice == null)
-            {
-                return NotFound();
-            }
-
-            return View(suiviExercice);
-        }
-
-        public async Task<IActionResult> Create(int? id)
-        {
-            if (id != null)
-            {
-                var suiviNiveau = await _context.SuiviNiveau.FindAsync(id);
-                if (suiviNiveau != null)
-                {
-                    SuiviExercice suiviExerciceAjoute = new SuiviExercice
-                    {
-                        SuiviNiveau = suiviNiveau,
-                        Valide = false
-                    };
-                    _context.Add(suiviExerciceAjoute);
-                    _context.SaveChanges();
-                    return RedirectToAction("Index", "Patients");
-                }
-            }
-            return NotFound();
-        }
-
-        // GET: SuiviExercices/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var suiviExercice = await _context.SuiviExercice.FindAsync(id);
-            if (suiviExercice == null)
-            {
-                return NotFound();
-            }
-            return View(suiviExercice);
-        }
-
-        // POST: SuiviExercices/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Valide,DateFait,DateValide")] SuiviExercice suiviExercice)
-        {
-            if (id != suiviExercice.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(suiviExercice);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SuiviExerciceExists(suiviExercice.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(suiviExercice);
-        }
-
-        // GET: SuiviExercices/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var suiviExercice = await _context.SuiviExercice
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (suiviExercice == null)
-            {
-                return NotFound();
-            }
-
-            return View(suiviExercice);
-        }
-
-        // POST: SuiviExercices/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var suiviExercice = await _context.SuiviExercice.FindAsync(id);
-            _context.SuiviExercice.Remove(suiviExercice);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }*/
-
+        /// <summary>
+        /// Permet à un utilisateur de valider/Marquer un exercice comme acquise pour un patient donné
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize]
         public async Task<IActionResult> Valider(int? id)
         {
@@ -232,6 +119,10 @@ namespace Animome.Controllers
             return _context.SuiviExercice.Any(e => e.Id == id);
         }
 
+        /// <summary>
+        /// Suite au changement d'état d'un suiviExercice, mise à jour en conséquence des éléments de niveaux supérieur (SuiviNiveau, SuiviPrerequis, SuivCompetence, Suivi)
+        /// </summary>
+        /// <param name="suiviExercice"></param>
         private void MajEtats(SuiviExercice suiviExercice)
         {
             //Maj bdd de l'Etat du suiviNiveau associé

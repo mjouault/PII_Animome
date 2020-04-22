@@ -485,7 +485,6 @@ C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Release\netcor
 C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Release\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Release\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Release\netcoreapp3.1\Razor\Views\ApplicationUsers\AfficherProfil.cshtml.g.cs
-C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Release\netcoreapp3.1\Razor\Views\ApplicationUsers\CreerRole.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Release\netcoreapp3.1\Razor\Views\ApplicationUsers\Edit.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Release\netcoreapp3.1\Razor\Views\ApplicationUsers\Index.cshtml.g.cs
 C:\Users\Maurine\Documents\ENSC\2A\s8\PII\PII_Animome\Animome\obj\Release\netcoreapp3.1\Razor\Views\CompetencePrerequis\Create.cshtml.g.cs

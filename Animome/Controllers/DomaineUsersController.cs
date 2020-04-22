@@ -115,59 +115,19 @@ namespace Animome.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index","ApplicationUsers");
             }
+            //Permet d'afficher de nouveau les noms des domaines dans les SelectList en cas d'erreur
+            else
+            {
+                IQueryable<string> DomaineQuery = from x in _context.Domaine
+                                                  orderby x.Intitule
+                                                  select x.Intitule;
+
+                viewModel.Domaines = new SelectList(await DomaineQuery.Distinct().ToListAsync());
+                ViewData["idUser"] = id;
+            }
             return View(viewModel);
         }
 
-        // GET: DomaineUsers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var domaineUser = await _context.DomaineUser.FindAsync(id);
-            if (domaineUser == null)
-            {
-                return NotFound();
-            }
-            return View(domaineUser);
-        }
-
-        // POST: DomaineUsers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id")] DomaineUser domaineUser)
-        {
-            if (id != domaineUser.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(domaineUser);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DomaineUserExists(domaineUser.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction("Index", "ApplicationUsers");
-            }
-            return View(domaineUser);
-        }
 
         // GET: DomaineUsers/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -184,7 +144,7 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-            return View(domaineUser);
+            return RedirectToAction("Index", "ApplicationUsers");
         }
 
         // POST: DomaineUsers/Delete/5

@@ -50,35 +50,14 @@ namespace Animome.Controllers
         }
 
 
-        // GET: Patients/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var patient = await _context.Patient
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (patient == null)
-            {
-                return NotFound();
-            }
-
-            return View(patient);
-        }
-
         // GET: Patients/Create
         [Authorize (Roles ="Admin")]
         public IActionResult Create()
         {
-            ViewData["erreur"] = "";
             return View();
         }
 
         // POST: Patients/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -87,7 +66,7 @@ namespace Animome.Controllers
 
             if (AlreadyExists(patient.Numero))
             {
-                ModelState.AddModelError("Numero", "Erreur : élément déjà existant");
+                ModelState.AddModelError("Numero", "Erreur : élément déjà existant"); //Affichage d'un message d'erreur + Modèle considéré comme invalide
             }
 
             if (ModelState.IsValid )

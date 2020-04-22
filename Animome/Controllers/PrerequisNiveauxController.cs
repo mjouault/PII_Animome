@@ -55,14 +55,16 @@ namespace Animome.Controllers
         public async Task <IActionResult> Create()
         {
           
+            //récupération des intitulés de tous les domaines
             IQueryable<string> PrerequisQuery = from x in _context.Prerequis
                                                 orderby x.Intitule
                                                 select x.Intitule;
-
+            // récupération des intitulés de tous les domaines
             IQueryable<string> NiveauQuery = from x in _context.Niveau
                                                  orderby x.Intitule
                                                  select x.Intitule;
 
+            //Envoie de deux listes de sélection vers la vue Create Post
             var viewModel = new PrerequisNiveauxCreateViewModel
             {
                 ListePrerequis = new SelectList(await PrerequisQuery.Distinct().ToListAsync()),
@@ -72,8 +74,6 @@ namespace Animome.Controllers
         }
 
         // POST: PrerequisNiveaux/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PrerequisNiveauxCreateViewModel viewModel)
@@ -97,6 +97,22 @@ namespace Animome.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            //Permet d'afficher de nouveau les noms des compétences et prérequis dans les SelectList en cas d'erreur
+            else
+            {
+                //récupération des intitulés de tous les prérequis
+                IQueryable<string> PrerequisQuery = from x in _context.Prerequis
+                                                    orderby x.Intitule
+                                                    select x.Intitule;
+                // récupération des intitulés de tous les niveaaux
+                IQueryable<string> NiveauQuery = from x in _context.Niveau
+                                                 orderby x.Intitule
+                                                 select x.Intitule;
+
+
+                viewModel.ListePrerequis = new SelectList(await PrerequisQuery.Distinct().ToListAsync());
+                viewModel.ListeNiveaux = new SelectList(await NiveauQuery.Distinct().ToListAsync());
+            }
             return View(viewModel);
         }
 
@@ -117,8 +133,6 @@ namespace Animome.Controllers
         }
 
         // POST: PrerequisNiveaux/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id")] PrerequisNiveau prerequisNiveau)
@@ -183,11 +197,6 @@ namespace Animome.Controllers
         private bool PrerequisNiveauExists(int id)
         {
             return _context.PrerequisNiveau.Any(e => e.Id == id);
-        }
-
-        private bool AlreadyExists(Prerequis prerequis, Niveau niveau)
-        {
-            return _context.PrerequisNiveau.Any(e => e.Prerequis.Intitule == prerequis.Intitule && e.Niveau.Intitule == niveau.Intitule);
         }
     }
 }

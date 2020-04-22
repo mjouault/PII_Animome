@@ -28,229 +28,11 @@ namespace Animome.Controllers
             return View(await _context.SuiviCompetence.ToListAsync());
         }
 
-       /* // GET: SuiviCompetences/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var suiviCompetence = await _context.SuiviCompetence
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (suiviCompetence == null)
-            {
-                return NotFound();
-            }
-
-            return View(suiviCompetence);
-        }
-
-        // GET: SuiviCompetences/Create
-         public async Task <IActionResult> Create(int? id)
-         {
-             if (id == null)
-             {
-                 return NotFound();
-             }
-
-             var suivi = await _context.Suivi.FindAsync(id);
-             if (suivi == null)
-             {
-                 return NotFound();
-             }
-             return View();
-         }
-
-         // POST: SuiviCompetences/Create
-         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-         [HttpPost]
-         [ValidateAntiForgeryToken]
-         public async Task<IActionResult> Create(int id, [Bind("Id,Suivi,Competence")] SuiviCompetence suiviCompetence)
-         {
-               var suivi = await _context.Suivi
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-                 SuiviCompetence suiviCompetenceAjoute = new SuiviCompetence
-                 {
-                     Competence = suiviCompetence.Competence,
-                     Suivi = suivi
-                 };
-                 _context.Add(suiviCompetenceAjoute);
-                 await _context.SaveChangesAsync();
-             return RedirectToAction("Index", "Patients");
-             //return RedirectToAction("AfficherSuivi", "Suivis", new { suivi.Patient.Id });
-         }
-
-        //GET AjouterCompetence
-         public async Task<IActionResult> AjouterCompetence(int? id, SuiviEditViewModel viewModel)
-         {
-             if (id == null)
-             {
-                 return NotFound();
-             }
-
-             viewModel.Suivi = await _context.Suivi.FindAsync(id);
-             if (viewModel.Suivi == null)
-             {
-                 return NotFound();
-             }
-             return View(viewModel);
-         }
-
-         // POST AjouterCompetence
-         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-         [Authorize]
-         [HttpPost]
-         [ValidateAntiForgeryToken]
-         public async Task<IActionResult> AjouterCompetence(int id, SuiviEditViewModel viewModel)
-         {
-             if (id != viewModel.Suivi.Id)
-             {
-                 return NotFound();
-             }
-
-             if (ModelState.IsValid)
-             {
-                 var suivi = await _context.Suivi
-                 .FirstOrDefaultAsync(m => m.Id == id);
-
-                 SuiviCompetence suiviCompetenceAjoute = new SuiviCompetence
-                 {
-                     Competence = viewModel.SuiviCompetence.Competence,
-                     Suivi = suivi
-                 };
-
-                SuiviPrerequis suiviPrerequisAjoute = new SuiviPrerequis
-                {
-                    Prerequis = viewModel.SuiviPrerequis.Prerequis,
-                    SuiviCompetence = suiviCompetenceAjoute,
-                };
-
-                SuiviNiveau suiviNiveauAjoute = new SuiviNiveau
-                {
-                    Niveau = viewModel.SuiviNiveau.Niveau,
-                    SuiviPrerequis = suiviPrerequisAjoute,
-                };
-
-                SuiviExercice suiviExerciceAjoute = new SuiviExercice
-                {
-                   // Exercice = viewModel.SuiviExercice.Exercice,
-                    Valide = false,
-                    SuiviNiveau = suiviNiveauAjoute,
-                };
-
-                _context.Add(suiviCompetenceAjoute);
-                _context.Add(suiviPrerequisAjoute);
-                _context.Add(suiviNiveauAjoute);
-                _context.Add(suiviExerciceAjoute);
-
-                 await _context.SaveChangesAsync();
-                 return RedirectToAction( "Index", "Patients");
-             }
-             return View(viewModel);
-         }
-
-
-        // GET: SuiviCompetences/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var suiviCompetence = await _context.SuiviCompetence.FindAsync(id);
-            if (suiviCompetence == null)
-            {
-                return NotFound();
-            }
-            return View(suiviCompetence);
-        }
-
-        // POST: SuiviCompetences/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Competence")] SuiviCompetence suiviCompetence)
-        {
-            if (id != suiviCompetence.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(suiviCompetence);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SuiviCompetenceExists(suiviCompetence.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(suiviCompetence);
-        }
-
-        // GET: SuiviCompetences/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var suiviCompetence = await _context.SuiviCompetence
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (suiviCompetence == null)
-            {
-                return NotFound();
-            }
-
-            return View(suiviCompetence);
-        }
-
-        // POST: SuiviCompetences/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var suiviCompetence = await _context.SuiviCompetence.FindAsync(id);
-
-            var PrerequisASupprimer = from x in _context.SuiviPrerequis
-                                      select x;
-            var NiveauxASupprimer = from x in _context.SuiviNiveau
-                                    select x;
-            var ExercicesASupprimer = from x in _context.SuiviExercice
-                                    select x;
-
-            PrerequisASupprimer = PrerequisASupprimer.Where(p => (p.SuiviCompetence.Id == id));
-            NiveauxASupprimer = NiveauxASupprimer.Where(n => (n.SuiviPrerequis.SuiviCompetence.Id == id));
-            ExercicesASupprimer = ExercicesASupprimer.Where(e => (e.SuiviNiveau.SuiviPrerequis.SuiviCompetence.Id == id));
-           
-            _context.SuiviExercice.RemoveRange(await ExercicesASupprimer.ToListAsync());
-            _context.SuiviNiveau.RemoveRange(await NiveauxASupprimer.ToListAsync());
-            _context.SuiviPrerequis.RemoveRange(await PrerequisASupprimer.ToListAsync());
-            _context.SuiviCompetence.Remove(suiviCompetence);
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Patients");
-            //return RedirectToAction("AfficherSuivi", "Suivis", new { suiviCompetence.Suivi.Patient.Id });
-        }*/
-
+        /// <summary>
+        /// Permet à un utilisateur de valider/Marquer une compétence comme acquise pour un patient donné, ainsi que tous les éléments de niveaux inférieur qui la compose
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Valider(int? id)
         {
             if (id == null)
@@ -268,6 +50,7 @@ namespace Animome.Controllers
 
             try
             {
+                //Changement de l'Etat de non acquis (e1) ou en cours (e2) à validé (e3) du suiviCompetence et de tous les éléments qui le composent (suiviPrerequis, suiviNiveau, suiviExercice)
                 if (suiviCompetence.Etat!=EtatEnum.e3)
                 {
                     suiviCompetence.Etat = EtatEnum.e3;
@@ -322,6 +105,11 @@ namespace Animome.Controllers
             return RedirectToAction("AfficherSuivi", "Suivis", new { suiviCompetence.Suivi.Patient.Id});
         }
 
+        /// <summary>
+        /// Permet à un utilisateur d'annuler la validation d'une compétence pour un patient donné
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> AnnulerValidation (int? id)
         {
             if (id == null)
@@ -399,12 +187,15 @@ namespace Animome.Controllers
             return _context.SuiviCompetence.Any(e => e.Id == id);
         }
 
+        /// <summary>
+        /// Suite au changement d'état d'un suiviCompetence, mise à jour en conséquence des éléments de niveaux supérieur (Suivi)
+        /// </summary>
+        /// <param name="suiviCompetence"></param>
         public void MajEtats(SuiviCompetence suiviCompetence)
         {
             var suivi = _context.Suivi.Where(x => x.Id == suiviCompetence.Suivi.Id)
                  .Include(x=>x.LesSuiviCompetences)
                  .Single();
-           //suivi.LesSuiviCompetences = _context.SuiviCompetence.Where(x => x.Suivi.Id == suivi.Id).ToList();
            suivi.Etat = suivi.EtatMaj();
             _context.Update(suivi);
         }

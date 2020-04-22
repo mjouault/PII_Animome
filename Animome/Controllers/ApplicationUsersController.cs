@@ -13,18 +13,16 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Animome.Controllers
 {
-    [Authorize] //Nécessite une authentification de l'utilisateur
+    [Authorize] //Nécessite une connexion de l'utilisateur
     public class ApplicationUsersController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ApplicationDbContext _context; //Permet requêtes vers BDD
+        private readonly UserManager<ApplicationUser> _userManager; // Permet requêtes vers Identity 
 
-        public ApplicationUsersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public ApplicationUsersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
-          _roleManager = roleManager;
         }
 
         /// <summary>
@@ -34,7 +32,7 @@ namespace Animome.Controllers
         public async Task<IActionResult> Index()
         {
             var users = await _userManager.Users
-                .Include(user => user.LesDomaines)
+                .Include(user => user.LesDomaines) //Récupération des domaines associés
                     .ThenInclude(x => x.Domaine)
                 .OrderBy(x=>x.Role)
                 .ToListAsync();
@@ -161,7 +159,7 @@ namespace Animome.Controllers
                     return NotFound($"Une erreur est survenue.");
                 }
 
-
+                //La suppression d'un utilisateur entraine la suppression des liens entre lui et ses patients
                 var patientUserSupprimes = await _context.PatientUser.Where(e => e.ApplicationUser.Id == id).ToListAsync();
                 if (patientUserSupprimes != null)
                 {
@@ -180,11 +178,6 @@ namespace Animome.Controllers
                     }
 
                 return RedirectToAction("Index", "ApplicationUsers");
-        }
-
-        private bool ApplicationUserExists(string id)
-        {
-            return _userManager.Users.Any(e => e.Id == id);
         }
     }
 }

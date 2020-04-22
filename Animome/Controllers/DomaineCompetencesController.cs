@@ -79,7 +79,6 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(DomaineCompetencesCreateViewModel viewModel)
         {
-
             if (ModelState.IsValid)
             {
                 var domaine = await _context.Domaine
@@ -98,60 +97,21 @@ namespace Animome.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            //Permet d'afficher de nouveau les noms des compétences et domaine dans les SelectList en cas d'erreur
+            else
+            {
+                IQueryable<string> DomaineQuery = from x in _context.Domaine
+                                                  orderby x.Intitule
+                                                  select x.Intitule;
+
+                IQueryable<string> CompetenceQuery = from x in _context.Competence
+                                                     orderby x.Intitule
+                                                     select x.Intitule;
+
+                viewModel.Domaines = new SelectList(await DomaineQuery.Distinct().ToListAsync());
+                viewModel.Competences = new SelectList(await CompetenceQuery.Distinct().ToListAsync());
+            }
             return View(viewModel);
-        }
-
-
-
-        // GET: DomaineCompetences/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var domaineCompetence = await _context.DomaineCompetence.FindAsync(id);
-            if (domaineCompetence == null)
-            {
-                return NotFound();
-            }
-            return View(domaineCompetence);
-        }
-
-        // POST: DomaineCompetences/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id")] DomaineCompetence domaineCompetence)
-        {
-            if (id != domaineCompetence.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(domaineCompetence);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DomaineCompetenceExists(domaineCompetence.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(domaineCompetence);
         }
 
         // GET: DomaineCompetences/Delete/5

@@ -57,127 +57,6 @@ namespace Animome.Controllers
             return View(await suiviPrerequis.SingleOrDefaultAsync());
         }
 
-
-        /*// GET: SuiviPrerequis/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var suiviPrerequis = await _context.SuiviPrerequis
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (suiviPrerequis == null)
-            {
-                return NotFound();
-            }
-
-            return View(suiviPrerequis);
-        }
-
-        // GET: SuiviPrerequis/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: SuiviPrerequis/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Prerequis")] SuiviPrerequis suiviPrerequis)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(suiviPrerequis);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(suiviPrerequis);
-        }
-
-        // GET: SuiviPrerequis/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var suiviPrerequis = await _context.SuiviPrerequis.FindAsync(id);
-            if (suiviPrerequis == null)
-            {
-                return NotFound();
-            }
-            return View(suiviPrerequis);
-        }
-
-        // POST: SuiviPrerequis/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Prerequis")] SuiviPrerequis suiviPrerequis)
-        {
-            if (id != suiviPrerequis.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(suiviPrerequis);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SuiviPrerequisExists(suiviPrerequis.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(suiviPrerequis);
-        }
-
-        // GET: SuiviPrerequis/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var suiviPrerequis = await _context.SuiviPrerequis
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (suiviPrerequis == null)
-            {
-                return NotFound();
-            }
-
-            return View(suiviPrerequis);
-        }
-
-        // POST: SuiviPrerequis/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var suiviPrerequis = await _context.SuiviPrerequis.FindAsync(id);
-            _context.SuiviPrerequis.Remove(suiviPrerequis);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Patients");
-        }*/
-
         public async Task<IActionResult> Valider(int? id)
         {
             if (id == null)
@@ -311,6 +190,10 @@ namespace Animome.Controllers
             return _context.SuiviPrerequis.Any(e => e.Id == id);
         }
 
+        /// <summary>
+        /// Suite au changement d'état d'un suiviPrerequis, mise à jour en conséquence des éléments de niveaux supérieur (SuiviCompetence, Suivi)
+        /// </summary>
+        /// <param name="suiviPrerequis"></param>
         private void MajEtats(SuiviPrerequis suiviPrerequis)
         {
             var suiviCompetence = _context.SuiviCompetence.Where(x => x.Id == suiviPrerequis.SuiviCompetence.Id)

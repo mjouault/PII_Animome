@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
 namespace Animome.Models
 {
@@ -14,7 +10,7 @@ namespace Animome.Models
 
         public DateTime DateFait { get; set; } //Date à laquelle il a été fait
         public DateTime DateValide { get; set; } //Date à laquelle il a été valide
-        public ApplicationUser Valideur { get; set; } //Application User qui a validé l'exercice
+        public ApplicationUser Valideur { get; set; } //Utilisateur qui a validé l'exercice
 
         public SuiviNiveau SuiviNiveau { get; set; }
     }

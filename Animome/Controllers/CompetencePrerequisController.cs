@@ -87,62 +87,27 @@ namespace Animome.Controllers
                     return View(viewModel);
                 }
             }
+
+            //Permet d'afficher de nouveau les noms des compétences et prérequis dans les SelectList en cas d'erreur
+            else
+            {
+                IQueryable<string> CompetenceQuery = from x in _context.Competence
+                                                     orderby x.Intitule
+                                                     select x.Intitule;
+                IQueryable<string> PrerequisQuery = from x in _context.Prerequis
+                                                    orderby x.Intitule
+                                                    select x.Intitule;
+
+
+                viewModel.ListeCompetences = new SelectList(await CompetenceQuery.Distinct().ToListAsync());
+                viewModel.ListePrerequis = new SelectList(await PrerequisQuery.Distinct().ToListAsync());
+            }
             return View(viewModel);
         }
 
-        // GET: CompetencePrerequis/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var competencePrerequis = await _context.CompetencePrerequis.FindAsync(id);
-            if (competencePrerequis == null)
-            {
-                return NotFound();
-            }
-            return View(competencePrerequis);
-        }
-
-        // POST: CompetencePrerequis/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id")] CompetencePrerequis competencePrerequis)
-        {
-            if (id != competencePrerequis.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(competencePrerequis);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CompetencePrerequisExists(competencePrerequis.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(competencePrerequis);
-        }
 
         /// <summary>
-        /// Suppression d'un 
+        /// Suppression d'une instance
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -179,11 +144,6 @@ namespace Animome.Controllers
         private bool CompetencePrerequisExists(int id)
         {
             return _context.CompetencePrerequis.Any(e => e.Id == id);
-        }
-
-        private bool AlreadyExists(Prerequis prerequis, Competence competence)
-        {
-            return _context.CompetencePrerequis.Any(e => e.Prerequis.Intitule == prerequis.Intitule && e.Competence.Intitule==competence.Intitule) ;
         }
     }
 }

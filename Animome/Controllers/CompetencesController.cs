@@ -45,15 +45,13 @@ namespace Animome.Models
             return View(competence);
         }
 
-        // GET: Competences/Create
+        // GET: création
         public IActionResult Create()
         {
             return View();
         }
 
         // POST: Competences/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Intitule")] Competence competence)
@@ -67,57 +65,6 @@ namespace Animome.Models
             {
                 _context.Add(competence);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(competence);
-        }
-
-        // GET: Competences/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var competence = await _context.Competence.FindAsync(id);
-            if (competence == null)
-            {
-                return NotFound();
-            }
-            return View(competence);
-        }
-
-        // POST: Competences/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Intitule")] Competence competence)
-        {
-            if (id != competence.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(competence);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CompetenceExists(competence.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
                 return RedirectToAction(nameof(Index));
             }
             return View(competence);
@@ -146,6 +93,25 @@ namespace Animome.Models
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+
+            var competencePrerequisSupprimes = await _context.CompetencePrerequis.Where(e => e.Competence.Id == id).ToListAsync();
+            if (competencePrerequisSupprimes != null)
+            {
+                foreach (var i in competencePrerequisSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
+            var domaineCompetenceSupprimes = await _context.DomaineCompetence.Where(e => e.Competence.Id == id).ToListAsync();
+            if (domaineCompetenceSupprimes != null)
+            {
+                foreach (var i in domaineCompetenceSupprimes)
+                {
+                    _context.Remove(i);
+                }
+            }
+
             var competence = await _context.Competence.FindAsync(id);
             _context.Competence.Remove(competence);
             await _context.SaveChangesAsync();

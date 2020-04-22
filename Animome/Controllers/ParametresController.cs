@@ -11,17 +11,9 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Animome.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")] //Gestion des paramètre uniquement par un administrateur
     public class ParametresController : Controller
     {
-        private readonly ApplicationDbContext _context;
-
-        public ParametresController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
-
         public IActionResult Index()
         {
             return View();

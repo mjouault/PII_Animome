@@ -11,7 +11,6 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript"></script>
@@ -33,29 +32,32 @@
                         var user = await UserManager.GetUserAsync(User);
                         var roles = await UserManager.GetRolesAsync(user);
 
-                        <ul class="navbar-nav flex-grow-1">
+                <ul class="navbar-nav flex-grow-1">
 
-                            @if (roles.Count != 0 && roles[0] == "Admin")
-                            {
-                                <li>
-                                    <a asp-area="" asp-controller="ApplicationUsers" asp-action="AfficherProfil" class="nav-link">Profil <i class="fas fa-user-cog"></i></a>
-                                </li>
-                            }
+                    @if (roles.Count != 0 && roles[0] == "Admin")
+                    {
+                        <li>
+                            <a asp-area="" asp-controller="ApplicationUsers" asp-action="AfficherProfil" class="nav-link">Profil <i class="fas fa-user-cog"></i></a>
+                        </li>
+                    }
+                    @if (roles.Count != 0 && (roles[0] == "Utilisateur" || roles[0]=="Admin"))
+                    {
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="Patients" asp-action="Index" class="nav-link">Patients  <i class="fas fa-address-book"></i></a>
+                        </li>
+                    }
+
+                        @if (roles.Count != 0 && roles[0] == "Admin")
+                        {
                             <li class="nav-item">
-                                <a asp-area="" asp-controller="Patients" asp-action="Index" class="nav-link">Patients  <i class="fas fa-address-book"></i></a>
+                                <a class="nav-link" asp-area="" asp-controller="ApplicationUsers" asp-action="Index">Collaborateurs  <i class="fas fa-user-md"></i></a>
                             </li>
 
-                            @if (roles.Count != 0 && roles[0] == "Admin")
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="ApplicationUsers" asp-action="Index">Collaborateurs  <i class="fas fa-user-md"></i></a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Parametres" asp-action="Index">Paramètres  <i class="fas fa-cog"></i></a>
-                                </li>
-                            }
-                        </ul>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Parametres" asp-action="Index">Paramètres  <i class="fas fa-cog"></i></a>
+                            </li>
+                        }
+                    </ul>
                     }
                     </div>
                 }

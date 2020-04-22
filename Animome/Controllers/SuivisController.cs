@@ -189,51 +189,6 @@ namespace Animome.Controllers
             return View(viewModel);
         }
 
-        // POST: Suivis/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-       public async Task<IActionResult> Edit(int id, SuiviCreateViewModel viewModel)
-        {
-            if (id != viewModel.Suivi.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    viewModel.Suivi = await _context.Suivi.FindAsync(id);
-                    // var domaine = viewModel.Suivi.Domaine;
-                    //  var suivi = await _context.Suivi.FindAsync(viewModel.Suivi.Id);
-
-                    _context.Update(viewModel.Suivi.Domaine);
-
-                    //_context.Update(viewModel.SuiviPrerequis) ;
-                    // _context.Update(viewModel.SuiviExercice);
-                   // _context.Update(domaine);
-                   // _context.Update(suivi);
-
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SuiviExists(viewModel.Suivi.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(viewModel);
-        }
 
         // GET: Suivis/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -303,6 +258,11 @@ namespace Animome.Controllers
             return RedirectToAction("AfficherSuivi", "Suivis", new { patientId});
         }
 
+        /// <summary>
+        /// Permet à un utilisateur de valider/Marquer un domaine comme acquis pour un patient donné, ainsi que tous les éléments de niveau inférieur qui le compose
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult>Valider(int? id)
         {
             if (id == null)
@@ -471,6 +431,11 @@ namespace Animome.Controllers
             return _context.Suivi.Any(e => e.Id == id);
         }
 
+        /// <summary>
+        /// Affiche une vue globale, la plus simple possible d'un suivi
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task <IActionResult> AfficherApercu (int? id)
         {
             if (id == null)
@@ -478,6 +443,7 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
+            //récupération de tous les éléments constitutifs d'un suivi
            var suivi = await _context.Suivi.Where(x => x.Patient.Id == id)
                 .Include(suivi => suivi.LesSuiviCompetences)
                     .ThenInclude(lesSuiviCptces => lesSuiviCptces.LesSuiviPrerequis)
@@ -518,43 +484,19 @@ namespace Animome.Controllers
                   .Include(x=>x.Patient)
                   .ToListAsync();
 
-            ViewData["idPatient"] = id;
+            ViewData["idPatient"] = id; // transmission de l'id du Patient à la vue
             ViewData["numPatient"] = suivi[0].Patient.Numero;
             ViewData["pourcentages"] = CalculerPourcentage(suivi.ToList())[0];
             return View(suivi);
         }
 
-        public async Task <IActionResult> AfficherDomaine()
-        {
-            return View(await _context.Domaine.ToListAsync());
-        }
 
-        public async Task <IActionResult> TestSelect()
-        {
-            IQueryable<string> DomaineQuery = from x in _context.Domaine
-                                              orderby x.Intitule
-                                              select x.Intitule;
-            var viewModel = new SelectListViewModel
-            {
-                Domaines = new SelectList(await DomaineQuery.Distinct().ToListAsync()),
-            };
-            return View(viewModel);
-        }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult TestSelect( SelectListViewModel viewModel)
-        {
-            if (string.IsNullOrEmpty(viewModel.IntituleDomaine))
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-        }
-
+        /// <summary>
+        /// Permet de calculer le pourcentage d'éléméents validés  par un patient dans un suivi(domaine) donné
+        /// </summary>
+        /// <param name="suivi"></param>
+        /// <returns></returns>
         private List<double> CalculerPourcentage(List<Suivi> suivi)
         {
             List<double> pourcentages = new List<double>();

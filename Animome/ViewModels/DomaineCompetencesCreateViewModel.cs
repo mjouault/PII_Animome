@@ -15,8 +15,6 @@ namespace Animome.ViewModels
 
         public SelectList Competences { get; set; }
         public Competence Competence { get; set; }
-
-        // public string [] IntituleSelectionnes { get; set; }
     }
 
 }

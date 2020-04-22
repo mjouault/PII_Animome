@@ -26,34 +26,11 @@ namespace Animome.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            var user = await _userManager.GetUserAsync(User);
-             ViewData["roleUser"]="";
-
-            if(user!=null && user.Role!=null)
-            {
-                ViewData["roleUser"]=user.Role;
-            }
-            return View();
-        }
-
-        [Authorize(Roles="Admin")]
-        public async Task<IActionResult> IndexAdmin()
-        {
-           // var maj = await _context.SuiviExercice.Where(x=>x.DateValid)
-            return View(await _userManager.Users.ToListAsync());
-        }
-
-       /* public IActionResult Index(HomeIndexViewModel viewModel)
-        {
-            return View(viewModel);
-        }*/
-
-        public IActionResult Privacy()
+        public  IActionResult Index()
         {
             return View();
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

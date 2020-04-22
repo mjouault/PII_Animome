@@ -102,7 +102,14 @@ namespace Animome
 
             }
 
-             ApplicationUser user2 = await UserManager.FindByEmailAsync("gautier@gmail.com");
+            if (user3 != null)
+            {
+                await UserManager.AddToRoleAsync(user3, "Admin");
+                user3.Role = "Admin";
+
+            }
+
+            ApplicationUser user2 = await UserManager.FindByEmailAsync("testUtilisateur@gmail.com");
 
             //Attribution du rôle d utilisateur
             if (user2 != null)

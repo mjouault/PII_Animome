@@ -8,13 +8,16 @@ namespace Animome.Models
 {
     public static class SeedData
     {
+        /// <summary>
+        /// Base de données initiale
+        /// </summary>
+        /// <param name="serviceProvider"></param>
         public static void Initialize(IServiceProvider serviceProvider)
         {
             using (var context = new ApplicationDbContext(
                 serviceProvider.GetRequiredService<
                     DbContextOptions<ApplicationDbContext>>()))
             {
-                // Look for any ApplicationUsers.
                 Domaine d1 = new Domaine("Motricité globale");
                 Domaine d2 = new Domaine("Motricité fine");
                 Domaine d3 = new Domaine("Langage");
@@ -26,13 +29,13 @@ namespace Animome.Models
                     context.SaveChanges(); ;   // DB has been seeded
                 }
 
-                Competence c1 = new Competence("CMotricite1");
-                Competence c2 = new Competence("CMotriciteG2");
-                Competence c3 = new Competence("CMotriciteF2");
-                Competence c4 = new Competence("CLangage1");
-                Competence c5 = new Competence("CHabiliete1");
+                Competence c1 = new Competence("Compétence Motricite 1");
+                Competence c2 = new Competence("COmpétence Motricite Globale 2");
+                Competence c3 = new Competence("COmpétence Motricite Fine 2");
+                Competence c4 = new Competence("Compétence Langage 1");
+                Competence c5 = new Competence("Compétence Habilite Sociale 1");
 
-                if (!context.Competence.Any()) // Pas bon
+                if (!context.Competence.Any())
                 {
                     context.Competence.AddRange(c1,c2,c3,c4,c5);
 
@@ -46,7 +49,7 @@ namespace Animome.Models
                 Prerequis p5 = new Prerequis("P5");
                 Prerequis p6 = new Prerequis("P6");
 
-                if (!context.Prerequis.Any()) // Pas bon
+                if (!context.Prerequis.Any()) 
                 {
                     context.Prerequis.AddRange(p1,p2,p3,p4,p5,p6); 
                     context.SaveChanges();   // DB has been seeded
@@ -56,7 +59,7 @@ namespace Animome.Models
                 Niveau n2 = new Niveau("N2");
                 Niveau n3 = new Niveau("N3");
 
-                if (context.Niveau.Any()) // Pas bon
+                if (context.Niveau.Any()) 
                 {
                     context.Niveau.AddRange(n1,n2,n3); 
                     context.SaveChanges();   // DB has been seeded

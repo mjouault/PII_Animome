@@ -27,23 +27,6 @@ namespace Animome.Controllers
             return View(await _context.Domaine.ToListAsync());
         }
 
-        // GET: Domaines/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var domaine = await _context.Domaine
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (domaine == null)
-            {
-                return NotFound();
-            }
-
-            return View(domaine);
-        }
 
         // GET: Domaines/Create
         public IActionResult Create()
@@ -52,8 +35,6 @@ namespace Animome.Controllers
         }
 
         // POST: Domaines/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Intitule")] Domaine domaine)
@@ -90,8 +71,6 @@ namespace Animome.Controllers
         }
 
         // POST: Domaines/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Intitule")] Domaine domaine)
@@ -149,6 +128,9 @@ namespace Animome.Controllers
         {
             var domaine = await _context.Domaine.FindAsync(id);
             var suivi = await _context.Suivi.FindAsync(id);
+
+            //Un  programme de suivi étant rattaché à un domaine, la supression d'un domaine entraine la suppression des suivis associés 
+            //et de ses composantes (suiviCompetence, suiviPrerequis, suiviNiveaux, suiviExercices)
 
             var suiviExercicesSupprimes = await _context.SuiviExercice.Where(e => e.SuiviNiveau.SuiviPrerequis.SuiviCompetence.Suivi.Domaine.Id == id).ToListAsync();
             if (suiviExercicesSupprimes != null)

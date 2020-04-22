@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Animome.Models
 {
     public class Patient
     {
         public int Id { get; set; }
-        public int Numero { get; set; } 
 
-        //public List<PatientNiveau> LesPatientsNiveaux;
+        [Required(ErrorMessage = "Ce champ ne peut être vide")]
+        public int Numero { get; set; } //Pour des raisons de protection de données, le patient n'est défini que par un numéro
 
         public List<Suivi> LesSuivis { get; set; }
         public List<PatientUser> LesSuiveurs { get; set; }
