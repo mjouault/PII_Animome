@@ -37,6 +37,10 @@ namespace Animome.Controllers
             var suiviNiveau = await _context.SuiviNiveau.Where(x => x.Id == id)
                 .Include(suiviNiveau => suiviNiveau.Niveau)
                 .Include(suiviNiveau => suiviNiveau.LesSuiviExercices)
+                 .Include(s => s.SuiviPrerequis)
+                                .ThenInclude(sp => sp.SuiviCompetence)
+                                    .ThenInclude(sc => sc.Suivi)
+
                 .SingleAsync();
 
             try
@@ -83,7 +87,12 @@ namespace Animome.Controllers
             var suiviNiveau = await _context.SuiviNiveau.Where(x => x.Id == id)
                             .Include(suiviNiveau => suiviNiveau.Niveau)
                             .Include(suiviNiveau => suiviNiveau.LesSuiviExercices)
-                            .SingleAsync();
+                            .Include(s => s.SuiviPrerequis)
+                                .ThenInclude(sp=>sp.SuiviCompetence)
+                                    .ThenInclude(sc=>sc.Suivi)
+                            .SingleOrDefaultAsync();
+
+                          
             try
             {
                 if (suiviNiveau.Etat != EtatEnum.e1)

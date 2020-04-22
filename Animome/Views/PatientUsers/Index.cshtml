@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<a asp-controller= "Patients" asp-action="Index"><ion-icon name="arrow-back"></ion-icon></a>
 <h1>Equipe thérapeutique du patient n° @Model.ToList()[0].Patient.Numero</h1>
 
 <p>

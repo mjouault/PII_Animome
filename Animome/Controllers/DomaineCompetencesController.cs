@@ -69,6 +69,7 @@ namespace Animome.Controllers
                 Domaines = new SelectList(await DomaineQuery.Distinct().ToListAsync()),
                 Competences = new SelectList(await CompetenceQuery.Distinct().ToListAsync())
             };
+            ViewData["erreur"] = "";
             return View(viewModel);
         }
 
@@ -79,6 +80,14 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(DomaineCompetencesCreateViewModel viewModel)
         {
+            ViewData["erreur"] = "";
+
+            if(AlreadyExists(viewModel.Domaine, viewModel.Competence))
+            {
+                ViewData["erreur"] = "Element déjà existant";
+                ModelState.AddModelError("Intitule", "element existant");
+            }
+
             if (ModelState.IsValid)
             {
                 var domaine = await _context.Domaine

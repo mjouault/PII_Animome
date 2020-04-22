@@ -70,6 +70,7 @@ namespace Animome.Controllers
                 ListePrerequis = new SelectList(await PrerequisQuery.Distinct().ToListAsync()),
                 ListeNiveaux = new SelectList(await NiveauQuery.Distinct().ToListAsync()),
             };
+            ViewData["erreur"] = "";
             return View(viewModel);
         }
 
@@ -78,6 +79,13 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PrerequisNiveauxCreateViewModel viewModel)
         {
+            ViewData["erreur"] = "";
+
+            if (AlreadyExists(viewModel.Prerequis, viewModel.Niveau))
+            {
+                ViewData["erreur"] = "Element déjà existant";
+                ModelState.AddModelError("Intitule", "element existant");
+            }
 
             if (ModelState.IsValid)
             {
@@ -197,6 +205,11 @@ namespace Animome.Controllers
         private bool PrerequisNiveauExists(int id)
         {
             return _context.PrerequisNiveau.Any(e => e.Id == id);
+        }
+
+        private bool AlreadyExists(Prerequis p, Niveau n)
+        {
+            return _context.PrerequisNiveau.Any(e => e.Prerequis.Intitule == p.Intitule &&  e.Niveau.Intitule==n.Intitule);
         }
     }
 }

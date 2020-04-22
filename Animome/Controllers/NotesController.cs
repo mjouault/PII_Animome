@@ -73,7 +73,12 @@ namespace Animome.Controllers
 
             if (ModelState.IsValid)
             {
-                var suiviNiveau = await _context.SuiviNiveau.FirstOrDefaultAsync(m => m.Id == id);
+                var suiviNiveau = await _context.SuiviNiveau.Where(m => m.Id == id)
+                    .Include(s=>s.SuiviPrerequis)
+                    .FirstOrDefaultAsync();
+
+                ViewData["idSuiviPrerequis"] = suiviNiveau.SuiviPrerequis.Id;
+
                 note.SuiviNiveau = suiviNiveau;
                 note.ApplicationUser = await _userManager.GetUserAsync(User);
                 note.Date = DateTime.Now;
@@ -82,6 +87,7 @@ namespace Animome.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("AfficherPrerequis", "SuiviPrerequis", new {suiviNiveau.SuiviPrerequis.Id});
             }
+
             return View(note);
         }
         // GET: Notes/Edit/5

@@ -8,6 +8,14 @@
 <p>
     <a asp-action="Index"><ion-icon name="arrow-back"></ion-icon></a>
 </p>
+
+@if(ViewData["erreur"].ToString() != "")
+{ 
+<div class="erreur">
+    @ViewData["erreur"]
+</div>
+}
+
 <h1>Ajout d'un lien Domaine - Compétence</h1>
 <hr />
 <div class="row">

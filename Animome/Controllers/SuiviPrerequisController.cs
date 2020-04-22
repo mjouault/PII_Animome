@@ -119,7 +119,7 @@ namespace Animome.Controllers
                     throw;
                 }
             }
-            return RedirectToAction("AfficherSuivi", "Suivis", new { suiviPrerequis.SuiviCompetence.Suivi.Patient.Id});
+            return RedirectToAction("AfficherPrerequis", "SuiviPrerequis", new { suiviPrerequis.Id});
         }
 
         public async Task<IActionResult> AnnulerValidation(int? id)

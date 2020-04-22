@@ -11,24 +11,32 @@
 <h1>Ajout d'un lien Compétence-Prérequis</h1>
 
 <hr />
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <p>
-                <label class="col-md-3">Compétence : </label>
-                <select asp-for="Competence.Intitule" asp-items="Model.ListeCompetences">
-                    <option> - Choisir une compétence - </option>
-                </select>
-            </p>
-            <p>
-                <label class="col-md-3">Prérequis : </label>
-                <select asp-for="Prerequis.Intitule" asp-items="Model.ListePrerequis">
-                    <option value="">- Choisir un prérequis - </option>
-                </select>
-            </p>
 
-            <div class="form-group">
-                <input type="submit" value="Ajouter" class="btn btn-primary" />
-            </div>
-        </form>
+@if (ViewData["erreur"].ToString() != "")
+{
+    <div class="erreur">
+        @ViewData["erreur"]
     </div>
+}
+
+<div class="col-md-4">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <p>
+            <label class="col-md-3">Compétence : </label>
+            <select asp-for="Competence.Intitule" asp-items="Model.ListeCompetences">
+                <option> - Choisir une compétence - </option>
+            </select>
+        </p>
+        <p>
+            <label class="col-md-3">Prérequis : </label>
+            <select asp-for="Prerequis.Intitule" asp-items="Model.ListePrerequis">
+                <option value="">- Choisir un prérequis - </option>
+            </select>
+        </p>
+
+        <div class="form-group">
+            <input type="submit" value="Ajouter" class="btn btn-primary" />
+        </div>
+    </form>
+</div>

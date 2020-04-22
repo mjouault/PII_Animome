@@ -11,6 +11,14 @@
 <h1>Ajouter un lien Prérequis - Niveau</h1>
 
 <hr />
+
+@if (ViewData["erreur"].ToString() != "")
+{
+    <div class="erreur">
+        @ViewData["erreur"]
+    </div>
+}
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">

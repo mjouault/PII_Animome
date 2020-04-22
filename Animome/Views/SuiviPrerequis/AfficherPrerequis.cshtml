@@ -9,7 +9,9 @@
 <p>
     <a asp-controller="Suivis" asp-action="AfficherSuivi" asp-route-id="@Model.SuiviCompetence.Suivi.Patient.Id" class="lien"><ion-icon name="arrow-back"></ion-icon></a>
 </p>
-<h1 class="titre"> Détail Prérequis @Html.Display(Model.Prerequis.Intitule)</h1>
+
+<div class="alignes">
+    <h1 class="titre" style="margin-right:3%;"> Détail Prérequis @Model.Prerequis.Intitule</h1>
     @if (@Model.Etat == EtatEnum.e3)
     {
         <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id="@Model.Id"><ion-icon name="close-circle" class="iconSuivi"> </ion-icon></a>
@@ -24,6 +26,7 @@
         <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id="@Model.Id"><ion-icon name="checkbox" class="iconSuivi"></ion-icon></a>
     }
 
+</div>
 
 <div class="alignes">
     @foreach (var suiviNiveau in Model.LesSuiviNiveaux)
@@ -42,47 +45,46 @@
             couleurN = "darkgrey";
         }
 
-    <div class="colonne">
-        <div class="carteCompetence" style="border-color:@couleurN">
-            <text class="texte">@Html.Display(@suiviNiveau.Niveau.Intitule)</text>
+        <div class="colonne">
+            <div class="carteCompetence" style="border-color:@couleurN">
+                <text class="texte">@suiviNiveau.Niveau.Intitule</text>
+              
+                <div style="margin-top:2%;">
+                    @foreach (var suiviExercice in suiviNiveau.LesSuiviExercices)
+                    {
 
-            @foreach (var suiviExercice in suiviNiveau.LesSuiviExercices)
-            {
+                        @if (suiviExercice.Valide)
+                        {
+                            <div class="itemExerciceValide">
+                                <a asp-controller="SuiviExercices" asp-action="AnnulerValidation" asp-route-id="@suiviExercice.Id"></a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="itemExerciceNonValide">
+                                <a asp-controller="SuiviExercices" asp-action="Valider" asp-route-id="@suiviExercice.Id"></a>
+                            </div>
+                        }
+                    }
+                    <p>
+                        <a asp-controller="Notes" asp-action="Create" asp-route-id="@suiviNiveau.Id">Ajouter note<ion-icon name="add-circle" class="icon"></ion-icon></a>
+                    </p>
+                </div>
+            </div>
 
-                @if (suiviExercice.Valide)
+            <div>
+                @if (suiviNiveau.LesNotes.Count != 0)
                 {
-                    <div class="itemExerciceValide">
-                        <a asp-controller="SuiviExercices" asp-action="AnnulerValidation" asp-route-id="@suiviExercice.Id">@suiviExercice.Id</a>
-                    </div>
+                    @foreach (var n in suiviNiveau.LesNotes)
+                    {
+                        <div>
+                            @n.Date : @n.Texte
+                        </div>
+
+                    }
                 }
-                else
-                {
-                    <div class="itemExerciceNonValide">
-                        <a asp-controller="SuiviExercices" asp-action="Valider" asp-route-id="@suiviExercice.Id">@suiviExercice.Id</a>
-                    </div>
-                }
-            }
-            <p>
-                <a asp-controller="SuiviExercices" asp-action="Create" asp-route-id="@suiviNiveau.Id">Ajouter <ion-icon name="add-circle" class="icon"></ion-icon></a>
-            </p>
-            <p>
-                <a asp-controller="Notes" asp-action="Create" asp-route-id="@suiviNiveau.Id">Ajouter note<ion-icon name="add-circle" class="icon"></ion-icon></a>
-            </p>
+            </div>
         </div>
-
-        <div>
-            @if (suiviNiveau.LesNotes.Count != 0)
-            {
-                @foreach (var n in suiviNiveau.LesNotes)
-                {
-                    <div>
-                        @n.Date : @n.Texte
-                    </div>
-
-                }
-            }
-        </div>
-    </div>
     }
 </div>
 

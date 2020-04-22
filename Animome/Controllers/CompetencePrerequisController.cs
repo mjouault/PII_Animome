@@ -52,6 +52,7 @@ namespace Animome.Controllers
                 ListeCompetences = new SelectList(await CompetenceQuery.Distinct().ToListAsync()),
                 ListePrerequis = new SelectList(await PrerequisQuery.Distinct().ToListAsync()),
             };
+            ViewData["erreur"] = "";
             return View(viewModel);
         }
 
@@ -60,6 +61,13 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CompetencePrerequisCreateViewModel viewModel)
         {
+            ViewData["erreur"] = "";
+
+            if (AlreadyExists(viewModel.Competence, viewModel.Prerequis))
+            {
+                ViewData["erreur"] = "Element déjà existant";
+                ModelState.AddModelError("Intitule", "element existant");
+            }
 
             if (ModelState.IsValid)
             {
@@ -69,8 +77,6 @@ namespace Animome.Controllers
                 var prerequis = await _context.Prerequis
              .FirstOrDefaultAsync(m => m.Intitule == viewModel.Prerequis.Intitule);
 
-                if (competence != null && prerequis != null)
-                {
                     var CompetencePrerequisAjoute = new CompetencePrerequis
                     {
                         Competence = competence,
@@ -80,12 +86,6 @@ namespace Animome.Controllers
                     _context.Add(CompetencePrerequisAjoute);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
-                }
-                else
-                {
-                    ModelState.AddModelError("Id", "Erreur : veuillez choisir un domaine/une compétence");
-                    return View(viewModel);
-                }
             }
 
             //Permet d'afficher de nouveau les noms des compétences et prérequis dans les SelectList en cas d'erreur
@@ -144,6 +144,11 @@ namespace Animome.Controllers
         private bool CompetencePrerequisExists(int id)
         {
             return _context.CompetencePrerequis.Any(e => e.Id == id);
+        }
+
+        private bool AlreadyExists(Competence c, Prerequis p)
+        {
+            return _context.CompetencePrerequis.Any(e => e.Competence.Intitule == c.Intitule && e.Prerequis.Intitule == p.Intitule);
         }
     }
 }

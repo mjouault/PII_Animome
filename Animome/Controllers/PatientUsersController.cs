@@ -33,13 +33,14 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-            var patientUsers = _context.PatientUser.Where(x => x.Patient.Id == id)
+            var patientUsers = await _context.PatientUser.Where(x => x.Patient.Id == id)
                 .Include(x => x.ApplicationUser)
-                .Include(x=>x.Patient);
+                .Include(x=>x.Patient)
+                .ToListAsync();
 
                   
             ViewData["idPatient"] = id;
-            return View(await patientUsers.ToListAsync());
+            return View( patientUsers);
         }
 
 
@@ -117,8 +118,10 @@ namespace Animome.Controllers
                 return NotFound();
             }
 
-            var patientUser = await _context.PatientUser
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var patientUser = await _context.PatientUser.Where(m => m.Id == id)
+                .Include(x=>x.Patient)
+                .FirstOrDefaultAsync();
+
             if (patientUser == null)
             {
                 return NotFound();
@@ -132,10 +135,16 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var patientUser = await _context.PatientUser.FindAsync(id);
+            var patientUser = await _context.PatientUser.Where(m => m.Id == id)
+                 .Include(x => x.Patient)
+                 .FirstOrDefaultAsync();
+
+            var patientId = patientUser.Patient.Id;
+            ViewData["idPatient"] = patientId;
+
             _context.PatientUser.Remove(patientUser);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new {id=patientId});
         }
 
         private bool PatientUserExists(int id)
