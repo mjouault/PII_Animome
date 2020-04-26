@@ -14,16 +14,16 @@
     <h1 class="titre" style="margin-right:3%;"> Détail Prérequis @Model.Prerequis.Intitule</h1>
     @if (@Model.Etat == EtatEnum.e3)
     {
-        <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id="@Model.Id"><ion-icon name="close-circle" class="iconSuivi"> </ion-icon></a>
+        <a asp-controller="SuiviPrerequis" asp-action="AnnulerValidation" asp-route-id=@Model.Id><ion-icon name="close-circle" class="iconSuivi"> </ion-icon></a>
     }
     else if (@Model.Etat == EtatEnum.e2)
     {
-        <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id="@@Model.Id"><ion-icon name="checkbox" class="iconSuivi"></ion-icon></a>
-        <a asp-controller="SuivisPrerequis" asp-action="AnnulerValidation" asp-route-id="@Model.Id"><ion-icon name="close-circle" class="iconSuivi"> </ion-icon></a>
+        <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id=@Model.Id><ion-icon name="checkbox" class="iconSuivi"></ion-icon></a>
+        <a asp-controller="SuivisPrerequis" asp-action="AnnulerValidation" asp-route-id=@Model.Id><ion-icon name="close-circle" class="iconSuivi"> </ion-icon></a>
     }
     else if (@Model.Etat == EtatEnum.e1)
     {
-        <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id="@Model.Id"><ion-icon name="checkbox" class="iconSuivi"></ion-icon></a>
+        <a asp-controller="SuiviPrerequis" asp-action="Valider" asp-route-id=@Model.Id><ion-icon name="checkbox" class="iconSuivi"></ion-icon></a>
     }
 
 </div>
@@ -55,15 +55,17 @@
 
                         @if (suiviExercice.Valide)
                         {
-                            <div class="itemExerciceValide">
-                                <a asp-controller="SuiviExercices" asp-action="AnnulerValidation" asp-route-id="@suiviExercice.Id"></a>
-                            </div>
+                            <a asp-controller="SuiviExercices" asp-action="AnnulerValidation" asp-route-id="@suiviExercice.Id">
+                                <div class="itemExerciceValide">
+                                </div>
+                            </a>
                         }
                         else
                         {
-                            <div class="itemExerciceNonValide">
-                                <a asp-controller="SuiviExercices" asp-action="Valider" asp-route-id="@suiviExercice.Id"></a>
-                            </div>
+                            <a asp-controller="SuiviExercices" asp-action="Valider" asp-route-id="@suiviExercice.Id">
+                                <div class="itemExerciceNonValide">
+                                </div>
+                            </a>
                         }
                     }
                     <p>
