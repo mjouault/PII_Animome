@@ -116,7 +116,7 @@ namespace Animome.Controllers
         {
             var user = await _userManager.FindByIdAsync(id);
             await _userManager.AddToRoleAsync(user, "Utilisateur");
-            user.Role = "Utilisateur"; //Atribution du rôle à ce nouvel inscrit
+            user.Role = "Utilisateur"; //Attribution du rôle à ce nouvel inscrit
             await _userManager.UpdateAsync(user);
             return RedirectToAction("Index", "ApplicationUsers");
         }

@@ -1,4 +1,8 @@
-﻿@model IEnumerable<Animome.Models.ApplicationUser>
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model IEnumerable<Animome.Models.ApplicationUser>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -27,46 +31,47 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nom) @Html.DisplayFor(modelItem => item.Prenom)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td>
-                        @foreach (var domaineUser in item.LesDomaines)
+                var roles = await UserManager.GetRolesAsync(item);
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nom) @Html.DisplayFor(modelItem => item.Prenom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @foreach (var domaineUser in item.LesDomaines)
                         {
-                            <div class="boutonDomaine">
-                                @Html.DisplayFor(modelItem => domaineUser.Domaine.Intitule)
-                            </div>
+                    <div class="boutonDomaine">
+                        @Html.DisplayFor(modelItem => domaineUser.Domaine.Intitule)
+                    </div>
                         }
-                    </td>
-                    <td>
-                        @if (item.Role != null) //A changer !!!!
+                </td>
+                <td>
+                        @if (roles.Count != 0) 
                         {
-                            <ion-icon name="checkbox" class="icon" style="color:darkgreen"></ion-icon>
-                        }
-                        else
-                        {
-                            <ion-icon name="alert-circle" class="icon" style="color:orangered"></ion-icon>
-                        }
-                    </td>
-                    <td>
-                        @if (item.Role == null)
-                        {
-
-                            <a asp-action="Accepter" asp-route-id="@item.Id"><ion-icon name="checkbox" style="color:darkgreen" class="icon"></ion-icon></a>
-                            <a asp-action="Delete" asp-route-id="@item.Id"> | <ion-icon name="close-circle" class="icon" style="color:darkred"></ion-icon></a>
+                    <ion-icon name="checkbox" class="icon" style="color:darkgreen"></ion-icon>
                         }
                         else
                         {
-                            <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-pencil-alt icon"></i>  |  </a>
-                            <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline" class="icon"></ion-icon></a>
+                    <ion-icon name="alert-circle" class="icon" style="color:orangered"></ion-icon>
+                        }
+                </td>
+                <td>
+                    @if (roles.Count == 0)
+                        {
+
+                    <a asp-action="Accepter" asp-route-id="@item.Id"><ion-icon name="checkbox" style="color:darkgreen" class="icon"></ion-icon></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id"> | <ion-icon name="close-circle" class="icon" style="color:darkred"></ion-icon></a>
+                        }
+                        else
+                        {
+                    <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-pencil-alt icon"></i>  |  </a>
+                    <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline" class="icon"></ion-icon></a>
                         }
 
-                    </td>
-                </tr>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

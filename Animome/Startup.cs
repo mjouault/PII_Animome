@@ -90,19 +90,10 @@ namespace Animome
                 roleResult = await RoleManager.CreateAsync(new IdentityRole("Utilisateur"));
             }
 
-
-             ApplicationUser user = await UserManager.FindByEmailAsync("maurine@gmail.com");
             ApplicationUser user3 = await UserManager.FindByEmailAsync("test@gmail.com");
 
-            //Attribution du rôle d Admin
-            if (user != null)
-            {
-                await UserManager.AddToRoleAsync(user, "Admin");
-                user.Role = "Admin";
 
-            }
-
-            if (user3 != null)
+            if (user3 != null && user3.Role==null)
             {
                 await UserManager.AddToRoleAsync(user3, "Admin");
                 user3.Role = "Admin";
@@ -112,7 +103,7 @@ namespace Animome
             ApplicationUser user2 = await UserManager.FindByEmailAsync("testUtilisateur@gmail.com");
 
             //Attribution du rôle d utilisateur
-            if (user2 != null)
+            if (user2 != null && user2.Role == null)
             {
                 await UserManager.AddToRoleAsync(user2, "Utilisateur");
                 user2.Role = "Utilisateur";
