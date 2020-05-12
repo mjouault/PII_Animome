@@ -121,6 +121,7 @@ namespace Animome.Controllers
                 try
                 {
                     _context.Update(note);
+                    note.Date = DateTime.Now;
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -134,7 +135,8 @@ namespace Animome.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                var note2= await _context.Note.FindAsync(id);
+                return RedirectToAction("AfficherPrerequis", "SuiviPrerequis", new {note2.SuiviNiveau.SuiviPrerequis.Id});
             }
             return View(note);
         }
@@ -162,10 +164,15 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var note = await _context.Note.FindAsync(id);
+            var note = await _context.Note.Where(x=>x.Id==id)
+                .Include(x=>x.SuiviNiveau)
+                .ThenInclude(x => x.SuiviPrerequis)
+                .SingleAsync();
+
+            var pId = note.SuiviNiveau.SuiviPrerequis.Id;
             _context.Note.Remove(note);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("AfficherPrerequis", "SuiviPrerequis", new {pId});
         }
 
         private bool NoteExists(int id)

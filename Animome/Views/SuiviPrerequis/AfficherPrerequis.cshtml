@@ -45,8 +45,8 @@
             couleurN = "darkgrey";
         }
 
-        <div class="colonne">
-            <div class="carteCompetence" style="border-color:@couleurN">
+        <div class="colonne" style="margin : 2%">
+            <div class="carteCompetence" style="border-color:@couleurN; mx">
                 <text class="texte">@suiviNiveau.Niveau.Intitule</text>
               
                 <div style="margin-top:2%;">
@@ -56,14 +56,14 @@
                         @if (suiviExercice.Valide)
                         {
                             <a asp-controller="SuiviExercices" asp-action="AnnulerValidation" asp-route-id="@suiviExercice.Id">
-                                <div class="itemExerciceValide">
+                                <div class="itemExerciceValide mx-auto">
                                 </div>
                             </a>
                         }
                         else
                         {
                             <a asp-controller="SuiviExercices" asp-action="Valider" asp-route-id="@suiviExercice.Id">
-                                <div class="itemExerciceNonValide">
+                                <div class="itemExerciceNonValid mx-auto">
                                 </div>
                             </a>
                         }
@@ -79,9 +79,11 @@
                 {
                     @foreach (var n in suiviNiveau.LesNotes)
                     {
-                        <div>
-                            @n.Date : @n.Texte
-                        </div>
+                <div>
+                    <text style="font-style:italic; font-size:15px;">@n.Date :</text>
+                    <text>@n.Texte </text>            
+                </div>
+                       
 
                     }
                 }

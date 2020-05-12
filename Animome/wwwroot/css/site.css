@@ -387,6 +387,7 @@ btn, .btn-primary {
 
 .itemExerciceValide {
     background-color: green;
+    border-color:green;
     width: 60px;
     height: 20px;
     margin-left: 5px;
@@ -398,6 +399,7 @@ btn, .btn-primary {
 
 .itemExerciceNonValide {
     background-color: grey;
+    border-color: #A3A3A3;
     width: 60px;
     height: 20px;
     margin-left: 5px;
