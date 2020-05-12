@@ -41,7 +41,7 @@ namespace Animome.Controllers
         {
             if (AlreadyExists(domaine.Intitule))
             {
-                ModelState.AddModelError("Intitule", "Erreur : Existe déjà");
+                ModelState.AddModelError("Domaine", "Erreur : Existe déjà");
             }
 
             if (ModelState.IsValid)

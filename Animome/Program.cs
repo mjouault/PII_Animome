@@ -15,6 +15,9 @@ namespace Animome
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
+            
+            //INITIALISATION DE LA BASE DE DONNEE avec SeedData
+
             /* var host = CreateHostBuilder(args).Build();
              using (var scope = host.Services.CreateScope())
              {

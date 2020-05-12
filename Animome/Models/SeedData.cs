@@ -18,10 +18,10 @@ namespace Animome.Models
                 serviceProvider.GetRequiredService<
                     DbContextOptions<ApplicationDbContext>>()))
             {
-                Domaine d1 = new Domaine("Motricité globale");
-                Domaine d2 = new Domaine("Motricité fine");
-                Domaine d3 = new Domaine("Langage");
-                Domaine d4 = new Domaine("Habiletés sociales");
+                Domaine d1 = new Domaine("Domaine Motricité globale");
+                Domaine d2 = new Domaine("Domaine Motricité fine");
+                Domaine d3 = new Domaine("Domaine Langage");
+                Domaine d4 = new Domaine("Domaine Cognition");
 
                 if (!context.Domaine.Any()) // Si vide
                 {
@@ -29,11 +29,11 @@ namespace Animome.Models
                     context.SaveChanges(); ;   // DB has been seeded
                 }
 
-                Competence c1 = new Competence("Compétence Motricite 1");
-                Competence c2 = new Competence("COmpétence Motricite Globale 2");
-                Competence c3 = new Competence("COmpétence Motricite Fine 2");
+                Competence c1 = new Competence("Compétence Motricité");
+                Competence c2 = new Competence("COmpétence Motricite Globale 1");
+                Competence c3 = new Competence("COmpétence Motricite Fine 1");
                 Competence c4 = new Competence("Compétence Langage 1");
-                Competence c5 = new Competence("Compétence Habilite Sociale 1");
+                Competence c5 = new Competence("Compétence Cognition 1");
 
                 if (!context.Competence.Any())
                 {
@@ -42,26 +42,25 @@ namespace Animome.Models
                     context.SaveChanges();   // DB has been seeded
                 }
 
-                Prerequis p1 = new Prerequis("P1");
-                Prerequis p2 = new Prerequis("P2");
-                Prerequis p3 = new Prerequis("P3");
-                Prerequis p4 = new Prerequis("P4");
-                Prerequis p5 = new Prerequis("P5");
-                Prerequis p6 = new Prerequis("P6");
+                Prerequis p1 = new Prerequis("Prérequis 1");
+                Prerequis p2 = new Prerequis("Prérequis 2");
+                Prerequis p3 = new Prerequis("Prérequis 3");
+                Prerequis p4 = new Prerequis("Prérequis 4");
 
                 if (!context.Prerequis.Any()) 
                 {
-                    context.Prerequis.AddRange(p1,p2,p3,p4,p5,p6); 
+                    context.Prerequis.AddRange(p1,p2,p3,p4); 
                     context.SaveChanges();   // DB has been seeded
                 }
 
                 Niveau n1 = new Niveau("N1");
                 Niveau n2 = new Niveau("N2");
                 Niveau n3 = new Niveau("N3");
+                Niveau n4 = new Niveau("N4");
 
                 if (context.Niveau.Any()) 
                 {
-                    context.Niveau.AddRange(n1,n2,n3); 
+                    context.Niveau.AddRange(n1,n2,n3, n4); 
                     context.SaveChanges();   // DB has been seeded
                 }
 
@@ -137,25 +136,7 @@ namespace Animome.Models
                         {
                             Competence = c3,
                             Prerequis = p4
-                        },
-
-                         new CompetencePrerequis
-                         {
-                             Competence = c4,
-                             Prerequis = p5
-                         },
-
-                          new CompetencePrerequis
-                          {
-                              Competence = c5,
-                              Prerequis = p5
-                          },
-
-                           new CompetencePrerequis
-                           {
-                               Competence = c5,
-                               Prerequis = p6
-                           }
+                        }
                      );
                 }
 

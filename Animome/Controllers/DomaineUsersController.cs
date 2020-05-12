@@ -99,10 +99,15 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(string id, DomaineUserCreateViewModel viewModel)
         {
+            ApplicationUser user = await _userManager.FindByIdAsync(id);
+
+            if (AlreadyExists(viewModel.Domaine.Intitule, user))
+            {
+                ModelState.AddModelError("Intitule", "Erreur : Existe déjà");
+            }
+
             if (ModelState.IsValid)
             {
-                //var id = viewModel.ApplicationUser.Id;
-                ApplicationUser user = await _userManager.FindByIdAsync(id);
                 var domaine = await _context.Domaine.Where(x=>x.Intitule==viewModel.Domaine.Intitule).SingleOrDefaultAsync();
                 DomaineUser domaineUserAjoute = new DomaineUser
                 {
@@ -138,13 +143,16 @@ namespace Animome.Controllers
             }
 
             var domaineUser = await _context.DomaineUser
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Where(x => x.Id == id)
+                .Include(x => x.ApplicationUser)
+                .SingleAsync();
+
             if (domaineUser == null)
             {
                 return NotFound();
             }
 
-            return RedirectToAction("Index", "ApplicationUsers");
+            return View(domaineUser);
         }
 
         // POST: DomaineUsers/Delete/5
@@ -152,15 +160,22 @@ namespace Animome.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var domaineUser = await _context.DomaineUser.FindAsync(id);
+            var domaineUser = await _context.DomaineUser.Where(x => x.Id==id)
+                .Include(x=>x.ApplicationUser)
+                .SingleAsync();
             _context.DomaineUser.Remove(domaineUser);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Edit", "ApplicationUsers", new {domaineUser.ApplicationUser.Id}) ;
         }
 
         private bool DomaineUserExists(int id)
         {
             return _context.DomaineUser.Any(e => e.Id == id);
+        }
+
+        private bool AlreadyExists(string nom, ApplicationUser user)
+        {
+            return _context.DomaineUser.Any(x => x.Domaine.Intitule == nom && x.ApplicationUser.Id == user.Id);
         }
     }
 }
