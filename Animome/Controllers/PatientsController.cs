@@ -29,7 +29,7 @@ namespace Animome.Controllers
         // GET: Patients
         public async Task<IActionResult> Index (string recherchePatient)
         {
-            var patients = from p in _context.Patient select p;
+            var patients = await _context.Patient.ToListAsync(); //from p in _context.Patient select p;
 
             foreach (var p in patients)
             {
@@ -39,12 +39,12 @@ namespace Animome.Controllers
             //Gestion de la barre de recherche
             if (!string.IsNullOrEmpty(recherchePatient))
             {
-                patients = patients.Where(p => (p.Numero).ToString().Contains(recherchePatient));
+                patients = patients.Where(p => (p.Numero).ToString().Contains(recherchePatient)).ToList();
             }
 
             PatientIndexViewModel patientRecherche = new PatientIndexViewModel
             {
-                Patients = await patients.ToListAsync(),
+                Patients =  patients,
             };
             return View(patientRecherche);
         }
