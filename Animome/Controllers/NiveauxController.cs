@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Animome.Data;
 using Animome.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Animome.Controllers
 {
@@ -24,7 +25,7 @@ namespace Animome.Controllers
         // GET: Niveaux
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Niveau.ToListAsync());
+            return View(await _context.Niveau.OrderBy(x=>x.Intitule).ToListAsync());
         }
 
       

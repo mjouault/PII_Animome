@@ -29,7 +29,7 @@ namespace Animome.Controllers
         // GET: Patients
         public async Task<IActionResult> Index (string recherchePatient)
         {
-            var patients = await _context.Patient.ToListAsync(); //from p in _context.Patient select p;
+            var patients = await _context.Patient.OrderBy(p => p.Numero).ToListAsync(); //from p in _context.Patient select p;
 
             foreach (var p in patients)
             {

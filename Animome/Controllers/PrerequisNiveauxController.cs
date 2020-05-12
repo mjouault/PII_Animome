@@ -28,6 +28,7 @@ namespace Animome.Controllers
             var prerequisNiveau = await _context.PrerequisNiveau
              .Include(pn => pn.Prerequis)
              .Include(pn => pn.Niveau)
+             .OrderBy(pn=>pn.Prerequis.Intitule)
              .ToListAsync();
 
             return View(prerequisNiveau);

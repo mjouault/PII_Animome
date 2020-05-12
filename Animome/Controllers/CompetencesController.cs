@@ -24,7 +24,7 @@ namespace Animome.Models
         // GET: Competences
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Competence.ToListAsync());
+            return View(await _context.Competence.OrderBy(x=>x.Intitule).ToListAsync());
         }
 
         // GET: Competences/Details/5
@@ -65,6 +65,55 @@ namespace Animome.Models
             {
                 _context.Add(competence);
                 await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(competence);
+        }
+
+        // GET: Domaines/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var competence = await _context.Competence.FindAsync(id);
+            if (competence == null)
+            {
+                return NotFound();
+            }
+            return View(competence);
+        }
+
+        // POST: Domaines/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Intitule")] Competence competence)
+        {
+            if (id != competence.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(competence);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CompetenceExists(competence.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(competence);

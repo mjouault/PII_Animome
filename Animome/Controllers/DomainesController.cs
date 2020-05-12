@@ -24,7 +24,7 @@ namespace Animome.Controllers
         // GET: Domaines
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Domaine.ToListAsync());
+            return View(await _context.Domaine.OrderBy(x=>x.Intitule).ToListAsync());
         }
 
 

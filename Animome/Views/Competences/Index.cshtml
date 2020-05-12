@@ -31,6 +31,7 @@
                         @Html.DisplayFor(modelItem => item.Intitule)
                     </td>
                     <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-pencil-alt icon"></i></a>  |
                         <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline"></ion-icon></a>
                     </td>
                 </tr>

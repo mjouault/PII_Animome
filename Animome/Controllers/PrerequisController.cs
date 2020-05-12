@@ -24,7 +24,7 @@ namespace Animome.Controllers
         // GET: Prerequis
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Prerequis.ToListAsync());
+            return View(await _context.Prerequis.OrderBy(x=>x.Intitule).ToListAsync());
         }
 
       

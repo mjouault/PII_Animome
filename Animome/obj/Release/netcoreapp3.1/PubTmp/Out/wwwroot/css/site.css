@@ -135,7 +135,7 @@ h1, h2, h3 {
 
 /*icones*/
 
-ion-icon, .icon {
+ion-icon:not([name="log-out-outline" ]), .icon {
     font-size: 30px;
     color: #3F3F3F;
     position: relative;
@@ -146,7 +146,7 @@ ion-icon, .icon {
         font-size: 50px;
     }
 
-        ion-icon:hover, .icon:hover, ion-icon[name="arrow-back"]:hover {
+        ion-icon:not([name="log-out-outline" ]):hover, .icon:hover, ion-icon[name="arrow-back"]:hover {
             color: #F26316; /*orange*/
         }
 

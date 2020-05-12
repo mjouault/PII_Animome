@@ -27,7 +27,8 @@ namespace Animome.Controllers
         {
             var competencePrerequis = await _context.CompetencePrerequis
              .Include(cp => cp.Prerequis)
-             .Include(dc => dc.Competence)
+             .Include(cp => cp.Competence)
+             .OrderBy(cp => cp.Competence.Intitule)
              .ToListAsync();
 
             return View(competencePrerequis);

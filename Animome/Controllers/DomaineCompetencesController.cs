@@ -11,6 +11,7 @@ using Animome.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Animome.Controllers
 {
@@ -30,6 +31,7 @@ namespace Animome.Controllers
             var domaineComp = await _context.DomaineCompetence
              .Include(dc => dc.Domaine)
              .Include(dc => dc.Competence)
+             .OrderBy(dc=>dc.Domaine.Intitule)
              .ToListAsync();
 
             return View(domaineComp);

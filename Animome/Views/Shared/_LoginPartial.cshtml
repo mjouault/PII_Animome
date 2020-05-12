@@ -18,8 +18,11 @@
         @if (SignInManager.IsSignedIn(User))
         {
             <li class="nav-item">
-                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                    <button type="submit" class="boutonTransparent nav-link"> Déconnexion  <ion-icon name="log-out-outline"></ion-icon> </button>
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">              
+                    <button type="submit" class="nav-link boutonTransparent">
+                        <text>Déconnexion</text>
+                        <ion-icon name="log-out-outline"></ion-icon> 
+                    </button>
                 </form>
             </li>
         }
