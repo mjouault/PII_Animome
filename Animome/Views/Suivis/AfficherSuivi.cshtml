@@ -12,97 +12,106 @@
     <a asp-controller="Patients" asp-action="Index" class="lien"><ion-icon name="arrow-back" class="grosIcon"></ion-icon></a>
 </p>
 <h1 class="titre">Programme du patient n° @ViewData["numPatient"]</h1>
-<div class="alignes">
-    @foreach (var item in Model)
-    {
-        if (item.Etat == EtatEnum.e3)
+
+<a asp-controller="Notes" asp-action="Index" asp-route-id="@ViewData["numPatient"]" style="border:solid 2px purple">
+    <div class="contentBtnPrinc">
+        <text>Voir Notes</text>
+        <ion-icon name="eye-outline" style="color:#fff"></ion-icon>
+    </div>
+</a>
+
+
+    <div class="alignes">
+        @foreach (var item in Model)
         {
-            couleurDomaine = "darkgreen";
-        }
-        else if (item.Etat == EtatEnum.e2)
-        {
-            couleurDomaine = "#F26316";
-        }
-        else if (item.Etat == EtatEnum.e1)
-        {
-            couleurDomaine = "darkgrey";
-        }
+            if (item.Etat == EtatEnum.e3)
+            {
+                couleurDomaine = "darkgreen";
+            }
+            else if (item.Etat == EtatEnum.e2)
+            {
+                couleurDomaine = "#F26316";
+            }
+            else if (item.Etat == EtatEnum.e1)
+            {
+                couleurDomaine = "darkgrey";
+            }
 
-        <div class="colonne" style="margin:10px">
-            <div>
-                <text class="texte">@Html.DisplayFor(modelItem => item.Domaine.Intitule) </text>
-                <a asp-controller="Suivis" asp-action="Valider" asp-route-id="@item.Id"><ion-icon name="checkbox" class="iconSuivi"></ion-icon></a>
-                <a asp-controller="Suivis" asp-action="AnnulerValidation" asp-route-id="@item.Id"><ion-icon name="close-circle" class="iconSuivi"></ion-icon></a>
-            </div>
+            <div class="colonne" style="margin:10px">
+                <div>
+                    <text class="texte">@Html.DisplayFor(modelItem => item.Domaine.Intitule) </text>
+                    <a asp-controller="Suivis" asp-action="Valider" asp-route-id="@item.Id"><ion-icon name="checkbox" class="iconSuivi"></ion-icon></a>
+                    <a asp-controller="Suivis" asp-action="AnnulerValidation" asp-route-id="@item.Id"><ion-icon name="close-circle" class="iconSuivi"></ion-icon></a>
+                </div>
 
 
-            <div class="afficherSuivi" style="border-color : @couleurDomaine">
+                <div class="afficherSuivi" style="border-color : @couleurDomaine">
 
-                <div class="alignes">
-                    @foreach (var suiviCompetence in item.LesSuiviCompetences)
-                    {
-                        if (suiviCompetence.Etat == EtatEnum.e3)
+                    <div class="alignes">
+                        @foreach (var suiviCompetence in item.LesSuiviCompetences)
                         {
-                            couleurComp = "darkgreen";
-                        }
-                        else if (suiviCompetence.Etat == EtatEnum.e2)
-                        {
-                            couleurComp = "#F26316";
-                        }
-                        else if (suiviCompetence.Etat == EtatEnum.e1)
-                        {
-                            couleurComp = "darkgrey";
-                        }
-
-                    <div class="colonne" style="margin:5px; padding:2px;">
-                        <div>
-                            <text class="texte"> @Html.DisplayFor(modelItem => suiviCompetence.Competence.Intitule)</text>
-                            @if (suiviCompetence.Etat == EtatEnum.e3)
+                            if (suiviCompetence.Etat == EtatEnum.e3)
                             {
-                                <a asp-controller="SuiviCompetences" asp-action="AnnulerValidation" asp-route-id="@suiviCompetence.Id"><ion-icon name="close-circle" class="iconSuivi"> </ion-icon></a>
+                                couleurComp = "darkgreen";
                             }
                             else if (suiviCompetence.Etat == EtatEnum.e2)
                             {
-                                <a asp-controller="SuiviCompetences" asp-action="Valider" asp-route-id="@suiviCompetence.Id"><ion-icon name="checkbox" class="iconSuivi"></ion-icon></a>
-                                <a asp-controller="SuiviCompetences" asp-action="AnnulerValidation" asp-route-id="@suiviCompetence.Id"><ion-icon name="close-circle" class="iconSuivi"> </ion-icon></a>
+                                couleurComp = "#F26316";
                             }
                             else if (suiviCompetence.Etat == EtatEnum.e1)
                             {
-                                <a asp-controller="SuiviCompetences" asp-action="Valider" asp-route-id="@suiviCompetence.Id"><ion-icon name="checkbox" class="iconSuivi"></ion-icon></a>
+                                couleurComp = "darkgrey";
                             }
-                        </div>
 
-                        <div class="carteCompetence" style=" border-style:solid; borderwidth:2px; border-color : @couleurComp">
+                            <div class="colonne" style="margin:5px; padding:2px;">
+                                <div>
+                                    <text class="texte"> @Html.DisplayFor(modelItem => suiviCompetence.Competence.Intitule)</text>
+                                    @if (suiviCompetence.Etat == EtatEnum.e3)
+                                    {
+                                        <a asp-controller="SuiviCompetences" asp-action="AnnulerValidation" asp-route-id="@suiviCompetence.Id"><ion-icon name="close-circle" class="iconSuivi"> </ion-icon></a>
+                                    }
+                                    else if (suiviCompetence.Etat == EtatEnum.e2)
+                                    {
+                                        <a asp-controller="SuiviCompetences" asp-action="Valider" asp-route-id="@suiviCompetence.Id"><ion-icon name="checkbox" class="iconSuivi"></ion-icon></a>
+                                        <a asp-controller="SuiviCompetences" asp-action="AnnulerValidation" asp-route-id="@suiviCompetence.Id"><ion-icon name="close-circle" class="iconSuivi"> </ion-icon></a>
+                                    }
+                                    else if (suiviCompetence.Etat == EtatEnum.e1)
+                                    {
+                                        <a asp-controller="SuiviCompetences" asp-action="Valider" asp-route-id="@suiviCompetence.Id"><ion-icon name="checkbox" class="iconSuivi"></ion-icon></a>
+                                    }
+                                </div>
 
-                            <div class="alignes">
-                                @foreach (var suiviPrerequis in suiviCompetence.LesSuiviPrerequis)
-                                {
-                                    if (suiviPrerequis.Etat == EtatEnum.e3)
-                                    {
-                                        couleurPrerequis = "darkgreen";
-                                    }
-                                    else if (suiviPrerequis.Etat == EtatEnum.e2)
-                                    {
-                                        couleurPrerequis = "#F26316";
-                                    }
-                                    else if (suiviPrerequis.Etat == EtatEnum.e1)
-                                    {
-                                        couleurPrerequis = "darkgrey";
-                                    }
+                                <div class="carteCompetence" style=" border-style:solid; borderwidth:2px; border-color : @couleurComp">
 
-                                    <div class="column">
-                                        <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id" class="lien">
-                                            <div class="itemPrerequis" style="background-color : @couleurPrerequis"></div>
-                                        </a>
+                                    <div class="alignes">
+                                        @foreach (var suiviPrerequis in suiviCompetence.LesSuiviPrerequis)
+                                        {
+                                            if (suiviPrerequis.Etat == EtatEnum.e3)
+                                            {
+                                                couleurPrerequis = "darkgreen";
+                                            }
+                                            else if (suiviPrerequis.Etat == EtatEnum.e2)
+                                            {
+                                                couleurPrerequis = "#F26316";
+                                            }
+                                            else if (suiviPrerequis.Etat == EtatEnum.e1)
+                                            {
+                                                couleurPrerequis = "darkgrey";
+                                            }
+
+                                            <div class="column">
+                                                <a asp-controller="SuiviPrerequis" asp-action="AfficherPrerequis" asp-route-id="@suiviPrerequis.Id" class="lien">
+                                                    <div class="itemPrerequis" style="background-color : @couleurPrerequis"></div>
+                                                </a>
+                                            </div>
+                                        }
                                     </div>
-                                }
+                                </div>
                             </div>
-                        </div>
+                        }
                     </div>
-                    }
                 </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
 

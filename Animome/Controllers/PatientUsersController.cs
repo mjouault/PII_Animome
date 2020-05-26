@@ -35,10 +35,17 @@ namespace Animome.Controllers
 
             var patientUsers = await _context.PatientUser.Where(x => x.Patient.Id == id)
                 .Include(x => x.ApplicationUser)
+                    .ThenInclude(x=>x.LesDomaines)
                 .Include(x=>x.Patient)
                 .ToListAsync();
 
-                  
+            foreach (var p in patientUsers)
+            {
+                foreach (var d in p.ApplicationUser.LesDomaines)
+                {
+                    var domainesUser = await _context.DomaineUser.Where(x => x.Id == d.Id).ToListAsync();
+                }
+            }
             ViewData["idPatient"] = id;
             return View( patientUsers);
         }

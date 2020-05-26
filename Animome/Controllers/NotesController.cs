@@ -25,24 +25,27 @@ namespace Animome.Controllers
         }
 
         // GET: Notes
-        public async Task<IActionResult> Index(int? id) //idSuivi
+        public async Task<IActionResult> Index(int? id) //idPatient
         {
 
             if (id == null)
             {
                 return NotFound();
             }
-            var suivi = await _context.Suivi.Where(c => c.Id == id)
-                .Include(x => x.Patient)
-                .SingleAsync();
 
-            var notes = await _context.Note.Where(c => c.Id == id) 
-                .Include(x => x.ApplicationUser)
-                .ToListAsync();
+            var notes = await _context.Note.Where(c => c.SuiviNiveau.SuiviPrerequis.SuiviCompetence.Suivi.Patient.Id == id)
+                 .Include(x => x.ApplicationUser)
+                 .Include(x=>x.SuiviNiveau)
+                    .ThenInclude(x=>x.Niveau)
+                 .Include(x => x.SuiviNiveau.SuiviPrerequis)
+                    .ThenInclude(x => x.Prerequis)
+                 .Include(x => x.SuiviNiveau.SuiviPrerequis.SuiviCompetence)
+                    .ThenInclude(x => x.Competence)
+                  .Include(x => x.SuiviNiveau.SuiviPrerequis.SuiviCompetence.Suivi)
+                    .ThenInclude(x=>x.Domaine)
+                 .ToListAsync();
 
-
-            ViewData["idPatient"] = suivi.Patient.Id;
-            ViewData["idSuivi"] = id;
+            ViewData["idPatient"] = id;
             return View(notes);
         }
 
@@ -174,6 +177,28 @@ namespace Animome.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("AfficherPrerequis", "SuiviPrerequis", new {pId});
         }
+
+        public async Task<IActionResult> NotesPatient (int? id) //idPatient
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var suivi = await _context.Suivi.Where(c => c.Id == id)
+                .Include(x => x.Patient)
+                .SingleAsync();
+
+            var notes = await _context.Note.Where(c => c.SuiviNiveau.SuiviPrerequis.SuiviCompetence.Suivi.Patient.Id == id)
+                .Include(x => x.ApplicationUser)
+                .ToListAsync();
+
+
+            ViewData["idPatient"] = suivi.Patient.Id;
+            ViewData["idSuivi"] = id;
+            return View(notes);
+        }
+
 
         private bool NoteExists(int id)
         {

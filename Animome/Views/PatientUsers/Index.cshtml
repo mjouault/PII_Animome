@@ -26,14 +26,17 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ApplicationUser.Prenom) @Html.DisplayFor(modelItem => item.ApplicationUser.Nom)
-                    </td>
-                    <td>
-                        <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline" class="icon"></ion-icon></a>
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplicationUser.Prenom) @Html.DisplayFor(modelItem => item.ApplicationUser.Nom)
+                </td>
+                <td>
+                   
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Id"><ion-icon name="trash-outline" class="icon"></ion-icon></a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
